@@ -4,6 +4,8 @@
 
 **Use it here: https://janavduraikkannan.github.io/verba/**
 
+Part of **[Linguae](https://janavduraikkannan.github.io/learnlanguage/)**, the home page for every language site, with one account for all of them.
+
 Learning Spanish too? [Palabras](https://janavduraikkannan.github.io/palabras/) is Verba's Spanish sister site, with Fēlix's cousin Felicísimo. The same account works on both; XP and levels are separate for each language.
 
 Verba builds fresh Latin sentences from the topics you pick, then has you translate the whole sentence, English to Latin or Latin to English. It checks your answer, tells you exactly what went wrong, and lets you ask Fēlix, an AI tutor, questions about the grammar along the way. It was made for a high school Latin class, and its topics follow the Tennessee course sequence (Latin I Honors, Latin II Honors, Latin III Honors, AP Latin).
