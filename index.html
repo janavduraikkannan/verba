@@ -900,6 +900,7 @@ fallere|fefellī|falsum|3|deceive|deceived|deceived|deceiving|p
 iuvāre|iūvī|iūtum|1|help|helped|helped|helping|p
 revocāre|revocāvī|revocātum|1|call back|called back|called back|calling back|pa
 petere|petīvī|petītum|3|seek|sought|sought|seeking|pt
+attingere|attigī|attāctum|3|touch|touched|touched|touching|tlc
 dare|dedī|datum|1d|give|gave|given|giving|tw|D
 narrāre|narrāvī|narrātum|1|tell|told|told|telling|s|D
 parāre|parāvī|parātum|1|prepare|prepared|prepared|preparing|t
@@ -1015,6 +1016,15 @@ const TYPES={};Object.entries(USES).forEach(([c,u])=>u.list.forEach(x=>TYPES[x.i
 const TY=cid=>cid==='gen'?'genposs':TYPES[cid]?cid:null;
 const possE=(g,gk)=>{const b=gk?g.ep:g.e;return'the '+b+(gk&&/s$/.test(b)?"'":"'s")};
 const GENSO_N={servāre:['cūra'],dēlectāre:['gaudium','cūra'],terrēre:['īra']};
+const SUMMUS={aqua:'surface',mōns:'top',arbor:'top',templum:'top',casa:'top',vīlla:'top',āra:'top',mare:'surface'};
+const MEDSUM_V={medi:'medius -a -um : middle (of), the middle of',summ:'summus -a -um : highest, topmost; the top or surface of'};
+/* medius and summus are adjectives in Latin but "the middle of / the top of" in English */
+function medsumDeco(n,c){
+  const st=SUMMUS[n.nom]&&chance(.75)?'summ':'medi',word=st==='summ'?SUMMUS[n.nom]:'middle',base=npE(n,0),noun=n.e;
+  const tok={la:d12(st,c,0,n.g,st+'us'),lemma:st+'us',cids:['medsum'],concept:CASES[c]+' singular '+GN[n.g],forms:[],vocab:MEDSUM_V[st]};
+  const phrase=`the ${word} of ${base}`,alts=st==='medi'?[`the mid-${noun}`,`the mid ${noun}`,`the midst of ${base}`,`the center of ${base}`,`the centre of ${base}`]:word==='surface'?[`the top of ${base}`,`the topmost ${noun}`]:[`the summit of ${base}`,`the topmost ${noun}`,`the highest ${noun}`,`the highest part of ${base}`];
+  return{tok,base,phrase,alts};
+}
 const MAT_OBJ=['corōna','pōculum'];
 const MATS=()=>[['aurum',['gold','golden']],['argentum',['silver']]].map(([n,a])=>({n:nn(n),adj:a})).filter(m=>m.n&&NOUNS.includes(m.n));
 function engV(v,t,vc,p){
@@ -1392,13 +1402,13 @@ const NOBUILD=new Set(['nūntiāre','comperīre','dīcere','putāre','scīre','r
 const INTO=['silva','caverna','hortus','ager','oppidum','casa','taberna','templum','vīlla'];
 const FIXADV=[['hodiē','today'],['saepe','often'],['semper','always'],['nunc','now']];
 const ING_ALL=[
- ['adj','Adjective agreement','Nouns and adjectives'],['tricky','Nouns that look like a different gender','Nouns and adjectives'],['appos','Apposition','Nouns and adjectives'],['que','et and -que','Nouns and adjectives'],['adv','Adverbs','Nouns and adjectives'],
+ ['adj','Adjective agreement','Nouns and adjectives'],['tricky','Nouns that look like a different gender','Nouns and adjectives'],['appos','Apposition','Nouns and adjectives'],['que','et and -que','Nouns and adjectives'],['adv','Adverbs','Nouns and adjectives'],['medsum','medius and summus (middle of, top of)','Nouns and adjectives'],
  ['dat','Dative: indirect object (to)','Cases'],['datref','Dative of reference (for)','Cases'],['placeTo','Accusative of place to which','Cases'],['placeWhere','Ablative of place where','Cases'],['placeFrom','Ablative of place from which','Cases'],['town','Towns and small islands (no preposition)','Cases'],['sep','Ablative of separation','Cases'],['means','Ablative of means','Cases'],['accomp','Ablative of accompaniment (cum)','Cases'],['manner','Ablative of manner (cum)','Cases'],['agent','Ablative of personal agent','Cases'],['voc','Vocative','Cases'],['cause','Ablative of cause','Cases'],
  ['genposs','Genitive of possession','Genitive'],['genpart','Partitive genitive','Genitive'],['genso','Subjective or objective genitive','Genitive'],['genmat','Genitive of material','Genitive'],
  ['pass','Passive voice','Verbs'],['fut','Future tense','Verbs'],['impf','Continuous past (imperfect)','Verbs']];
-const FRAMES=[['stmt','Plain statement'],['ne','Yes or no question (-ne)'],['quis','Question with quis'],['ci','Complementary infinitive'],['is','Indirect statement'],['condP','Open condition: present'],['condF','Open condition: future'],['gap','Gapping']];
+const FRAMES=[['stmt','Plain statement'],['ne','Yes or no question (-ne)'],['quis','Question with quis'],['ci','Complementary infinitive'],['is','Indirect statement'],['condP','Open condition: present'],['condF','Open condition: future'],['gap','Gapping'],['imp','Command (imperative)']];
 const FRAME_ONLY={gap:['adj','tricky','adv','fut','impf','pass','agent'],condP:null,condF:null};
-const FRAME_NOT={condP:['fut','impf'],condF:['fut','impf'],gap:[]};
+const FRAME_NOT={condP:['fut','impf'],condF:['fut','impf'],gap:[],imp:['fut','impf','genso']};
 const ingName=id=>(ING_ALL.find(x=>x[0]===id)||[0,id])[1];
 const npE=(n,k,adj)=>n.tag==='n'||n.tag==='z'?n.e:n.tag==='x'?(adj?adj+' ':'')+n.e:'the '+(adj?adj+' ':'')+(k?n.ep:n.e);
 const tidy=s=>s.replace(/\s+/g,' ').replace(/ ,/g,',').replace(/,+/g,',').replace(/, *$/,'').trim();
@@ -1534,6 +1544,16 @@ function bClause0(set,o={}){
   }
   const g=S0&&S0.toks[0]?nn(S0.toks[0].lemma)?.g||'m':'m';
   const verbT=o.inf?INF(v,vc==='pass'?'pp':'pa','m',0,o.inf):V(v,t,vc,p==null?2:p,g);
+  if(set.has('medsum')){
+    const PL=['placeTo','placeWhere','placeFrom'];let ok=false;
+    for(const a of adjs){const i=a.toks.findIndex(t=>t.cids&&PL.includes(t.cids[0])&&/singular/.test(t.concept||''));if(i<0)continue;
+      const nt=a.toks[i],n=nn(nt.lemma);if(!n||!'lct'.includes(n.tag))continue;
+      const d=medsumDeco(n,nt.cids[0]==='placeTo'?3:4);a.toks.splice(i,0,d.tok);const en0=a.en;a.en=a.en.replace(d.base,d.phrase);
+      ALT.push([a.en,...d.alts.map(x=>en0.replace(d.base,x))]);ok=true;break}
+    if(!ok&&O0&&O0.toks.length===1&&/singular/.test(O0.toks[0].concept||'')){const n=nn(O0.toks[0].lemma);
+      if(n&&'lct'.includes(n.tag)){const d=medsumDeco(n,3);O0.toks.unshift(d.tok);O0.en=d.phrase;ALT.push([d.phrase,...d.alts]);ok=true}}
+    if(!ok)missing.push('medsum');
+  }
   return{v,vc,t,p,sE,S0,O0,adjs,advT,advE,verbT,missing,objE:O0?O0.en:'',restE:[O0?O0.en:'',...adjs.map(a=>a.en)].filter(Boolean).join(' ')};
 }
 /* English: put the adverb at the end, after the subject, or first */
@@ -1593,6 +1613,19 @@ const FRAMEGEN={
     const ens=inner.map(e=>`${vo?vo.en+' ':''}${hE} ${engV(hv,ht,'act',hp)} that ${e}`);
     c.S0.toks[0].concept+=' (subject of the infinitive)';
     return{tokens:[...(vo?[vo.tok]:[]),...(hS?[hS]:[]),head,...lat(c),c.verbT],ens,end:'.'};},
+  imp(set){
+    const used=[],vo=set.has('voc')||chance(.6)?mkVoc(used):null,pl=vo?vo.p===4:chance(.5),p=pl?4:1;
+    const c=bClause(set,{used,noSubj:true,p,t:'pres'});if(!c||c.missing.length)return null;
+    const v=c.v,pas=c.vc==='pass',neg=chance(.25);
+    if(pas&&!v.obj.includes('p'))return null;
+    const la=pas?(pl?vf(v,'pres','pass',4):v.inf):pl?v.stem+{'1d':'ate',1:'āte',2:'ēte',3:'ite','3i':'ite',4:'īte'}[v.cj]:['dūcere','dīcere'].includes(v.inf)?v.inf.slice(0,-3):v.stem+{'1d':'ā',1:'ā',2:'ē',3:'e','3i':'e',4:'ī'}[v.cj];
+    const it={la,lemma:dispInf(v),cids:['imp'],concept:`${pas?'passive':'active'} imperative, ${pl?'plural':'singular'}`,forms:[],vocab:verbV(v)};
+    const vp=(neg?"don't ":'')+(pas?'be '+v.pp:v.e),who=vo?'':` (to ${pl?'more than one person':'one person'})`;
+    const ens=withAdv(c,'',vp).map(e=>(vo?vo.en+' ':'')+e+who);
+    const nt=W('nē','nē (+imperative) : don’t (in poetry)'),head=vo?[vo.tok]:[];
+    const tokens=[...head,...(neg?[nt]:[]),...lat(c),it];
+    const altTokens=neg?[[...head,...lat(c),W(pl?'nōlīte':'nōlī'),W(pas?passInf(v):v.inf)]]:undefined;
+    return{tokens,ens,end:'!',altTokens};},
   condP(set){return cond(set,'pres')},
   condF(set){return cond(set,'fut')},
   gap(set){
@@ -1632,6 +1665,7 @@ function B(frame,ings,must){
     const set=new Set(list);GDAT=null;
     if(set.has('agent'))set.add('pass');
     if(set.has('town')&&!['placeTo','placeFrom','placeWhere','sep'].some(x=>set.has(x)))set.add(R(['placeTo','placeFrom']));
+    if(set.has('medsum')&&!['placeTo','placeFrom','placeWhere'].some(x=>set.has(x))&&chance(.6))set.add(R(['placeWhere','placeTo']));
     const r=FRAMEGEN[frame](set);
     if(r){
       const q=S(r.tokens,r.ens[0],r.end);q.enAlt=r.ens.slice(1);q.altTokens=r.altTokens;q.ne=r.ne;q.extraVocab=r.extraVocab;
@@ -1696,6 +1730,7 @@ const TOPICS=[
 ['adj12','I','Nouns and adjectives','Noun-adjective agreement',()=>B('stmt',['adj'])],
 ['tricky','I','Nouns and adjectives','Nouns that look like a different gender',()=>B('stmt',['tricky'])],
 ['adv','I','Nouns and adjectives','Adverbs',()=>B('stmt',['adv'])],
+['medsum','I','Nouns and adjectives','medius and summus (the middle of, the top of)',()=>B('stmt',['medsum'])],
 ['d3','I','Nouns and adjectives','3rd declension',()=>gDecl('3')],
 ['pa1','I','Verbs','1st conjugation: present',()=>gAct('pres','1')],
 ['pa2','I','Verbs','2nd conjugation: present',()=>gAct('pres','2')],
@@ -1718,7 +1753,7 @@ const TOPICS=[
 ['pcond','I','Sentence types','Open conditions: present',()=>B('condP',[])],
 ['fcond','I','Sentence types','Open conditions: future',()=>B('condF',[])],
 ['perf','I','Verbs','Perfect active',()=>gAct('perf')],
-['imp','I','Verbs','Commands: imperative and nōlī',()=>gImp()],
+['imp','I','Verbs','Commands: the imperative (active and passive)',()=>B('imp',chance(.3)?['pass']:[])],
 ['plup','II','Verbs','Pluperfect and future perfect active',()=>gAct(R(['plup','plup','futp']))],
 ['perfpas','II','Verbs','Perfect, pluperfect, future perfect passive',()=>gPass({t:R(['perf','perf','plup','futp'])})],
 ['dep','II','Verbs','Deponent verbs',()=>gTrans({v:R(DEPS),t:R(['pres','impf','fut','perf']),pron:1})],
@@ -1758,7 +1793,7 @@ const TOPICS=[
 /* how each topic maps onto the sentence builder, so a focus topic can be mixed with other selected topics */
 const TOPIC_PLAN={placeTo:{ing:['placeTo']},dat:{ing:['dat']},datref:{ing:['datref']},placeFrom:{ing:['placeFrom']},sep:{ing:['sep']},means:{ing:['means']},accomp:{ing:['accomp']},manner:{ing:['manner']},placeWhere:{ing:['placeWhere']},agent:{ing:['agent']},town:{ing:['town']},voc:{ing:['voc']},appos:{ing:['appos']},cause:{ing:['cause']},
  gen:{ing:['genposs']},gendat:{ing:['genposs','gdat']},genpart:{ing:['genpart']},genso:{ing:['genso']},genmat:{ing:['genmat']},adj12:{ing:['adj']},tricky:{ing:['tricky']},adv:{ing:['adv']},conj:{ing:['que']},fut:{ing:['fut']},ppas:{ing:['pass']},fpas:{ing:['pass','fut']},
- inf:{frame:'ci'},pinf:{frame:'ci',ing:['pass']},ques:{frame:'ne|quis'},gap:{frame:'gap'},indst:{frame:'is'},indst2:{frame:'is',ing:['impf']},impf:{ing:['impf']},ipas:{ing:['pass','impf']},pcond:{frame:'condP'},fcond:{frame:'condF'}};
+ inf:{frame:'ci'},pinf:{frame:'ci',ing:['pass']},ques:{frame:'ne|quis'},gap:{frame:'gap'},indst:{frame:'is'},imp:{frame:'imp'},medsum:{ing:['medsum']},indst2:{frame:'is',ing:['impf']},impf:{ing:['impf']},ipas:{ing:['pass','impf']},pcond:{frame:'condP'},fcond:{frame:'condF'}};
 /* every sentence is about one focus topic; other selected topics may join in */
 function makeFocused(selected,focus){
   const foc=[...focus].filter(x=>selected.has(x));if(!foc.length)return makeQuestion(selected,false);
@@ -1831,7 +1866,7 @@ if(typeof module!=='undefined')module.exports={setLimit,makeBuilt,makeFocused,TO
 /* ===================== UI ===================== */
 const $=id=>document.getElementById(id);
 const LEVELS=[['I','Latin I Honors'],['II','Latin II Honors'],['III','Latin III Honors'],['AP','AP Latin']];
-const TAUGHT=new Set('impf ipas indst2 gen gendat genpart genso genmat cause nom acc placeTo dat datref placeFrom sep means accomp manner placeWhere agent town voc appos d1 d2 adj12 tricky adv pa1 pa2 pa3 pa3i pa4 ppas fut fpas inf pinf ques conj gap indst pcond fcond'.split(' '));
+const TAUGHT=new Set('imp medsum impf ipas indst2 gen gendat genpart genso genmat cause nom acc placeTo dat datref placeFrom sep means accomp manner placeWhere agent town voc appos d1 d2 adj12 tricky adv pa1 pa2 pa3 pa3i pa4 ppas fut fpas inf pinf ques conj gap indst pcond fcond'.split(' '));
 const bFrames=new Set(),bIngs=new Set(),bFocus=new Set(),tFocus=new Set();let tab='topics';
 const selected=new Set();let q=null,checked=false,lastInput=null;
 const stats={right:0,total:0,streak:0};
@@ -2342,7 +2377,9 @@ function buildCharts(){
   const t4=blk('Future, 1st and 2nd conjugation',T6('bō bis bit bimus bitis bunt'),T6('bor beris bitur bimur biminī buntur').map((x,i)=>i===1?'beris / -bere':x),'Keep the stem vowel: portābō, monēbō.');
   const t5=blk('Future, 3rd and 4th conjugation',T6('am ēs et ēmus ētis ent'),T6('ar ēris ētur ēmur ēminī entur'),'3rd -iō and 4th add i first: capiam, audiam.');
   const t6=blk('Continuous past (imperfect), all conjugations',T6('bam bās bat bāmus bātis bant'),T6('bar bāris bātur bāmur bāminī bantur'),'Drop the last three letters of the infinitive, then add the vowel and -bā-:<br>1st -ā- (portābam), 2nd -ē- (vidēbam), 3rd -ē- (mittēbam), 3rd -iō -iē- (capiēbam), 4th -iē- (audiēbam).<br>Short a before -m, -t, -nt and -r: portābam, portābat, portābant, portābar.<br>Means “was/were …-ing” or “used to …”.');
-  $('cbody').innerHTML=t1+t2+t3+t4+t5+t6;
+  const IMPS=[['1st','portāre','portā','portāte','portāre','portāminī'],['2nd','sedēre','sedē','sedēte','sedēre','sedēminī'],['3rd','currere','curre','currite','currere','curriminī'],['3rd -iō','capere','cape','capite','capere','capiminī'],['4th','audīre','audī','audīte','audīre','audīminī']];
+  const t7=`<div class="cwrap"><table><caption>Imperative (commands)</caption><tr class="sub"><th></th><th>Infinitive</th><th>Active sing.</th><th>Active pl.</th><th>Passive sing.</th><th>Passive pl.</th></tr>${IMPS.map(r=>`<tr><th>${r[0]}</th>${r.slice(1).map(x=>`<td>${x}</td>`).join('')}</tr>`).join('')}</table><p>Singular: drop -re. Plural: -re becomes -te, but 3rd and 3rd -iō use -ite (currite, capite).<br>The passive singular looks like the active infinitive; the passive plural is the -minī form.<br>Poetic “don’t”: nē + imperative (nē vidēminī! don’t be seen!).<br>salvē, salvēte: hello · valē, valēte: goodbye · notā bene: note well</p></div>`;
+  $('cbody').innerHTML=t1+t2+t3+t4+t5+t6+t7;
   const set=h=>{$('cbody').hidden=h;$('ctoggle').textContent=h?'Show':'Hide'};
   $('ctoggle').addEventListener('click',()=>set(!$('cbody').hidden));
 }
