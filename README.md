@@ -66,8 +66,9 @@ Verba is a static website hosted on GitHub Pages. There is no Verba server and n
 | Path | What it is |
 | --- | --- |
 | `index.html` | The app |
-| `js/usemode.js` | The identify-the-use tab: choosing which uses to drill, AI grading for typed uses, and "Mark my answer as correct". New features go in their own files like this one and are linked from `index.html` |
+| `js/usemode.js` | The identify-the-use tab, shared by every site: choosing which uses to drill (shaded when the class notes cover them), English or target-language sentences, AI grading for typed uses, and "Mark my answer as correct". New features go in their own files like this one and are linked from `index.html` |
 | `css/usemode.css` | Styles for the identify-the-use tab |
+| `js/moreuses.js` | This site's uses beyond the ones in the engine, so the identify-the-use tab covers every case or form use in the course |
 | `getkey.html` | Guide to getting a free Groq key |
 | `keys.html` | Every AI provider Verba supports, with free limits |
 | `img/felix/` | Fēlix, in every mood |
