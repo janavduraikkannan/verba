@@ -1,7 +1,6 @@
 /* ---------- Latin: the rest of the course's case uses, for the identify-the-use tab ----------
-   Loaded after js/usemode.js. Each new use has a gen() that builds a sentence with exactly one word
+   Loaded after js/usemode.js (the language name, LANG_NAME, is in site/config.js). Each new use has a gen() that builds a sentence with exactly one word
    (or phrase) tagged with the use's id, using the topic generators the engine already has. */
-const LANG_NAME='Latin';
 const useAsk=ty=>USES[ty.c].word?`What use of the ${USES[ty.c].word} is`:'What is the use of';
 const useOf=ty=>USES[ty.c].word?`use of the ${USES[ty.c].word}`:'use';
 /* subjects are in nearly every sentence, and the second word of an ablative absolute or a gerundive isn't a case use on its own */

@@ -57,7 +57,7 @@ You can also set a **password** in the Account window, or during the welcome tou
 
 Verba is a static website hosted on GitHub Pages. There is no Verba server and no build step:
 
-- **`index.html`** is the whole app: the sentence generator, the answer checker, the interface and the account code.
+- **The app** is split into small files. Everything outside `site/` is shared with the other Linguae practice sites and identical on each; `site/` holds what is only Verba (see the table below).
 - **AI requests** go directly from your browser to the provider whose key you entered (Groq, Google Gemini, OpenRouter, Cerebras, Mistral, Hugging Face, Cohere, OpenAI, Anthropic or xAI).
 - **Accounts, password logins and the leaderboard** use Google Firebase (Cloud Firestore). The access rules are [`firestore.rules` in the linguae repository](https://github.com/janavduraikkannan/linguae/blob/main/firestore.rules). Nothing about accounts is stored in this GitHub repository.
 
@@ -65,16 +65,15 @@ Verba is a static website hosted on GitHub Pages. There is no Verba server and n
 
 | Path | What it is |
 | --- | --- |
-| `index.html` | The app |
-| `js/usemode.js` | The identify-the-use tab, shared by every site: choosing which uses to drill (shaded when the class notes cover them), English or target-language sentences, AI grading for typed uses, and "Mark my answer as correct". New features go in their own files like this one and are linked from `index.html` |
-| `css/usemode.css` | Styles for the identify-the-use tab |
-| `js/moreuses.js` | This site's uses beyond the ones in the engine, so the identify-the-use tab covers every case or form use in the course |
-| `getkey.html` | Guide to getting a free Groq key |
-| `keys.html` | Every AI provider Verba supports, with free limits |
+| `index.html`, `keys.html`, `getkey.html` | The pages. These are identical on every practice site; Verba's name, cat and wording are filled in from `site/config.js` |
+| `css/` | Styles, identical on every practice site (`main.css` for the app, `usemode.css` for the identify-the-use tab) |
+| `js/` | The app, identical on every practice site, one file per part: `core.js` (state and saving), `topics.js` (start screen), `ai.js` and `keys.js` (AI providers and keys), `onboarding.js`, `tutor.js` (asking Fēlix), `drill.js` (each new sentence), `check.js` (checking answers), `progress.js` (XP and streaks), `sync.js` and `login.js` (accounts), `leaderboard.js`, `pages.js` (profile and ranks pages), `profile.js`, `identify.js` and `usemode.js` (the identify-the-use tab), `vocab.js`, `widgets.js`, `boot.js` (start-up), plus `head.js` and `site-fill.js` (put the site's own text into the pages) |
+| `site/` | Everything that is only Verba: `config.js` (names, wording, courses, ranks, profile pictures), `cat.js` (Fēlix's personality and the AI prompts), `language.js` (how Latin behaves in the shared code: typing accents, charts, marking words), `engine.js` (the Latin sentence engine and answer checker), `uses.js` (extra uses for the identify-the-use tab) and `theme.css` (colours) |
 | `img/felix/` | Fēlix, in every mood |
 | `img/icons/` | Interface icons |
 | `media/` | The key tutorial video, its captions and poster |
 | `tools/felix.py` | The script that draws Fēlix |
+| `tools/sync_shared.py` | Copies the shared files (everything outside `site/`) from Verba to Palabras, Mots and Wörter; `--check` only reports differences. Change shared code here, then run it |
 | `unused/` | Older artwork and resources, kept on purpose but not used by the site |
 
 ## Privacy

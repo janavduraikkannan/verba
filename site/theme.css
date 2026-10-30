@@ -1,0 +1,9 @@
+/* Verba's colours: the accent colours and level colours, light and dark. Everything else is in css/main.css. */
+:root{
+  --accent:#A9442A; --accent-ink:#FFF6E8; --accent-shadow:#6E2A18; --accent2:#2E5E66; --accent2-ink:#FFFFFF; --brand:#2E5E66;
+  --lv1:#A87A22; --lv2:#2E5E66; --lv3:#5A7A2C; --lv4:#8E3B4F;
+}
+:root[data-theme="dark"]{
+  --accent:#D2714D; --accent-ink:#1E1B17; --accent-shadow:#7E3A22; --accent2:#86B9B8; --accent2-ink:#12201F; --brand:#86B9B8;
+  --lv1:#DDB25A; --lv2:#86B9B8; --lv3:#9CC47F; --lv4:#D98B9C;
+}
