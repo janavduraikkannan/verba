@@ -59,16 +59,17 @@ Verba is a static website hosted on GitHub Pages. There is no Verba server and n
 
 - **`index.html`** is the whole app: the sentence generator, the answer checker, the interface and the account code.
 - **AI requests** go directly from your browser to the provider whose key you entered (Groq, Google Gemini, OpenRouter, Cerebras, Mistral, Hugging Face, Cohere, OpenAI, Anthropic or xAI).
-- **Accounts, password logins and the leaderboard** use Google Firebase (Cloud Firestore). The access rules are in [`firestore.rules`](firestore.rules). Nothing about accounts is stored in this GitHub repository.
+- **Accounts, password logins and the leaderboard** use Google Firebase (Cloud Firestore). The access rules are [`firestore.rules` in the linguae repository](https://github.com/janavduraikkannan/linguae/blob/main/firestore.rules). Nothing about accounts is stored in this GitHub repository.
 
 ### Repository layout
 
 | Path | What it is |
 | --- | --- |
 | `index.html` | The app |
+| `js/usemode.js` | The identify-the-use tab: choosing which uses to drill, AI grading for typed uses, and "Mark my answer as correct". New features go in their own files like this one and are linked from `index.html` |
+| `css/usemode.css` | Styles for the identify-the-use tab |
 | `getkey.html` | Guide to getting a free Groq key |
 | `keys.html` | Every AI provider Verba supports, with free limits |
-| `firestore.rules` | Security rules for accounts, password logins, the leaderboards (Verba's and Palabras') and usernames |
 | `img/felix/` | Fēlix, in every mood |
 | `img/icons/` | Interface icons |
 | `media/` | The key tutorial video, its captions and poster |
