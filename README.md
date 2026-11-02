@@ -67,13 +67,14 @@ Verba is a static website hosted on GitHub Pages. There is no Verba server and n
 | --- | --- |
 | `index.html`, `keys.html`, `getkey.html` | The pages. These are identical on every practice site; Verba's name, cat and wording are filled in from `site/config.js` |
 | `css/` | Styles, identical on every practice site (`main.css` for the app, `usemode.css` for the identify-the-use tab) |
-| `js/` | The app, identical on every practice site, one file per part: `core.js` (state and saving), `topics.js` (start screen), `ai.js` and `keys.js` (AI providers and keys), `onboarding.js`, `tutor.js` (asking Fēlix), `drill.js` (each new sentence), `check.js` (checking answers), `progress.js` (XP and streaks), `sync.js` and `login.js` (accounts), `leaderboard.js`, `pages.js` (profile and ranks pages), `profile.js`, `identify.js` and `usemode.js` (the identify-the-use tab), `vocab.js`, `widgets.js`, `boot.js` (start-up), plus `head.js` and `site-fill.js` (put the site's own text into the pages) |
-| `site/` | Everything that is only Verba: `config.js` (names, wording, courses, ranks, profile pictures), `cat.js` (Fēlix's personality and the AI prompts), `language.js` (how Latin behaves in the shared code: typing accents, charts, marking words), `engine.js` (the Latin sentence engine and answer checker), `uses.js` (extra uses for the identify-the-use tab) and `theme.css` (colours) |
+| `js/` | The app, identical on every practice site, one file per part: `core.js` (state and saving), `topics.js` (start screen), `lessons.js` (how lessons work), `ai.js` and `keys.js` (AI providers and keys), `onboarding.js`, `tutor.js` (asking Fēlix), `drill.js` (each new sentence), `check.js` (checking answers), `progress.js` (XP and streaks), `sync.js` and `login.js` (accounts), `leaderboard.js`, `pages.js` (profile and ranks pages), `profile.js`, `identify.js` and `usemode.js` (the identify-the-use tab), `vocab.js`, `widgets.js`, `boot.js` (start-up), plus `head.js` and `site-fill.js` (put the site's own text into the pages) |
+| `site/` | Everything that is only Verba: `lessons.js` (the lessons, their question banks and XP values; a site without this file has no Lessons tab), `config.js` (names, wording, courses, ranks, profile pictures), `cat.js` (Fēlix's personality and the AI prompts), `language.js` (how Latin behaves in the shared code: typing accents, charts, marking words), `engine.js` (the Latin sentence engine and answer checker), `uses.js` (extra uses for the identify-the-use tab) and `theme.css` (colours) |
 | `img/felix/` | Fēlix, in every mood |
 | `img/icons/` | Interface icons |
 | `media/` | The key tutorial video, its captions and poster |
 | `tools/felix.py` | The script that draws Fēlix |
 | `tools/sync_shared.py` | Copies the shared files (everything outside `site/`) from Verba to Palabras, Mots and Wörter; `--check` only reports differences. Change shared code here, then run it |
+| `tools/lessons/` | Writes `site/lessons.js`: `node tools/lessons/make.js` builds it from the lesson parts here, with verb and noun forms from the engine, and `node tools/lessons/check.js` checks every question and Latin word. |
 | `unused/` | Older artwork and resources, kept on purpose but not used by the site |
 
 ## Privacy

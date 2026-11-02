@@ -5,3 +5,4 @@ buildCharts();
 buildStart();
 setupKeys();
 setupOnboarding();
+lessonsSetup();

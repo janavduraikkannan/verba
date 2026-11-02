@@ -1,6 +1,6 @@
 # Verba Privacy Statement
 
-*Last updated: October 24, 2026 (accounts shared with Palabras)*
+*Last updated: November 2, 2026 (lesson progress added to accounts)*
 
 This page explains, as plainly as possible, what information Verba stores, where it goes, and who can see it. Verba is a free practice site made by a student for a Latin class. It is not run by a company, a school or a school district.
 
@@ -41,7 +41,7 @@ Verba does not use cookies, advertising, analytics or tracking of any kind. You 
 
 Accounts are optional. An account is one document in Google Firebase (Cloud Firestore), named after your account key. It contains:
 
-- Your progress: XP, streaks and the date you started.
+- Your progress: XP, streaks, the date you started, and which lessons and lesson questions you've completed.
 - Your settings: topics, exercise choices and sentence-builder choices.
 - Your whole profile, including your first and last name if you entered them, even if you chose not to show your name on the leaderboard.
 - Your AI key or keys, **only if** you tick "Save key(s) to my account." They are stored as plain text.
