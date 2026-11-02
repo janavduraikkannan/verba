@@ -1,11 +1,20 @@
 const {tr,mc,ty,spot,enQs,laQs,parseQs,nq}=require('./lib.js');
 const pf=['laudāre','monēre','dūcere','capere','audīre','vidēre','mittere','scrībere','portāre','vincere'];
 module.exports={title:'Finishing Latin I',lessons:[
-{id:'sum',title:'sum: the verb "to be"',blurb:'The most common irregular verb, and the predicate nominative.',body:`
-*Esse*, to be, is irregular, so learn its forms by heart.
+{id:'sum',title:'esse: how to “be” in Latin',blurb:'The irregular verb “to be,” the = sign, there is, and adesse/abesse.',body:`
+Not every English “is” means the verb *esse*. First ask: what is the **main idea** of the verb?
+
+: Dūcit. = He is leading. (the main idea is leading)
+: Laetus est. = He is happy. (the main idea is being)
+
+English uses “is” to help say that an action is happening now, but Latin only uses *esse* when the main idea really is *to be*. So “the sailors are sailing” is *nautae nāvigant*, while “the sailors are tired” is *nautae fessī sunt*.
+
+## The forms of esse
+
+*Esse*, to be, is irregular, but its forms have patterns you already know. The continuous past has the *-ā-* of *-bā-*, and the future has the *ō, i, u* pattern of *-bō, -bi, -bu*.
 
 |~ esse, to be
-|Person|Present|Imperfect|Future|
+|Person|Present|Continuous past|Future|
 |I|sum|eram|erō|
 |you|es|erās|eris|
 |he/she/it|est|erat|erit|
@@ -13,19 +22,86 @@ module.exports={title:'Finishing Latin I',lessons:[
 |you all|estis|erātis|eritis|
 |they|sunt|erant|erunt|
 
-*Esse* doesn't take a direct object. It links the subject to another word, which stays in the **nominative**. This is the **predicate nominative** that the cases lesson mentioned.
-
-: Puella nauta est. = The girl is a sailor.
-: Agricolae laetī sunt. = The farmers are happy.
-
-An adjective after *esse* agrees with the subject.
-
 ?1
 
+## esse is an equals sign
+
+*Esse* doesn't take a direct object: no action passes from one person to another. Instead the words on **both sides** of *esse* refer to the same person or thing, so both are **nominative**. A noun used this way is a **predicate nominative**; an adjective is a **predicate adjective**, and it agrees with the subject.
+
+: Puella rēgīna est. = The girl is a queen. (girl = queen)
+: Rēgīna laeta est. = The queen is happy. (queen = happy)
+: Nautae Graecī sunt. = The sailors are Greeks. (sailors = Greeks)
+
+! To pick a case, use what you know: “of” points to the genitive, the direct object of an action is accusative, and X = Y is nominative.
+
 ?2
+
+## The = sign in indirect statement
+
+In indirect statement the subject becomes accusative. The two sides of the = still refer to the same thing, so the word after *esse* becomes accusative too.
+
+: Nauta laetus est. = The sailor is happy.
+: Videō nautam laetum esse. = I see that the sailor is happy. (nautam = laetum)
+: Videō nautam agricolam esse. = I see that the sailor is a farmer. (nautam = agricolam)
+
+The order *videō nautam esse laetum* is also correct, but *videō nautam laetum esse* is very common.
+
+## adesse and abesse
+
+Once you know *esse*, you know two more verbs. Add *ad-* (toward, at) or *ab-* (away from):
+
+: adesse = to be present, be here
+: abesse = to be absent, be away
+
+|~ adesse and abesse, present
+|Person|adesse|abesse|
+|I|adsum|absum|
+|you|ades|abes|
+|he/she/it|adest|abest|
+|we|adsumus|absumus|
+|you all|adestis|abestis|
+|they|adsunt|absunt|
+
+The other tenses work the same way: *aderam*, *aderō*, *aberam*, *aberō*. When you split *adest* into syllables, the prefix stays whole: **ad.est**, not **a.dest**.
+
+## There is, there are
+
+Latin can also use *esse* to say that something exists. Putting *est* or *sunt* first introduces something new to the scene, which English says with “there is” or “there are”:
+
+: Est casa prope silvam. = There is a house near the forest.
+: Sunt casae prope silvam. = There are houses near the forest.
+: Casa est prope silvam. = The house is near the forest.
+
+The last sentence starts with a house we already know about and tells us where it is.
+
+?3
+
+?4
 `,q:[ty('Write a form of esse',[['Write "they are" in Latin.','sunt','3rd person plural present.'],['Write "I am" in Latin.','sum','1st person singular present.'],['Write "you (one person) are" in Latin.','es','2nd person singular present.'],['Write "we were" in Latin.',['erāmus'],'Imperfect.'],['Write "he was" in Latin.','erat','Imperfect.'],['Write "they will be" in Latin.','erunt','Future.'],['Write "I will be" in Latin.','erō','Future.'],['Write "you all are" in Latin.','estis','2nd person plural present.'],['Write "she is" in Latin.','est','3rd person singular present.'],['Write "we will be" in Latin.','erimus','Future.']],'la'),
 tr('Translate a sentence with esse',[
-['Puella laeta est.','The girl is happy.'],['Agricolae fessī sunt.','The farmers are tired.'],['Nauta bonus erat.','The sailor was good.'],['Dōna pulchra sunt.','The gifts are beautiful.'],['Rēgīna clāra erit.','The queen will be famous.'],['Puerī laetī erant.','The boys were happy.'],['Marcus poēta est.','Marcus is a poet.'],['Discipulī sumus.','We are students.'],['Amīca bona est.','The friend is good.'],['Fēminae īrātae erunt.','The women will be angry.']],'esse links the subject to a nominative word.')]},
+['Puella laeta est.','The girl is happy.'],['Agricolae fessī sunt.','The farmers are tired.'],['Nauta bonus erat.','The sailor was good.'],['Dōna pulchra sunt.','The gifts are beautiful.'],['Rēgīna clāra erit.','The queen will be famous.'],['Puerī laetī erant.','The boys were happy.'],['Marcus poēta est.','Marcus is a poet.'],['Discipulī sumus.','We are students.'],['Amīca bona est.','The friend is good.'],['Fēminae īrātae erunt.','The women will be angry.']],'esse links the subject to a nominative word.'),
+mc('Use esse, or not?',[
+['Choose the Latin for "The sailors are sailing."','*Nautae nāvigant.*',['*Nautae nāvigant sunt.*','*Nautae sunt nāvigāre.*','*Nautae nāvigat.*'],'The main idea is sailing, so Latin uses the present tense of *nāvigāre*, with no *esse*.'],
+['Choose the Latin for "The sailors are tired."','*Nautae fessī sunt.*',['*Nautae fessōs sunt.*','*Nautae fessae sunt.*','*Nautae fessī.*'],'Sailors = tired, so the adjective is nominative and agrees with *nautae*, which is masculine.'],
+['In "The queen is a girl," what case is “girl”?','nominative',['accusative','genitive','dative'],'Queen = girl, so both are nominative.'],
+['In "The sailor praises the farmer," what case is “farmer”?','accusative',['nominative','genitive','dative'],'The farmer receives the action, so he is the direct object.'],
+['In "The sailor is a farmer," what case is “farmer”?','nominative',['accusative','genitive','ablative'],'Sailor = farmer: a predicate nominative.'],
+['In "The queen summons the farmer," what case is “farmer”?','accusative',['nominative','genitive','dative'],'The farmer receives the action of summoning.'],
+['In "The queen of the island is happy," what case is “island”?','genitive',['nominative','accusative','ablative'],'“Of the island”: genitive.'],
+['In "The queen of the island is happy," what case is “happy”?','nominative',['accusative','genitive','dative'],'Queen = happy: a predicate adjective, nominative like the subject.'],
+['Why is *laetum* accusative in *Videō nautam laetum esse*?','It refers to *nautam*, the accusative subject of the indirect statement.',['It is a direct object.','*Esse* always takes the accusative.','Adjectives after *videō* are accusative.'],'The = sign keeps both sides in the same case, and the subject of an indirect statement is accusative.'],
+['What does *abest* mean?','he or she is absent',['he or she is present','he or she is near','he or she will be'],'*Ab-* means away from: *abesse* is to be away, absent.']]),
+tr('Translate esse in more ways',[
+['Videō nautam laetum esse.','I see that the sailor is happy.'],
+['Dīcit puellam rēgīnam esse.','[He|She] says that the girl is a queen.'],
+['Magister adest.','The teacher is [present|here].'],
+['Discipulī absunt.','The students are [absent|away].'],
+['Est casa prope silvam.','There is a house near the forest.'],
+['Sunt templa prope oppidum.','There are temples near the town.'],
+['Casa est prope silvam.','The house is near the forest.'],
+['Putābat agricolās fessōs esse.','[He|She] [was thinking|thought] that the farmers were tired.'],
+['Aderāmus.','We were [present|here].'],
+['Nautae Graecī erant.','The sailors were Greeks.']],'In indirect statement both sides of esse are accusative; adesse and abesse work like esse; est or sunt first means there is or there are.',{alt:{1:['Dīcit puellam esse rēgīnam.'],7:['Putābat agricolās esse fessōs.']}})]},
 {id:'possum',title:'possum: to be able',blurb:'esse with a prefix, and a verb that needs an infinitive.',body:`
 *Possum* means *I am able* or *I can*. It is *pot-* plus *esse*. The *t* becomes *s* before another *s*.
 

@@ -78,6 +78,7 @@ Sextus,-ī,Sext,2,m,Sextus,Sextus,n,S
 Vergilius,-ī,Vergili,2,m,Vergil,Vergil,n,S
 Tiberius,-ī,Tiberi,2,m,Tiberius,Tiberius,n,S
 Polyphēmus,-ī,Polyphēm,2,m,Polyphemus,Polyphemus,n,S
+Graecus,-ī,Graec,2,m,Greek,Greeks,p
 Marcus,-ī,Marc,2,m,Marcus,Marcus,n,S
 Brūtus,-ī,Brūt,2,m,Brutus,Brutus,n,S
 Iūlia,-ae,Iūli,1,f,Julia,Julia,n,S
@@ -465,7 +466,7 @@ function gPass(o={}){
 function gPred(){
   const fem=chance(.2),s=R(have(fem?['fēmina','puella','māter','soror','fīlia']:['vir','puer','frāter','pater','amīcus','fīlius'])),pr=R(have(fem?['rēgīna','dea']:['nauta','agricola','poēta','aurīga','mīles','rēx','servus','magister','dux','cīvis']));
   const k=chance(.5)?1:0,t=R(['pres','pres','impf']),p=k?5:2;
-  return S([N(s,0,k,'nom'),SUMT(t,p),N(pr,0,k,'pred')],`${np(s,k)} ${be(t,p)} ${k?pr.ep:'a '+pr.e}`);
+  return S([N(s,0,k,'nom'),SUMT(t,p),N(pr,0,k,'pred')],`${np(s,k)} ${be(t,p)} ${k?pr.ep:artE(pr.e)}`);
 }
 function gDecl(d){
   const n=R(ALLN.filter(x=>(x.d[0]>'3'?'45':x.d[0])===d&&!'nzxm'.includes(x.tag)));let s;
@@ -484,6 +485,37 @@ function gAdj(types,cid,tricky){
   else if(m==='o')s=gTrans({obj:n,modO:modA(a,cids)});
   else{const k=num(n),p=k?5:2;s=S([N(n,0,k,'nom'),SUMT('pres',p),A(a,0,k,n.g,cids)],`${np(n,k)} ${beP(p)} ${a.e}`);}
   s.focus=s.tokens.find(t=>t.lemma===a.nom);return s;
+}
+/* esse, from the class notes "How to Be in Latin": = sign sentences, there is/are, adesse/abesse, esse in indirect statement,
+   and English "is …-ing" sentences that do NOT use esse */
+const artE=w=>(/^[aeiou]/i.test(w)?'an ':'a ')+w;
+const ADAB={ad:['adsum ades adest adsumus adestis adsunt','aderam aderās aderat aderāmus aderātis aderant','aderō aderis aderit aderimus aderitis aderunt'],ab:['absum abes abest absumus abestis absunt','aberam aberās aberat aberāmus aberātis aberant','aberō aberis aberit aberimus aberitis aberunt']};
+function gEsse(){
+  const t=R(['pres','pres','impf','fut']),m=R(['pn','pn','pa','pa','there','adab','is','is','act']);
+  if(m==='act'){const q=gTrans({t:'pres',pron:1}),g=ALT.find(a=>q.en.includes(a[0])&&a.some(x=>/^(am|is|are) \S+ing\b/.test(x)));
+    if(g){const prog=g.find(x=>/^(am|is|are) \S+ing\b/.test(x));q.enAlt=(q.enAlt||[]).concat([q.en]);q.en=q.en.replace(g[0],prog)}
+    q.extraVocab=['English "is …-ing" is just the present tense: no esse'];return q}
+  const pron=m!=='there'&&m!=='is'&&chance(.3);let s=null,k,p,g,subj=[],sE;
+  if(pron){p=R([0,1,3,4,5]);k=p>2?1:0;g=chance(.5)?'m':'f';sE=PRON[p]}else{s=R(PEOPLE);k=num(s);p=k?5:2;g=s.g;subj=[N(s,0,k,'nom')];sE=np(s,k)}
+  if(m==='pn'){const pr=R(PEOPLE.filter(x=>x!==s&&!x.sgOnly&&(!s||x.e!==s.e)));return S([...subj,N(pr,0,k,'pred'),SUMT(t,p)],`${sE} ${be(t,p)} ${k?pr.ep:artE(pr.e)}`)}
+  if(m==='pa'){const a=adjFor(s||R(PEOPLE),['12']);const at=A(a,0,k,pron?g:s.g,['adj12']);
+    if(pron){const o=g==='m'?'f':'m';at.alt=[A(a,0,k,o,['adj12']).la]}
+    return S([...subj,at,SUMT(t,p)],`${sE} ${be(t,p)} ${a.e}`)}
+  if(m==='there'){const n=R(NOUNS.filter(x=>'ct'.includes(x.tag)&&!x.sgOnly)),nk=num(n),pl=R(NOUNS.filter(x=>'lc'.includes(x.tag)&&x!==n)),pk=num(pl),nt=N(pl,3,pk,'accprep');
+    const ise=t==='pres'?(nk?'are':'is'):t==='impf'?(nk?'were':'was'):'will be';
+    return S([SUMT(t,nk?5:2),N(n,0,nk,'nom'),prepW(PREPS[4],nt.la),nt],`there ${ise} ${nk?n.ep:artE(n.e)} near ${np(pl,pk)}`)}
+  if(m==='adab'){const w=R(['ad','ab']),la=ADAB[w][{pres:0,impf:1,fut:2}[t]].split(' ')[p];
+    const tok={la,lemma:w+'esse',cids:['sum'],concept:PERS[p]+' '+TN[t],forms:[],vocab:w==='ad'?'adesse, adsum : to be present, be here':'abesse, absum : to be absent, be away'};
+    const e1=`${be(t,p)} ${w==='ad'?'present':'absent'}`;ALT.push([e1,`${be(t,p)} ${w==='ad'?'here':'away'}`]);
+    return S([...subj,tok],`${sE} ${e1}`)}
+  /* indirect statement: both sides of the = become accusative */
+  const hv=R(['dīcere','putāre','vidēre','scīre','audīre'].map(vb)),ht=R(['pres','pres','impf']),hp=R([0,1,2,3,4,5]),hE=PRON[hp];if(hp===2)ALT.push(['he','she']);
+  const is=R(PEOPLE),ik=num(is),ist=N(is,3,ik,'indst');ist.concept+=' (subject of the infinitive)';
+  let ct,cE;if(chance(.5)){const a=adjFor(is,['12']);ct=A(a,3,ik,is.g,['adj12']);ct.concept+=' (agrees with the accusative subject)';cE=a.e}
+  else{const pr=R(PEOPLE.filter(x=>x!==is&&!x.sgOnly));ct=N(pr,3,ik,'predis');ct.concept+=' (renames the accusative subject)';cE=ik?pr.ep:artE(pr.e)}
+  ALT.push([' that ',' ']);
+  const ie=ht==='impf'?beQ(ik?5:2):beP(ik?5:2);
+  return S([V(hv,ht,'act',hp),ist,ct,{la:'esse',lemma:'esse',cids:['sum'],concept:'present infinitive of esse',forms:[],vocab:'esse, sum : to be'}],`${hE} ${engV(hv,ht,'act',hp)} that ${np(is,ik)} ${ie} ${cE}`);
 }
 function gSum(){
   const t=R(['pres','pres','impf','fut']),p=R([0,1,2,3,4,5]),m=R([0,1,2]);
@@ -1044,6 +1076,7 @@ const TOPICS=[
 ['ipas','I','Verbs','Continuous past (imperfect) passive',()=>gPass({t:'impf',pron:1})],
 ['inf','I','Verbs','Complementary infinitive',()=>B('ci',[])],
 ['pinf','I','Verbs','Passive infinitive',()=>B('ci',['pass'])],
+['esse','I','Verbs','esse: to be (= sentences, there is, adesse and abesse)',gEsse],
 ['sum','I','Verbs','sum and possum',gSum],
 ['ques','I','Sentence types','Questions: -ne and quis',()=>B(R(['ne','quis']),[])],
 ['conj','I','Sentence types','And: et and -que',()=>B('stmt',['que'])],

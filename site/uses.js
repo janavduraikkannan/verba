@@ -7,7 +7,7 @@ const useOf=ty=>USES[ty.c].word?`use of the ${USES[ty.c].word}`:'use';
 const XC_SKIP=(t,qq)=>{const c=t.cids[0],prev=qq.tokens[qq.tokens.indexOf(t)-1];
   return c==='nom'||c==='pperi'&&!/dative/.test(t.concept||'')||c==='abs'&&!!prev&&prev.cids&&prev.cids[0]==='abs'};
 const DDAT_E={auxiliō:'a help',praesidiō:'a protection',cūrae:'a concern',impedīmentō:'a hindrance',salūtī:'a source of safety'};
-const MORE_ID_TOPIC={nom:'nom',voc:'voc',appos:'appos',datposs:'datposs',ablcomp:'ablcomp',abs:'abs',ddat:'datpurp',pperi:'pperi'};
+const MORE_ID_TOPIC={esse:'pred',nom:'nom',voc:'voc',appos:'appos',datposs:'datposs',ablcomp:'ablcomp',abs:'abs',ddat:'datpurp',pperi:'pperi'};
 
 addUses('role',{name:'Nominative, vocative and apposition',word:'',order:-1},[
   {id:'nom',level:'I',full:'the subject (nominative)',n:'Subject',syn:['subject','nominative subject','subj','doer','who does it'],what:'who or what does the action of the verb',la:'puella cantat',en:'the girl sings',gen:()=>R([gTrans,gPred])()},
