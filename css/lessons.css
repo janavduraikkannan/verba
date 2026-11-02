@@ -1,17 +1,20 @@
 /* Lessons mode. Every colour comes from the site's own theme, so this file is the same on every practice site.
    --accent2 marks history notes and footnotes, --accent marks endings, --gold marks tips, --ok and --bad mark results. */
-#paneLessons{margin-top:18px}
+#paneLessons{margin-top:18px;padding-bottom:calc(var(--barh,220px) + 24px)}
 #bar.lsbar fieldset,#bar.lsbar .go,#bar.lsbar label:has(#limit){display:none}
 .lstop{display:flex;flex-wrap:wrap;gap:14px 24px;align-items:center;justify-content:space-between;background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:16px 18px}
 .lstop>div{flex:1 1 300px;min-width:0}
 .lstop .intro{margin:0 0 8px;color:var(--muted);max-width:62ch}
 .lsum{margin:0 0 6px}
+.lstop .legend{margin-top:10px}
+.lesson .legend{margin:0 0 10px}
 .lgo{text-decoration:none;display:inline-block}
 .lcourse{font-family:var(--display);font-weight:600;margin:26px 0 4px}
 .lunit h3{font-family:var(--display);font-weight:600;font-size:1.15rem;margin:18px 0 8px;color:var(--muted)}
 .lunit ol{list-style:none;margin:0;padding:0;display:grid;gap:8px}
 .lrow{display:flex;align-items:center;gap:12px;background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:10px 14px;color:inherit;text-decoration:none}
 .lrow:hover{border-color:var(--line2);background:var(--surface2)}
+.lrow.taught,.lrow.taught:hover{background:var(--wash);box-shadow:inset 3px 0 var(--accent2)}
 .lrow.next{border:2px solid var(--accent2)}
 .lrow .tag{margin-left:auto;flex:none}
 .lnum{flex:none;width:2em;height:2em;border-radius:50%;display:grid;place-items:center;font-weight:800;background:var(--surface2);border:1px solid var(--line);font-size:.9rem}

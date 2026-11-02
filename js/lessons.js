@@ -19,6 +19,9 @@ const lsById=id=>lsAll.find(l=>l.id===id);
 const ls={cur:null,spots:[],fn:[],miss:[],chats:{},open:false};
 const lsData=()=>{const d=store.get('lessons',{})||{};return{f:d.f||{},q:d.q||{},n:d.n||{}}};
 const lsNext=()=>{const f=lsData().f;return lsAll.find(l=>!f[l.id])||null};
+/* a lesson is shaded when the class has covered every practice topic it teaches (l.t, checked against TAUGHT in site/config.js) */
+const lsTaught=l=>!!(l.t&&l.t.length)&&l.t.every(x=>TAUGHT.has(x));
+const lsSw=t=>`<p class="legend"><span><span class="sw"></span>${t}</span></p>`;
 const lsQX=()=>LESSONS.xp.question,lsFX=()=>LESSONS.xp.finish;
 
 /* ---------- reading the lesson markup ---------- */
@@ -72,9 +75,9 @@ function lessonsPane(){
   const pane=$('paneLessons');if(!pane||!LS_ON)return;
   const f=lsData().f,done=lsAll.filter(l=>f[l.id]).length,next=lsNext(),pct=Math.round(100*done/lsAll.length);
   const row=l=>{const st=f[l.id]===1?'done':f[l.id]===2?'marked':l===next?'next':'';
-    return`<li><a class="lrow ${st}" href="#l/${encodeURIComponent(l.id)}"><span class="lnum">${st==='done'||st==='marked'?'✓':l.num}</span><span class="ltxt"><b>${lsInline(l.title)}</b><small>${lsInline(l.blurb)}</small></span>${st==='next'?'<span class="tag ok">Up next</span>':st==='marked'?'<span class="tag edit">Marked</span>':''}</a></li>`};
+    return`<li><a class="lrow ${st}${lsTaught(l)?' taught':''}" href="#l/${encodeURIComponent(l.id)}"><span class="lnum">${st==='done'||st==='marked'?'✓':l.num}</span><span class="ltxt"><b>${lsInline(l.title)}</b><small>${lsInline(l.blurb)}</small></span>${st==='next'?'<span class="tag ok">Up next</span>':st==='marked'?'<span class="tag edit">Marked</span>':''}</a></li>`};
   pane.innerHTML=`<div class="lstop"><div><p class="intro">Read a lesson, try its questions, and press Finish. Later lessons assume you know the earlier ones. Every question is optional.</p>
-    <p class="lsum"><b>${done}</b> of ${lsAll.length} lessons complete</p>${bar(pct,'Lessons complete')}</div>${next?`<a class="btn lgo" href="#l/${encodeURIComponent(next.id)}">${done?'Continue':'Start'}: Lesson ${next.num}</a>`:''}</div>`+
+    <p class="lsum"><b>${done}</b> of ${lsAll.length} lessons complete</p>${bar(pct,'Lessons complete')}${lsAll.some(lsTaught)?lsSw('Shaded lessons are already covered in your class notes.'):''}</div>${next?`<a class="btn lgo" href="#l/${encodeURIComponent(next.id)}">${done?'Continue':'Start'}: Lesson ${next.num}</a>`:''}</div>`+
   LESSONS.courses.map(c=>`<h2 class="lcourse">${esc(c.title)}</h2>`+c.units.map(u=>`<section class="lunit"><h3>${lsInline(u.title)}</h3><ol>${u.lessons.map(row).join('')}</ol></section>`).join('')).join('');
 }
 
@@ -84,7 +87,7 @@ function renderLesson(id){
   if(!l){pv.innerHTML=pvTop()+`<section class="pv"><h1>Lesson not found</h1><p>This lesson doesn’t exist. Open the Lessons tab to see them all.</p></section>`;pvBind();return}
   ls.cur=l;ls.fn=[];ls.spots=[];ls.miss=[];
   const next=lsAll[l.num];
-  pv.innerHTML=pvTop()+`<article class="pv lesson"><p class="lkick">Lesson ${l.num} · ${lsInline(l.unit)}</p><h1>${lsInline(l.title)}</h1><p class="lblurb">${lsInline(l.blurb)}</p><div class="lstat" id="lsTop"></div>
+  pv.innerHTML=pvTop()+`<article class="pv lesson"><p class="lkick">Lesson ${l.num} · ${lsInline(l.unit)}</p><h1>${lsInline(l.title)}</h1><p class="lblurb">${lsInline(l.blurb)}</p>${lsTaught(l)?lsSw('Covered in your class notes'):''}<div class="lstat" id="lsTop"></div>
     ${lsBlocks(l.body).map(lsBlockHTML).join('')}
     <section class="lend"><h2>Finished reading?</h2><div class="lstat" id="lsEnd"></div>${next?`<p class="hint">Next: <a href="#l/${encodeURIComponent(next.id)}">Lesson ${next.num}, ${esc(plain(next.title).replace(/\*/g,''))}</a></p>`:''}</section></article>`;
   pvBind();lsStatus();
@@ -288,6 +291,8 @@ function lessonsLeave(){if(LS_ON&&ls.cur){ls.cur=null;lsChatShow(false)}lessonsP
 function lessonsSetup(){
   if(!LS_ON)return;
   $('tabLessons').hidden=false;lessonsPane();
+  /* the fixed bar changes height as it wraps, so the list keeps exactly enough room to scroll clear of it */
+  if(window.ResizeObserver)new ResizeObserver(([e])=>{if(e.target.offsetHeight)document.documentElement.style.setProperty('--barh',e.target.offsetHeight+'px')}).observe($('bar'));
   const pv=$('pageview');
   document.addEventListener('click',e=>{const a=e.target.closest&&e.target.closest('a[href^="#l/"]');if(a)page.inside=true});
   pv.addEventListener('click',e=>{

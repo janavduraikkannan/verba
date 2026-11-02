@@ -6,7 +6,7 @@ const LESSONS={
  xp:{question:10,finish:25},
  courses:[{id:'I',title:'Latin I Honors',units:[
  {title:"Verbs: the present tense",lessons:[
-  {id:"verbs1",title:"Verbs and the 1st conjugation",blurb:"How a Latin verb tells you who is acting, and your first verb group.",
+  {id:"verbs1",title:"Verbs and the 1st conjugation",blurb:"How a Latin verb tells you who is acting, and your first verb group.",t:["pa1"],
    body:`Welcome to Latin. The first thing to know is that a Latin verb does much more work than an English verb. English needs two words to say *we* and *praise*. Latin packs both ideas into one word:
 
 : laudāmus = we praise
@@ -101,7 +101,7 @@ Without other words around it, *portat* could also mean *she carries* or *it car
      {"k":"la","p":"Write in Latin: we carry","a":["portāmus"],"w":"The 1st person plural form is *portāmus*."},
     ]},
    ]},
-  {id:"verbs2",title:"The 2nd conjugation",blurb:"A second verb family, marked by a long ē.",
+  {id:"verbs2",title:"The 2nd conjugation",blurb:"A second verb family, marked by a long ē.",t:["pa2"],
    body:`The **2nd conjugation** works almost exactly like the 1st. Its infinitive ends in **-ēre**, with a long *ē*, and that *ē* takes the place of the 1st conjugation's *ā*.
 
 : monēre, -eō = to warn
@@ -162,7 +162,7 @@ The main difference is the "I" form. The 1st conjugation loses its vowel (*laud�
      {"k":"la","p":"Write in Latin: we keep","a":["prohibēmus"],"w":"The 1st person plural form is *prohibēmus*."},
     ]},
    ]},
-  {id:"verbs3",title:"The 3rd conjugation",blurb:"The family with a short e in its infinitive and a shifting vowel.",
+  {id:"verbs3",title:"The 3rd conjugation",blurb:"The family with a short e in its infinitive and a shifting vowel.",t:["pa3"],
    body:`The **3rd conjugation** also has an infinitive in *-ere*, but the *e* is **short**. Compare them:
 
 : monēre = 2nd conjugation (long ē)
@@ -227,7 +227,7 @@ Take off the *-ere* to get the stem, *dūc-*. Unlike the first two families, thi
      {"k":"la","p":"Write in Latin: we send","a":["mittimus"],"w":"The 1st person plural form is *mittimus*."},
     ]},
    ]},
-  {id:"verbs4",title:"The 3rd -iō and 4th conjugations",blurb:"Two families that keep an i, and how to tell them apart.",
+  {id:"verbs4",title:"The 3rd -iō and 4th conjugations",blurb:"Two families that keep an i, and how to tell them apart.",t:["pa3i","pa4"],
    body:`The last two families both have an **i** right before most endings.
 
 # The 4th conjugation
@@ -307,7 +307,7 @@ Look at both the infinitive and the "I" form.
      {"k":"la","p":"Write in Latin: we notice","a":["cōnspicimus"],"w":"The 1st person plural form is *cōnspicimus*."},
     ]},
    ]},
-  {id:"compinf",title:"The complementary infinitive",blurb:"Verbs like \"wants to\" that need another verb to finish the idea.",
+  {id:"compinf",title:"The complementary infinitive",blurb:"Verbs like \"wants to\" that need another verb to finish the idea.",t:["inf"],
    body:`You already know the **infinitive**: the "to" form, such as *portāre*, to carry. Some verbs don't make sense alone and need an infinitive to complete them. In English: *I want to sail*. The second verb completes the first, so it is called a **complementary infinitive**.
 
 : Nāvigāre cupimus. = We want to sail.
@@ -356,7 +356,7 @@ Only the first verb changes for person and number. The infinitive never changes.
      {"k":"la","p":"Translate into Latin: You hope to come.","a":["Venīre spērās."],"w":"Translate the main verb first, then add the infinitive."},
     ]},
    ]},
-  {id:"prespass",title:"The present passive",blurb:"When the subject receives the action.",
+  {id:"prespass",title:"The present passive",blurb:"When the subject receives the action.",t:["ppas"],
    body:`So far every verb has been **active**: the subject does the action. In the **passive** voice, the subject receives the action.
 
 : Portō. = I carry. (active)
@@ -439,7 +439,7 @@ Watch one form. In the 3rd conjugation the "you" singular has a short **e**: *d�
      {"k":"la","p":"Write in Latin: we are guarded","a":["custōdīmur"],"w":"The 1st person plural form is *custōdīmur*."},
     ]},
    ]},
-  {id:"passinf",title:"The passive infinitive",blurb:"How to say \"to be carried\".",
+  {id:"passinf",title:"The passive infinitive",blurb:"How to say \"to be carried\".",t:["pinf"],
    body:`The passive also has an infinitive, meaning *to be ...ed*.
 
 |~ Making the passive infinitive
@@ -491,7 +491,7 @@ It works as a complementary infinitive just like an active one:
    ]},
  ]},
  {title:"Verbs: the future",lessons:[
-  {id:"fut12",title:"The future: 1st and 2nd conjugations",blurb:"Saying what will happen, with the -bi- signal.",
+  {id:"fut12",title:"The future: 1st and 2nd conjugations",blurb:"Saying what will happen, with the -bi- signal.",t:["fut"],
    body:`Latin marks the **future** tense inside the verb, where English adds the word *will*. The 1st and 2nd conjugations put a signal between the stem and the ending: usually **-bi-**.
 
 |~ portāre: future active
@@ -536,7 +536,7 @@ The pattern of the signal is *bō, bi, bi, bi, bi, bu*. It has the same shape yo
      {"k":"la","p":"Write in Latin: we will carry","a":["portābimus"],"w":"The 1st person plural form is *portābimus*."},
     ]},
    ]},
-  {id:"fut34",title:"The future: 3rd and 4th conjugations",blurb:"A different future signal, and a classic trap.",
+  {id:"fut34",title:"The future: 3rd and 4th conjugations",blurb:"A different future signal, and a classic trap.",t:["fut"],
    body:`The other families don't use *-bi-*. Their future is marked with **-a-** in the "I" form and **-ē-** everywhere else (shortened to *-e-* before *-t* and *-nt*).
 
 |~ Future active
@@ -602,7 +602,7 @@ They end the same way, but they mean different things. An *e* before the ending 
      {"k":"la","p":"Write in Latin: we will punish","a":["pūniēmus"],"w":"The 1st person plural form is *pūniēmus*."},
     ]},
    ]},
-  {id:"futpass",title:"The future passive",blurb:"Saying what will be done, in all conjugations.",
+  {id:"futpass",title:"The future passive",blurb:"Saying what will be done, in all conjugations.",t:["fpas"],
    body:`The future passive combines what you already know: the future signals and the passive endings.
 
 |~ Future passive
@@ -652,7 +652,7 @@ Translate with *will be*: *portābitur*, he will be carried.
    ]},
  ]},
  {title:"Nouns and cases",lessons:[
-  {id:"cases",title:"What is a case? The nominative",blurb:"How Latin nouns change their endings, and the case that names the subject.",
+  {id:"cases",title:"What is a case? The nominative",blurb:"How Latin nouns change their endings, and the case that names the subject.",t:["nom"],
    body:`You've spent the first lessons on verbs. Now for the other half of a sentence: nouns. This is the biggest difference between Latin and English, so take your time here.
 
 # What is a case?
@@ -779,7 +779,7 @@ English borrowed some Latin nouns along with their plurals, so you already know 
      {"k":"la","p":"Translate into Latin: The men fight.","a":["Virī pugnant."],"w":"The nominative is the subject, and the verb ending agrees with it."},
     ]},
    ]},
-  {id:"accusative",title:"The accusative: direct objects",blurb:"The case for the person or thing that receives the action.",
+  {id:"accusative",title:"The accusative: direct objects",blurb:"The case for the person or thing that receives the action.",t:["acc"],
    body:`The **accusative** marks the **direct object**: the person or thing that receives the action of the verb.
 
 : Puella rosam portat. = The girl carries a rose.
@@ -838,7 +838,7 @@ Every neuter noun looks the same in the nominative and accusative. *Dōnum* can 
      {"k":"la","p":"Translate into Latin: The girls write the stories.","a":["Puellae fābulās scrībunt."],"w":"The nominative is the subject and the accusative is the direct object."},
     ]},
    ]},
-  {id:"dative",title:"The dative: to and for",blurb:"Indirect objects, and the person an action is done for.",
+  {id:"dative",title:"The dative: to and for",blurb:"Indirect objects, and the person an action is done for.",t:["dat","datref"],
    body:`The **dative** marks someone who is interested in or affected by an action. In English you usually translate it with *to* or *for*.
 
 |~ Dative endings
@@ -895,7 +895,7 @@ The dative also names the person an action is done **for**.
      {"k":"la","p":"Translate into Latin: The boys save the horse for the friend.","a":["Puerī amīcō equum servant."],"w":"The dative is translated with to or for."},
     ]},
    ]},
-  {id:"ablative",title:"The ablative and prepositions",blurb:"A new case, and the small words that use it.",
+  {id:"ablative",title:"The ablative and prepositions",blurb:"A new case, and the small words that use it.",t:["d1","d2"],
    body:`The **ablative** tells you things like where, how and with whom something happens. You will learn its uses in later lessons. Start with its forms.
 
 |~ Ablative endings
@@ -959,7 +959,7 @@ A **preposition** is a small word placed before a noun. In Latin, each prepositi
      {"k":"la","p":"Translate into Latin: The girl sits near the house.","a":["Puella prope casam sedet."],"w":"The preposition decides the case of the noun after it."},
     ]},
    ]},
-  {id:"decl12",title:"The 1st and 2nd declensions in full",blurb:"Every ending together, including -er nouns and the genitive forms.",
+  {id:"decl12",title:"The 1st and 2nd declensions in full",blurb:"Every ending together, including -er nouns and the genitive forms.",t:["d1","d2","tricky"],
    body:`Here are all the endings together. The genitive forms are included so the chart is complete. Their uses come in a later lesson.
 
 |~ 1st and 2nd declension endings
@@ -1022,7 +1022,7 @@ One more spelling note: *dea* and *fīlia* use *-ābus* in the dative and ablati
      {"k":"mc","p":"*agrōs* is...","o":["accusative plural","dative plural","nominative plural","genitive plural"],"a":0,"w":"-ōs is accusative plural."},
     ]},
    ]},
-  {id:"agreement",title:"Noun-adjective agreement",blurb:"How adjectives match the nouns they describe.",
+  {id:"agreement",title:"Noun-adjective agreement",blurb:"How adjectives match the nouns they describe.",t:["adj12"],
    body:`An **adjective** describes a noun. In Latin it must **agree** with its noun in three ways: **gender**, **number** and **case**.
 
 Adjectives like *bonus -a -um* (good) use 2nd declension endings for masculine and neuter, and 1st declension endings for feminine.
@@ -1077,7 +1077,7 @@ In Latin the adjective usually follows its noun, but adjectives of size and numb
      {"k":"la","p":"Translate into Latin: The good friends give the girl gifts.","a":["Amīcī bonī puellae dōna dant."],"w":"Each adjective agrees with its noun in gender, number and case."},
     ]},
    ]},
-  {id:"vocative",title:"The vocative and apposition",blurb:"Calling someone by name, and renaming a noun.",
+  {id:"vocative",title:"The vocative and apposition",blurb:"Calling someone by name, and renaming a noun.",t:["voc","appos"],
    body:`# The vocative
 
 The **vocative** is used to address someone directly. It is usually set off with commas.
@@ -1133,7 +1133,7 @@ A noun in **apposition** renames another noun next to it. The two nouns are in t
      {"k":"la","p":"Translate into Latin: We praise Flavia, the queen.","a":["Flāviam, rēgīnam, laudāmus."],"w":"A vocative names the person spoken to. A noun in apposition matches the case of the noun it renames."},
     ]},
    ]},
-  {id:"ablfrom",title:"Ablative: place from which and separation",blurb:"Two uses that mean \"away from\".",
+  {id:"ablfrom",title:"Ablative: place from which and separation",blurb:"Two uses that mean \"away from\".",t:["placeFrom","sep"],
    body:`The ablative's oldest meaning is **away from**. Two uses come from this.
 
 # Place from which
@@ -1188,7 +1188,7 @@ The difference is that place from which involves real motion from a place, and s
      {"k":"la","p":"Translate into Latin: The teacher frees the students from blame.","a":["Magister discipulōs culpā līberat."],"w":"Both uses mean away from. Separation with things usually has no preposition."},
     ]},
    ]},
-  {id:"ablby",title:"Ablative: personal agent and means",blurb:"Two ways to say \"by\", one for people and one for things.",
+  {id:"ablby",title:"Ablative: personal agent and means",blurb:"Two ways to say \"by\", one for people and one for things.",t:["agent","means"],
    body:`English uses *by* or *with* for both people and things. Latin keeps them apart.
 
 # Personal agent
@@ -1236,7 +1236,7 @@ The **thing** used to do something is in the ablative with **no preposition**.
      {"k":"la","p":"Translate into Latin: The island is guarded by the sailors.","a":["Īnsula ā nautīs custōdītur."],"w":"A person with a passive verb takes ā/ab. A thing takes no preposition."},
     ]},
    ]},
-  {id:"ablwith",title:"Ablative: accompaniment, manner, place where and cause",blurb:"With whom, how, where and why.",
+  {id:"ablwith",title:"Ablative: accompaniment, manner, place where and cause",blurb:"With whom, how, where and why.",t:["accomp","manner","placeWhere","cause"],
    body:`Four more uses complete the ablative for this course.
 
 |~ Four uses
@@ -1290,7 +1290,7 @@ With plural town names, Latin uses the ablative alone: *Athēnīs*, in Athens. S
      {"k":"la","p":"Translate into Latin: He lives at Rome.","a":["Rōmae habitat."],"w":"Cum with a person is accompaniment, cum with an abstract noun is manner, in with a place is place where, and a noun with no preposition giving the reason is cause."},
     ]},
    ]},
-  {id:"placeto",title:"Accusative: place to which, and towns",blurb:"Going to places, with and without a preposition.",
+  {id:"placeto",title:"Accusative: place to which, and towns",blurb:"Going to places, with and without a preposition.",t:["placeTo","town"],
    body:`Motion toward a place uses the accusative, usually with *ad* (to) or *in* (into).
 
 : ad cavernam ambulat = she walks to the cave
@@ -1341,7 +1341,7 @@ With names of towns and small islands, Latin drops the preposition.
    ]},
  ]},
  {title:"Sentence patterns",lessons:[
-  {id:"questions",title:"Questions: -ne and quis",blurb:"Asking yes or no questions, and asking who.",
+  {id:"questions",title:"Questions: -ne and quis",blurb:"Asking yes or no questions, and asking who.",t:["ques"],
    body:`# Yes or no questions
 
 Latin turns a statement into a question by attaching **-ne** to the first word. The *-ne* isn't translated. It works like a spoken question mark.
@@ -1390,7 +1390,7 @@ Don't add *-ne* to a question that already has a question word.
      {"k":"la","p":"Translate into Latin: Who writes the story?","a":["Quis fābulam scrībit?"],"w":"-ne marks a yes or no question and quis asks who."},
     ]},
    ]},
-  {id:"andque",title:"And: et and -que",blurb:"Two ways to join words.",
+  {id:"andque",title:"And: et and -que",blurb:"Two ways to join words.",t:["conj"],
    body:`Latin has two common ways to say *and*.
 
 **Et** goes between the two words, just like English.
@@ -1435,7 +1435,7 @@ The two mean the same thing here. When you see *-que*, translate *and* before th
      {"k":"la","p":"Translate into Latin: The man and the woman sail.","a":["Vir fēminaque nāvigant."],"w":"et goes between the words, and -que attaches to the second word. Both mean and."},
     ]},
    ]},
-  {id:"gapping",title:"Gapping",blurb:"When Latin leaves a word out and expects you to fill it in.",
+  {id:"gapping",title:"Gapping",blurb:"When Latin leaves a word out and expects you to fill it in.",t:["gap"],
    body:`**Gapping** means leaving out a word that can be understood from the rest of the sentence. A verb is the usual word to go. The verb appears once and is shared by two clauses.
 
 : Puella rosam, puer librum portat. = The girl carries a rose, the boy a book.
@@ -1477,7 +1477,7 @@ The verb can sit in either clause.
      {"k":"la","p":"Translate into Latin: The master gives a gift to the son, the queen to the daughter.","a":["Dominus fīliō, rēgīna fīliae dōnum dat."],"w":"One verb is shared by both clauses."},
     ]},
    ]},
-  {id:"adverbs",title:"Adverbs in -ē",blurb:"Words that describe how an action is done.",
+  {id:"adverbs",title:"Adverbs in -ē",blurb:"Words that describe how an action is done.",t:["adv"],
    body:`An **adverb** describes a verb, and it often answers *how*. In English many adverbs end in *-ly*. In Latin, adjectives like *laetus -a -um* form an adverb by adding **-ē** to the stem.
 
 |~ Adjectives and adverbs
@@ -1525,7 +1525,7 @@ Some adverbs aren't formed from adjectives at all: *saepe* (often), *semper* (al
      {"k":"la","p":"Translate into Latin: He comes today.","a":["Hodiē venit."],"w":"An adverb describes the verb and never changes form."},
     ]},
    ]},
-  {id:"conditions",title:"Open conditions",blurb:"If this happens, then that happens.",
+  {id:"conditions",title:"Open conditions",blurb:"If this happens, then that happens.",t:["pcond","fcond"],
    body:`A **condition** has two parts: the *if* clause, starting with **sī**, and the main clause that gives the result. An **open** condition leaves the question open: it may or may not be true.
 
 # Present
@@ -1575,7 +1575,7 @@ Latin is more exact than English here. English uses a present verb in the *if* c
      {"k":"la","p":"Translate into Latin: If we see the friend, we will praise.","a":["Sī amīcum vidēbimus, laudābimus."],"w":"Sī means if. In a future condition, both Latin verbs are future, but the if clause is usually a present in English."},
     ]},
    ]},
-  {id:"indstat",title:"Indirect statement",blurb:"Reporting what someone says, thinks or sees.",
+  {id:"indstat",title:"Indirect statement",blurb:"Reporting what someone says, thinks or sees.",t:["indst"],
    body:`A **direct statement** gives the exact words: *The girl is working.* An **indirect statement** reports them after a verb of saying, thinking, knowing or perceiving: *He says that the girl is working.*
 
 Latin doesn't use a word for *that*. It turns the reported sentence into two pieces.
@@ -1636,7 +1636,7 @@ Use a passive infinitive for a passive reported verb.
    ]},
  ]},
  {title:"The genitive",lessons:[
-  {id:"genposs",title:"The genitive of possession",blurb:"Showing whose something is, and telling -ae apart.",
+  {id:"genposs",title:"The genitive of possession",blurb:"Showing whose something is, and telling -ae apart.",t:["gen","gendat"],
    body:`The **genitive** connects one noun to another. Its main meaning is *of*, or *'s*.
 
 |~ Genitive endings
@@ -1688,7 +1688,7 @@ If a noun needs an owner, try genitive. If a verb needs someone to receive somet
      {"k":"la","p":"Translate into Latin: We read the boys’ letters.","a":["Epistulās puerōrum legimus."],"w":"The genitive shows whose something is: of, or ’s."},
     ]},
    ]},
-  {id:"genpart",title:"The partitive genitive",blurb:"A part taken from a whole.",
+  {id:"genpart",title:"The partitive genitive",blurb:"A part taken from a whole.",t:["genpart"],
    body:`The **partitive genitive** names the whole that a part comes from.
 
 : multī nautārum = many of the sailors
@@ -1730,7 +1730,7 @@ The two mean the same, so *multī nautārum* and *multī ex nautīs* are interch
      {"k":"la","p":"Translate into Latin: Few of the sailors stay.","a":["Paucī ex nautīs manent."],"w":"The genitive, or ex with the ablative, names the whole."},
     ]},
    ]},
-  {id:"gensubj",title:"Subjective, objective and material genitives",blurb:"Three more jobs for the genitive.",
+  {id:"gensubj",title:"Subjective, objective and material genitives",blurb:"Three more jobs for the genitive.",t:["genso","genmat"],
    body:`# Subjective and objective
 
 Some nouns contain the idea of an action, like *cūra* (care) or *gaudium* (joy). A genitive with such a noun can show who **does** that action or who **receives** it.
@@ -1780,7 +1780,7 @@ The **genitive of material** tells what something is made of.
    ]},
  ]},
  {title:"The past and commands",lessons:[
-  {id:"impf",title:"The continuous past (imperfect) active",blurb:"What was happening, or used to happen.",
+  {id:"impf",title:"The continuous past (imperfect) active",blurb:"What was happening, or used to happen.",t:["impf"],
    body:`The **imperfect**, or continuous past, describes an action in the past that was going on or kept happening. Its signal is **-bā-**.
 
 |~ Imperfect active endings
@@ -1833,7 +1833,7 @@ Translate with *was ...ing*, *were ...ing* or *used to*.
      {"k":"la","p":"Write in Latin: we were guarding","a":["custōdiēbāmus"],"w":"The 1st person plural form is *custōdiēbāmus*."},
     ]},
    ]},
-  {id:"impfpass",title:"The continuous past passive",blurb:"What was being done.",
+  {id:"impfpass",title:"The continuous past passive",blurb:"What was being done.",t:["ipas"],
    body:`The imperfect passive keeps the same vowels and uses passive endings after *-bā-*.
 
 |~ Imperfect passive endings
@@ -1877,7 +1877,7 @@ The *a* is short before *-r* and *-ntur*, so *portābar* but *portābāris*.
      {"k":"la","p":"Write in Latin: we were being guarded","a":["custōdiēbāmur"],"w":"The 1st person plural form is *custōdiēbāmur*."},
     ]},
    ]},
-  {id:"indstat2",title:"Indirect statement II",blurb:"Reported speech after a past verb.",
+  {id:"indstat2",title:"Indirect statement II",blurb:"Reported speech after a past verb.",t:["indst2"],
    body:`When the main verb is past, a present infinitive still means something happening **at the same time** as that verb. In English, this becomes a past verb.
 
 : Dīcit puellam labōrāre. = He says that the girl is working.
@@ -1917,7 +1917,7 @@ The Latin infinitive didn't change, and only the main verb did. English shifts t
      {"k":"la","p":"Translate into Latin: They were saying that the girl was being praised.","a":["Dīcēbant puellam laudārī."],"w":"A present infinitive after a past main verb is translated as a past action at the same time."},
     ]},
    ]},
-  {id:"imperative",title:"The imperative",blurb:"Giving commands.",
+  {id:"imperative",title:"The imperative",blurb:"Giving commands.",t:["imp"],
    body:`The **imperative** gives a command. It has singular and plural forms, in the active and the passive.
 
 |~ Imperative forms
@@ -1968,7 +1968,7 @@ In poetry you may see **nē** with an imperative as a negative command: *Nē tim
      {"k":"la","p":"Translate into Latin: See the temple!","a":["Vidēte templum!"],"w":"Singular commands drop -re, and plural commands end in -te or -ite."},
     ]},
    ]},
-  {id:"medsum",title:"medius and summus",blurb:"Adjectives that mean \"the middle of\" and \"the top of\".",
+  {id:"medsum",title:"medius and summus",blurb:"Adjectives that mean \"the middle of\" and \"the top of\".",t:["medsum"],
    body:`*Medius -a -um* and *summus -a -um* are adjectives, so they agree with their nouns. English often translates them with *of*.
 
 : media silva = the middle of the forest
@@ -1996,7 +1996,7 @@ The Latin doesn't use a genitive here, even though English says *of*. Read *in m
    ]},
  ]},
  {title:"Finishing Latin I",lessons:[
-  {id:"sum",title:"sum: the verb \"to be\"",blurb:"The most common irregular verb, and the predicate nominative.",
+  {id:"sum",title:"sum: the verb \"to be\"",blurb:"The most common irregular verb, and the predicate nominative.",t:["sum"],
    body:`*Esse*, to be, is irregular, so learn its forms by heart.
 
 |~ esse, to be
@@ -2044,7 +2044,7 @@ An adjective after *esse* agrees with the subject.
      {"k":"la","p":"Translate into Latin: The women will be angry.","a":["Fēminae īrātae erunt."],"w":"esse links the subject to a nominative word."},
     ]},
    ]},
-  {id:"possum",title:"possum: to be able",blurb:"esse with a prefix, and a verb that needs an infinitive.",
+  {id:"possum",title:"possum: to be able",blurb:"esse with a prefix, and a verb that needs an infinitive.",t:["sum"],
    body:`*Possum* means *I am able* or *I can*. It is *pot-* plus *esse*. The *t* becomes *s* before another *s*.
 
 |~ posse, to be able
@@ -2091,7 +2091,7 @@ An adjective after *esse* agrees with the subject.
      {"k":"la","p":"Translate into Latin: The boys can hear.","a":["Puerī audīre possunt."],"w":"possum is translated can or be able, with an infinitive."},
     ]},
    ]},
-  {id:"perfect",title:"The perfect active",blurb:"What happened and is finished.",
+  {id:"perfect",title:"The perfect active",blurb:"What happened and is finished.",t:["perf"],
    body:`The **perfect** tells about a completed action. It has its own stem, so dictionaries give it as the third principal part.
 
 : laudō, laudāre, laudāvī = praise
@@ -2155,7 +2155,7 @@ Perfect stems often can't be guessed, so learn them with each verb. *Videō, vid
      {"k":"la","p":"Write in Latin: we conquered","a":["vīcimus"],"w":"The 1st person plural form is *vīcimus*."},
     ]},
    ]},
-  {id:"decl3",title:"The 3rd declension",blurb:"A new noun group with a stem you find in the genitive.",
+  {id:"decl3",title:"The 3rd declension",blurb:"A new noun group with a stem you find in the genitive.",t:["d3"],
    body:`The **3rd declension** has masculine, feminine and neuter nouns. You can't predict the stem from the nominative, so always use the genitive: drop *-is* to find the stem.
 
 : rēx, rēgis, m. = king (stem rēg-)
@@ -2202,7 +2202,7 @@ Some nouns, called **i-stems**, have *-ium* in the genitive plural, such as *hos
      {"k":"la","p":"Translate into Latin: The mothers work for the sons.","a":["Mātrēs fīliīs labōrant."],"w":"Find the stem from the genitive, then read the ending for the case."},
     ]},
    ]},
-  {id:"pronouns",title:"Personal pronouns",blurb:"I, you, we and you all, in every case.",
+  {id:"pronouns",title:"Personal pronouns",blurb:"I, you, we and you all, in every case.",t:[],
    body:`Personal pronouns stand in for people. Latin only uses them in the nominative for emphasis, since the verb ending already shows the subject.
 
 |~ Personal pronouns
