@@ -59,7 +59,7 @@ const HTML={
 };
 /* ---------- courses and topics ---------- */
 const LEVELS=[['I','Latin I Honors'],['II','Latin II Honors'],['III','Latin III Honors'],['AP','AP Latin']];
-const TAUGHT=new Set('esse d3 imp medsum impf ipas indst2 gen gendat genpart genso genmat cause nom acc placeTo dat datref placeFrom sep means accomp manner placeWhere agent town voc appos d1 d2 adj12 tricky adv pa1 pa2 pa3 pa3i pa4 ppas fut fpas inf pinf ques conj gap indst pcond fcond'.split(' '));
+const TAUGHT=new Set('esse imp medsum impf ipas indst2 gen gendat genpart genso genmat cause nom acc placeTo dat datref placeFrom sep means accomp manner placeWhere agent town voc appos d1 d2 adj12 tricky adv pa1 pa2 pa3 pa3i pa4 ppas fut fpas inf pinf ques conj gap indst pcond fcond'.split(' '));
 const COURSE={I:'Latin I Honors',II:'Latin II Honors',III:'Latin III Honors',AP:'AP Latin'};
 const COURSES=[['','Not set'],['I','Latin I Honors'],['I+','Latin I Honors – completed'],['II','Latin II Honors'],['II+','Latin II Honors – completed'],['III','Latin III Honors'],['III+','Latin III Honors – completed'],['AP','AP Latin'],['AP+','AP Latin – completed']];
 const COURSE_SHORT={I:'Latin I',II:'Latin II',III:'Latin III',AP:'AP Latin'};
