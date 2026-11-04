@@ -107,6 +107,9 @@ vir,-ī,vir,2r,m,man,men,p
 ager,agrī,agr,2r,m,field,fields,l
 magister,-trī,magistr,2r,m,teacher,teachers,p
 liber,librī,libr,2r,m,book,books,w
+gener,generī,gener,2r,m,son-in-law,sons-in-law,p
+sīgnifer,sīgniferī,sīgnifer,2r,m,standard-bearer,standard-bearers,p
+cancer,cancrī,cancr,2r,m,crab,crabs,a
 dōnum,-ī,dōn,2n,n,gift,gifts,t
 oppidum,-ī,oppid,2n,n,town,towns,c
 templum,-ī,templ,2n,n,temple,temples,c
@@ -139,7 +142,14 @@ spēs,speī,sp,5,f,hope,hopes,x,S`.split('\n').map(l=>{const[nom,gen,stem,d,g,e,
 const ALLN=[...NOUNS];let LIMIT=false;
 const nn=x=>ALLN.find(n=>n.nom===x);
 const PEOPLE=NOUNS.filter(n=>n.tag==='p');
-function setLimit(on){LIMIT=on;NOUNS.length=0;NOUNS.push(...ALLN.filter(n=>!on||'12'.includes(n.d[0])));PEOPLE.length=0;PEOPLE.push(...NOUNS.filter(n=>n.tag==='p'));}
+/* -er/-ir second declension (puer, ager, vir) and -er adjectives only appear when chosen */
+let ER=false,ER_LOCK=false;
+function applyNounFilter(){NOUNS.length=0;NOUNS.push(...ALLN.filter(n=>(!LIMIT||'12'.includes(n.d[0]))&&(ER||n.d!=='2r')));PEOPLE.length=0;PEOPLE.push(...NOUNS.filter(n=>n.tag==='p'));if(typeof ALLADJ!=='undefined'){ADJ.length=0;ADJ.push(...ALLADJ.filter(a=>ER||!isErAdj(a)))}}
+function setLimit(on){LIMIT=on;applyNounFilter();}
+function setEr(on){ER=!!on;applyNounFilter();}
+const erGlobal=()=>typeof document!=='undefined'&&!!(document.getElementById('ermode')||{}).checked;
+/* entry points choose whether -er words are allowed; calls made inside them keep that choice */
+function withEr(on,fn){if(ER_LOCK)return fn();setEr(on||erGlobal());ER_LOCK=true;try{return fn()}finally{ER_LOCK=false}}
 const have=names=>names.map(nn).filter(n=>NOUNS.includes(n));
 function nf(n,c,k){
   if(c===5){ if(k===0&&n.d==='2') return n.stem.endsWith('i')?n.stem.slice(0,-1)+'ī':n.stem+'e'; c=0; }
@@ -362,6 +372,8 @@ fessus|fess|12|tired|p|more tired|most tired
 novus|nov|12|new|t|newer|newest
 pulcher|pulchr|12|beautiful|pt|more beautiful|most beautiful|pulchrē|beautifully
 miser|miser|12|wretched|p|more wretched|most wretched|miserē|wretchedly
+līber|līber|12|free|p|freer|freest|līberē|freely
+aeger|aegr|12|sick|p|sicker|sickest
 maestus|maest|12|sad|p|sadder|saddest|maestē|sadly
 avārus|avār|12|greedy|p|greedier|greediest|avārē|greedily
 saevus|saev|12|fierce|pt|fiercer|fiercest|saevē|fiercely
@@ -398,6 +410,9 @@ function cf(a,deg,c,k,g){
   return(ir?ir[2]:a.stem+'iōr')+(k===0?['','is','ī','em','e'][c]:[neu?'a':'ēs','um','ibus',neu?'a':'ēs','ibus'][c]);
 }
 function CMP(a,deg,c,k,g){return{la:cf(a,deg,c,k,g),lemma:a.nom,cids:[deg],concept:`${deg==='comp'?'comparative':'superlative'}, ${CASES[c]} ${NUM[k]} ${GN[g]}`,forms:allA((c,k,g)=>cf(a,deg,c,k,g)),vocab:adjV(a)}}
+const isErAdj=a=>a.ty==='12'&&/er$/.test(a.nom);
+const ALLADJ=[...ADJ];
+const ERWORDS=()=>new Set([...ALLN.filter(n=>n.d==='2r').map(n=>n.nom),...ALLADJ.filter(isErAdj).map(a=>a.nom)]);
 const adjFor=(n,types)=>R((LIMIT&&types.includes('12')?(types=['12']):0,ADJ).filter(a=>types.includes(a.ty)&&a.tags.includes('pag'.includes(n.tag)?'p':'t')));
 const adjForOld=(n,types)=>R(ADJ.filter(a=>types.includes(a.ty)&&a.tags.includes('pag'.includes(n.tag)?'p':'t')));
 
@@ -469,13 +484,24 @@ function gPred(){
   return S([N(s,0,k,'nom'),SUMT(t,p),N(pr,0,k,'pred')],`${np(s,k)} ${be(t,p)} ${k?pr.ep:artE(pr.e)}`);
 }
 function gDecl(d){
-  const n=R(ALLN.filter(x=>(x.d[0]>'3'?'45':x.d[0])===d&&!'nzxm'.includes(x.tag)));let s;
+  const n=R(ALLN.filter(x=>(x.d[0]>'3'?'45':x.d[0])===d&&!'nzxm'.includes(x.tag)&&(ER||x.d!=='2r')));return gNoun(n)}
+function gNoun(n){let s;
   if(n.tag==='p'){const m=R(['s','o','io','gen','cum']);
     s=m==='s'?gTrans({subj:n}):m==='o'?gTrans({obj:n}):m==='io'?gTrans({dat:1,io:n}):m==='gen'?gTrans({gen:1,genN:n}):gPrep({noun:n});}
   else s=('lc'.includes(n.tag)&&chance(.5))||n.tag==='g'&&chance(.4)?gPrep({noun:n}):gTrans({obj:n});
   s.focus=s.tokens.find(t=>t.lemma===n.nom&&t.cids);return s;
 }
 const modA=(a,cids)=>(c,k,g)=>({tok:A(a,c,k,g,cids),adj:a.e});
+/* from the notes "When Second-Declension Nouns Don't End in -us": puer keeps its e, ager loses it, vir; -er adjectives; vocative = nominative */
+function gEr(){
+  const nouns=ALLN.filter(x=>x.d==='2r'&&NOUNS.includes(x)),adjs=ADJ.filter(a=>isErAdj(a)&&a.tags.includes('p')),m=R(['noun','noun','noun','adj','adj','voc']);
+  if(m==='adj'&&adjs.length){const a=R(adjs),s=chance(.5)?gTrans({subj:R(PEOPLE),modS:modA(a,['er'])}):gTrans({pool:TV.filter(v=>v.obj.includes('p')),obj:R(PEOPLE),modO:modA(a,['er'])});s.focus=s.tokens.find(t=>t.lemma===a.nom);return s}
+  if(m==='voc'){const ppl=nouns.filter(x=>x.tag==='p');
+    for(let i=0;i<20&&ppl.length;i++){const q=B('imp',['voc']),vt=q.tokens.find(t=>t.isVoc);if(!vt)continue;
+      const k=/plural/.test(vt.concept)?1:0,n=R(ppl),nt=N(n,5,k,'voc');nt.post=',';nt.isVoc=1;const old=q.en.split(',')[0],ne=k?n.ep:n.e;
+      q.tokens[q.tokens.indexOf(vt)]=nt;q.en=q.en.replace(old,ne);q.enAlt=(q.enAlt||[]).map(e=>e.replace(old,ne));q.display=latinOf(q.tokens,{ne:q.ne});q.focus=nt;return q}}
+  return gNoun(R(nouns));
+}
 function gAdj(types,cid,tricky){
   const n=tricky?R(NOUNS.filter(x=>x.tricky)):chance(.75)?R(PEOPLE):R(NOUNS.filter(x=>!x.sgOnly));
   const a=adjFor(n,types)||adjFor(R(PEOPLE),types),cids=tricky?['tricky','adj12']:[cid];
@@ -742,12 +768,12 @@ const NOBUILD=new Set(['nūntiāre','comperīre','dīcere','putāre','scīre','r
 const INTO=['silva','caverna','hortus','ager','oppidum','casa','taberna','templum','vīlla'];
 const FIXADV=[['hodiē','today'],['saepe','often'],['semper','always'],['nunc','now']];
 const ING_ALL=[
- ['adj','Adjective agreement','Nouns and adjectives'],['tricky','Nouns that look like a different gender','Nouns and adjectives'],['appos','Apposition','Nouns and adjectives'],['que','et and -que','Nouns and adjectives'],['adv','Adverbs','Nouns and adjectives'],['medsum','medius and summus (middle of, top of)','Nouns and adjectives'],
+ ['adj','Adjective agreement','Nouns and adjectives'],['tricky','Nouns that look like a different gender','Nouns and adjectives'],['appos','Apposition','Nouns and adjectives'],['que','et and -que','Nouns and adjectives'],['adv','Adverbs','Nouns and adjectives'],['medsum','medius and summus (middle of, top of)','Nouns and adjectives'],['er','2nd declension -er/-ir nouns and -er adjectives','Nouns and adjectives'],
  ['dat','Dative: indirect object (to)','Cases'],['datref','Dative of reference (for)','Cases'],['placeTo','Accusative of place to which','Cases'],['placeWhere','Ablative of place where','Cases'],['placeFrom','Ablative of place from which','Cases'],['town','Towns and small islands (no preposition)','Cases'],['sep','Ablative of separation','Cases'],['means','Ablative of means','Cases'],['accomp','Ablative of accompaniment (cum)','Cases'],['manner','Ablative of manner (cum)','Cases'],['agent','Ablative of personal agent','Cases'],['voc','Vocative','Cases'],['cause','Ablative of cause','Cases'],
  ['genposs','Genitive of possession','Genitive'],['genpart','Partitive genitive','Genitive'],['genso','Subjective or objective genitive','Genitive'],['genmat','Genitive of material','Genitive'],
  ['pass','Passive voice','Verbs'],['fut','Future tense','Verbs'],['impf','Continuous past (imperfect)','Verbs']];
 const FRAMES=[['stmt','Plain statement'],['ne','Yes or no question (-ne)'],['quis','Question with quis'],['ci','Complementary infinitive'],['is','Indirect statement'],['condP','Open condition: present'],['condF','Open condition: future'],['gap','Gapping'],['imp','Command (imperative)']];
-const FRAME_ONLY={gap:['adj','tricky','adv','fut','impf','pass','agent'],condP:null,condF:null};
+const FRAME_ONLY={gap:['adj','tricky','adv','fut','impf','pass','agent','er'],condP:null,condF:null};
 const FRAME_NOT={condP:['fut','impf'],condF:['fut','impf'],gap:[],imp:['fut','impf','genso']};
 const ingName=id=>(ING_ALL.find(x=>x[0]===id)||[0,id])[1];
 const npE=(n,k,adj)=>n.tag==='n'||n.tag==='z'?n.e:n.tag==='x'?(adj?adj+' ':'')+n.e:'the '+(adj?adj+' ':'')+(k?n.ep:n.e);
@@ -795,6 +821,7 @@ function bClause0(set,o={}){
   for(const[x,w]of[['genso','genso'],['genmat','mat'],['genpart','part'],['genposs','gen']])if(set.has(x)&&!where[w])missing.push(x);
   function mk(s,c,cid){
     let pool=poolFor(s);if(where.tricky===s)pool=pool.filter(n=>n.tricky);
+    if(set.has('er')&&chance(.6)){const e=pool.filter(n=>n.d==='2r');if(e.length)pool=e}
     if(where.que===s&&s==='s')pool=pool.filter(n=>!n.sgOnly);
     if(!pool.length||(where.que===s&&poolFor(s).length<2))throw 'EMPTY';
     let toks,en,k;
@@ -822,7 +849,7 @@ function bClause0(set,o={}){
       toks=[N(nm,c,0,cid),N(ap,c,0,'appos')];toks[1].concept+=' (appositive)';en=`${nm.e}, ${npE(ap,0)},`;k=0;
     }else{
       const n=R(pool);used.push(n);k=o.k!=null&&s==='s'&&!n.sgOnly?o.k:kOf(n);toks=[N(n,c,k,cid)];let aE='';
-      if(where.adj===s||where.tricky===s){const a=adjFor(n,['12']);if(a){toks.push(A(a,c,k,n.g,[n.tricky?'tricky':'adj12']));aE=a.e;}}
+      if(where.adj===s||where.tricky===s){const ea=set.has('er')&&chance(.6)?ADJ.filter(x=>isErAdj(x)&&x.tags.includes('pag'.includes(n.tag)?'p':'t')):[],a=ea.length?R(ea):adjFor(n,['12']);if(a){toks.push(A(a,c,k,n.g,[n.tricky?'tricky':'adj12']));aE=a.e;}}
       en=npE(n,k,aE);
       if(where.gen===s){
         const g=R(PEOPLE.filter(x=>!used.includes(x)&&(!set.has('gdat')||(x.d==='1'&&!x.pl))));if(!g)throw 'EMPTY';used.push(g);
@@ -894,6 +921,7 @@ function bClause0(set,o={}){
       if(n&&'lct'.includes(n.tag)){const d=medsumDeco(n,3);O0.toks.unshift(d.tok);O0.en=d.phrase;ALT.push([d.phrase,...d.alts]);ok=true}}
     if(!ok)missing.push('medsum');
   }
+  if(set.has('er')){const W_=ERWORDS(),all=[...(S0?S0.toks:[]),...(O0?O0.toks:[]),...adjs.flatMap(a=>a.toks)];if(!all.some(t=>W_.has(t.lemma)))missing.push('er')}
   return{v,vc,t,p,sE,S0,O0,adjs,advT,advE,verbT,missing,objE:O0?O0.en:'',restE:[O0?O0.en:'',...adjs.map(a=>a.en)].filter(Boolean).join(' ')};
 }
 /* English: put the adverb at the end, after the subject, or first */
@@ -1020,7 +1048,7 @@ function B(frame,ings,must){
 }
 const fitsFrame=(f,x)=>{const only=FRAME_ONLY[f],not=FRAME_NOT[f]||[];return(!only||only.includes(x))&&!not.includes(x)};
 /* focus: every sentence uses at least one focus item (a main type or an inside item); everything else comes only from what is selected */
-function makeBuilt(frames,ings,per,focus){
+function makeBuilt0(frames,ings,per,focus){
   const fF=[...frames].filter(f=>focus&&focus.has(f)),fI=[...ings].filter(x=>focus&&focus.has(x));
   const none=!fF.length&&!fI.length,hit=q=>none||!!q.built&&(fF.includes(q.built[0])||q.built.slice(1).some(x=>fI.includes(x)));
   let q=null;
@@ -1067,6 +1095,7 @@ const TOPICS=[
 ['genmat','I','Genitive','Genitive of material',()=>B('stmt',['genmat'])],
 ['d1','I','Nouns and adjectives','1st declension',()=>gDecl('1')],
 ['d2','I','Nouns and adjectives','2nd declension',()=>gDecl('2')],
+['d2er','I','Nouns and adjectives','2nd declension -er and -ir (puer, ager, vir)',gEr],
 ['adj12','I','Nouns and adjectives','Noun-adjective agreement',()=>B('stmt',['adj'])],
 ['tricky','I','Nouns and adjectives','Nouns that look like a different gender',()=>B('stmt',['tricky'])],
 ['adv','I','Nouns and adjectives','Adverbs',()=>B('stmt',['adv'])],
@@ -1135,9 +1164,9 @@ const TOPICS=[
 /* how each topic maps onto the sentence builder, so a focus topic can be mixed with other selected topics */
 const TOPIC_PLAN={placeTo:{ing:['placeTo']},dat:{ing:['dat']},datref:{ing:['datref']},placeFrom:{ing:['placeFrom']},sep:{ing:['sep']},means:{ing:['means']},accomp:{ing:['accomp']},manner:{ing:['manner']},placeWhere:{ing:['placeWhere']},agent:{ing:['agent']},town:{ing:['town']},voc:{ing:['voc']},appos:{ing:['appos']},cause:{ing:['cause']},
  gen:{ing:['genposs']},gendat:{ing:['genposs','gdat']},genpart:{ing:['genpart']},genso:{ing:['genso']},genmat:{ing:['genmat']},adj12:{ing:['adj']},tricky:{ing:['tricky']},adv:{ing:['adv']},conj:{ing:['que']},fut:{ing:['fut']},ppas:{ing:['pass']},fpas:{ing:['pass','fut']},
- inf:{frame:'ci'},pinf:{frame:'ci',ing:['pass']},ques:{frame:'ne|quis'},gap:{frame:'gap'},indst:{frame:'is'},imp:{frame:'imp'},medsum:{ing:['medsum']},indst2:{frame:'is',ing:['impf']},impf:{ing:['impf']},ipas:{ing:['pass','impf']},pcond:{frame:'condP'},fcond:{frame:'condF'}};
+ inf:{frame:'ci'},pinf:{frame:'ci',ing:['pass']},ques:{frame:'ne|quis'},gap:{frame:'gap'},indst:{frame:'is'},d2er:{ing:['er']},imp:{frame:'imp'},medsum:{ing:['medsum']},indst2:{frame:'is',ing:['impf']},impf:{ing:['impf']},ipas:{ing:['pass','impf']},pcond:{frame:'condP'},fcond:{frame:'condF'}};
 /* every sentence is about one focus topic; other selected topics may join in */
-function makeFocused(selected,focus){
+function makeFocused0(selected,focus){
   const foc=[...focus].filter(x=>selected.has(x));if(!foc.length)return makeQuestion(selected,false);
   const fid=R(foc),ft=TOPICS.find(t=>t.id===fid),plan=TOPIC_PLAN[fid];
   const extras=[...selected].filter(x=>x!==fid&&TOPIC_PLAN[x]&&TOPIC_PLAN[x].ing&&!TOPIC_PLAN[x].frame);
@@ -1153,7 +1182,7 @@ function makeFocused(selected,focus){
   }
   return makeQuestion(new Set([fid]),false);
 }
-function makeQuestion(selected,mixed){
+function makeQuestion0(selected,mixed){
   ALT=[];const pickId=R([...selected]),topic=TOPICS.find(t=>t.id===pickId),q=topic.gen();q.alts=ALT;
   q.topic=topic;if(q.choice)return q;
   const can=q.tokens.filter(t=>t.cids&&t.cids.includes(topic.id));
@@ -1201,4 +1230,8 @@ function gradeEnglish(q,input){
   }
   return{ok:false};
 }
-if(typeof module!=='undefined')module.exports={setLimit,makeBuilt,makeFocused,TOPIC_PLAN,FRAME_ONLY,FRAME_NOT,B,FRAMES,ING_ALL,latinOf,TOPICS,makeQuestion,grade,gradeLatin,gradeEnglish,NOUNS,VERBS,ADJ,nf,vf,af,cf};
+function makeQuestion(selected,mixed){return withEr(selected.has('d2er'),()=>makeQuestion0(selected,mixed))}
+function makeFocused(selected,focus){return withEr(selected.has('d2er'),()=>makeFocused0(selected,focus))}
+function makeBuilt(frames,ings,per,focus){return withEr(ings.has('er'),()=>makeBuilt0(frames,ings,per,focus))}
+setEr(false);
+if(typeof module!=='undefined')module.exports={setEr,setLimit,makeBuilt,makeFocused,TOPIC_PLAN,FRAME_ONLY,FRAME_NOT,B,FRAMES,ING_ALL,latinOf,TOPICS,makeQuestion,grade,gradeLatin,gradeEnglish,NOUNS,VERBS,ADJ,nf,vf,af,cf};

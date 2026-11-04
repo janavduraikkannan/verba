@@ -53,7 +53,8 @@ function pickXC(qq){
   const pref=qq.topic&&ID_TOPIC[qq.topic.id],a=c.find(t=>TY(t.cids[0])===pref);if(a)return a;
   const nonAcc=c.filter(t=>TY(t.cids[0])!=='acc');return R(nonAcc.length?nonAcc:c);
 }
-function makeIdentify(){
+function makeIdentify(){return withEr(tab==='build'?bIngs.has('er'):tab==='uses'?false:selected.has('d2er'),makeIdentify0)}
+function makeIdentify0(){
   const fb=[...bFocus].filter(x=>TYPES[x]),ft=[...tFocus].map(t=>ID_TOPIC[t]).filter(Boolean);
   let types=tab==='uses'?[...uSel]:tab==='build'?(fb.length?fb:[...bIngs].filter(x=>TYPES[x])):(ft.length?ft:[...selected].map(t=>ID_TOPIC[t]).filter(Boolean));
   if(!types.length)types=Object.keys(TYPES);
@@ -91,3 +92,7 @@ function vocabWords(v){
   const enW=en.split(/[;,]/)[0].replace(/\([^)]*\)/g,'').replace(/\s+/g,' ').trim()||en;
   return{la:laW,en:enW};
 }
+
+/* the -er/-ir option in the bottom bar is remembered on this browser */
+(function(){const c=document.getElementById('ermode');if(!c)return;try{c.checked=localStorage.getItem('verba-er')==='1'}catch(e){}
+  c.addEventListener('change',()=>{try{localStorage.setItem('verba-er',c.checked?'1':'')}catch(e){}})})();
