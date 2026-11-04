@@ -53,15 +53,15 @@ const say=(a)=>a[0];
 const pick=(n,a)=>{const o=[];for(let i=0;o.length<n;i++)o.push(a[i%a.length]);return o};
 function parseQs(verbs,tense,voice,ends){ /* person and number, multiple choice */
   return pick(10,verbs).map((inf,i)=>{const v=vb(inf),p=[0,3,5,1,4,2,3,1,5,0][i],f=G.vf(v,tense,voice,p);
-    return{k:'mc',p:`What person and number is *${f}*?`,o:PL.slice(),a:p,w:`The ending of *${f}* means ${MEAN[p]}, so it is ${PL[p]}.`}});
+    return{lem:[v.inf],k:'mc',p:`What person and number is *${f}*?`,o:PL.slice(),a:p,w:`The ending of *${f}* means ${MEAN[p]}, so it is ${PL[p]}.`}});
 }
 function enQs(verbs,tense,voice){
   return pick(10,verbs).map((inf,i)=>{const v=vb(inf),p=[2,5,0,3,1,4,5,2,3,0][i],f=G.vf(v,tense,voice,p),a=enPerson(v.e,tense,voice,p);
-    return{k:'en',p:`Translate into English: *${f}*`,a,w:`*${f}* is ${PL[p]}, so it means “${a[0]}.”`}});
+    return{lem:[v.inf],k:'en',p:`Translate into English: *${f}*`,a,w:`*${f}* is ${PL[p]}, so it means “${a[0]}.”`}});
 }
 function laQs(verbs,tense,voice){
   return pick(10,verbs).map((inf,i)=>{const v=vb(inf),p=[3,0,2,5,4,1,0,5,2,3][i],f=G.vf(v,tense,voice,p),e=enPerson(v.e,tense,voice,p)[0];
-    return{k:'la',p:`Write in Latin: ${p===4?e.replace(/^you/,'you all'):p===1?e.replace(/^you/,'you (one person)'):e}`,a:[f],w:`The ${PL[p]} form is *${f}*.`}});
+    return{lem:[v.inf],k:'la',p:`Write in Latin: ${p===4?e.replace(/^you/,'you all'):p===1?e.replace(/^you/,'you (one person)'):e}`,a:[f],w:`The ${PL[p]} form is *${f}*.`}});
 }
 /* a list of [Latin, English] sentences: odd ones Latin to English, even ones English to Latin */
 function tr(skill,list,note,opt={}){
@@ -85,5 +85,5 @@ const spot=(s,b)=>{if(b.length!==10)throw new Error(`${s}: ${b.length}`);return{
 const CASE=['nominative','genitive','dative','accusative','ablative','vocative'];
 /* write a noun form: [nominative, case number, 0 singular or 1 plural] */
 function nq(skill,list){if(list.length!==10)throw new Error(skill);return{s:skill,b:list.map(([nom,c,k])=>{const n=nn(nom),f=G.nf(n,c,k);
-  return{k:'la',p:`Write the ${CASE[c]} ${k?'plural':'singular'} of *${nom}*.`,a:[f],w:`The ${CASE[c]} ${k?'plural':'singular'} of *${nom}* is *${f}*.`,...(/ā$/.test(f)?{m:1}:{})}})}}
+  return{lem:[nom],k:'la',p:`Write the ${CASE[c]} ${k?'plural':'singular'} of *${nom}*.`,a:[f],w:`The ${CASE[c]} ${k?'plural':'singular'} of *${nom}* is *${f}*.`,...(/ā$/.test(f)?{m:1}:{})}})}}
 module.exports={nq,G,vb,nn,PL,MEAN,tr,mc,ty,spot,parseQs,enQs,laQs,enPerson,expand,firstOf,Cap,pick,CASE};

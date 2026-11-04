@@ -1,5 +1,5 @@
 /* Builds site/lessons.js from the parts here, then checks it. Run from the verba folder: node tools/lessons/make.js */
-const fs=require('fs'),path=require('path');
+const fs=require('fs'),path=require('path');const{gloss,stats}=require('./gloss.js');
 const parts=fs.readdirSync(__dirname).filter(f=>/^p\d.*\.js$/.test(f)).sort();
 const units=parts.flatMap(f=>{const m=require('./'+f);return Array.isArray(m)?m:[m]});
 /* which practice topics each lesson teaches: a lesson is shaded as class-taught when every one of its topics is in TAUGHT (site/config.js) */
@@ -15,7 +15,7 @@ for(const u of units){
   for(const l of u.lessons){
     const body=l.body.trim().replace(/\\/g,'\\\\').replace(/`/g,'\\`').replace(/\$\{/g,'\\${');
     out.push(`  {id:${JSON.stringify(l.id)},title:${JSON.stringify(l.title)},blurb:${JSON.stringify(l.blurb)},t:${JSON.stringify((TOPICS[l.id]||'').split(' ').filter(Boolean))},\n   body:\`${body}\`,\n   q:[\n`);
-    for(const s of l.q){out.push(`    {s:${JSON.stringify(s.s)},b:[\n`);for(const q of s.b){const{sv,...c}=q;out.push('     '+JSON.stringify(c)+',\n')}out.push('    ]},\n')}
+    for(const s of l.q){out.push(`    {s:${JSON.stringify(s.s)},b:[\n`);for(const q of s.b){const{sv,lem,...c}=q;const g=gloss(q);if(g.length)c.g=g;out.push('     '+JSON.stringify(c)+',\n')}out.push('    ]},\n')}
     out.push('   ]},\n');
   }
   out.push(' ]},\n');
@@ -24,3 +24,6 @@ out.push(']}]\n};\n');
 fs.writeFileSync(path.join(__dirname,'../../site/lessons.js'),out.join(''));
 const ls=units.flatMap(u=>u.lessons);
 console.log(units.length,'units',ls.length,'lessons',ls.reduce((n,l)=>n+l.q.length,0),'spots',ls.reduce((n,l)=>n+l.q.reduce((m,s)=>m+s.b.length,0),0),'questions',Math.round(fs.statSync(path.join(__dirname,'../../site/lessons.js')).size/1024)+'KB');
+
+const u=Object.entries(stats.unknown);if(u.length)console.log('no gloss for:',u.map(([w,n])=>w+'×'+n).join(' '));
+const a=Object.entries(stats.ambig);if(a.length)console.log('two meanings shown:\n'+a.map(([w,h])=>'  '+w+': '+h.join(' / ')).join('\n'));

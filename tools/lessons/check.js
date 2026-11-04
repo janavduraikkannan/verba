@@ -28,6 +28,10 @@ for(const c of LESSONS.courses)for(const u of c.units)for(const l of u.lessons){
       else{if(!Array.isArray(q.a)||!q.a.length)E('answers '+q.p);if(q.k==='la')q.a.forEach(a=>a.split(/[\s,.;:!?]+/).forEach(w=>w&&word(w,l.id+'.'+k+' ans')))}
     })});
 }
+{const all=LESSONS.courses.flatMap(c=>c.units.flatMap(u=>u.lessons.flatMap(l=>l.q.flatMap(s=>s.b.map(q=>[l.id,q])))));
+ const none=all.filter(([,q])=>/\*[^*]+\*/.test(q.p)&&!(q.g&&q.g.length));
+ console.log(all.filter(([,q])=>q.g&&q.g.length).length,'questions have word meanings;',none.length,'Latin questions have none:');none.slice(0,30).forEach(([id,q])=>console.log('  ',id,q.p));
+ all.forEach(([id,q])=>{(q.g||[]).forEach(([w])=>{if(q.k!=='mc'&&q.a.some(a=>a.normalize('NFC').toLowerCase()===w.split(/[, ]/)[0].toLowerCase())&&q.p.indexOf('*'+w.split(/[, ]/)[0])<0&&!q.p.includes(w.split(/[, ]/)[0]))E(id+' gloss gives the answer: '+q.p)})})}
 console.log(n,'questions checked,',errs,'errors');
 const k=Object.keys(bad).sort();console.log(k.length,'words not recognised:');k.forEach(w=>console.log(' ',w,[...bad[w]].slice(0,3).join(' ')));
 process.exit(errs?1:0);

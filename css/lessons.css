@@ -54,6 +54,10 @@
 .lqhead{display:flex;flex-wrap:wrap;gap:4px 12px;justify-content:space-between;align-items:baseline}
 .lqhead b{font-family:var(--display);font-size:1.05rem;color:var(--accent2)}
 .lqp{margin:8px 0 10px;font-size:1.06rem}
+.lqg{display:flex;flex-wrap:wrap;gap:6px 8px;margin:0 0 12px}
+.lqg>div{display:flex;flex-wrap:wrap;gap:0 7px;align-items:baseline;background:var(--wash);box-shadow:inset 3px 0 var(--accent2);border-radius:6px;padding:3px 10px 3px 12px}
+.lqg dt{font-family:var(--latin);font-size:1.02rem;font-weight:700}
+.lqg dd{margin:0;color:var(--muted);font-size:.92rem}
 .lqrow{display:flex;gap:10px;flex-wrap:wrap}
 .lqin{flex:1 1 220px;min-width:0;background:var(--wash);border:1.5px solid var(--line);border-radius:10px;padding:9px 12px}
 .lqin.la{font-family:var(--latin);font-size:1.1rem}

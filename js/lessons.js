@@ -11,7 +11,7 @@
 
    A question is {k,p,a,w}: k is mc (multiple choice: o holds the options, a the index of the right one), la (typed Latin),
    en (typed English) or tx (a short typed answer). a lists every accepted answer, p is the prompt, w is the written explanation.
-   m:1 means macrons decide the answer. ord:1 means Latin word order matters. */
+   m:1 means macrons decide the answer. ord:1 means Latin word order matters. g lists the words the question uses, as [word, meaning] pairs. */
 const LS_ON=typeof LESSONS!=='undefined'&&!!(LESSONS.courses&&LESSONS.courses.length);
 const lsAll=LS_ON?LESSONS.courses.flatMap(c=>c.units.flatMap(u=>u.lessons.map(l=>Object.assign(l,{unit:u.title,course:c.id})))):[];
 lsAll.forEach((l,i)=>{l.num=i+1});
@@ -123,11 +123,12 @@ function lsDrawUsed(s){
   s.el.innerHTML=lsHead(s)+`<p class="lqp">You’ve used all ${s.b.b.length} written questions here.</p><div class="lqbtns"><button type="button" class="btn quiet" data-a="new">New question</button></div><div class="lqfb" aria-live="polite"></div>`;
 }
 const lsShuffle=a=>{a=[...a];for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a};
+const lsWordsBox=c=>c.g&&c.g.length?`<dl class="lqg" aria-label="Word meanings">${c.g.map(([w,m])=>`<div><dt>${esc(w)}</dt><dd>${esc(m)}</dd></div>`).join('')}</dl>`:'';
 function lsDraw(s){
   const c=s.cur;s.done=false;s.seen.push(c.p);
   const input=c.k==='mc'?`<div class="choices">${lsShuffle(c.o.map((t,i)=>[t,i])).map(([t,i])=>`<button type="button" data-o="${i}">${lsInline(t)}</button>`).join('')}</div>`
     :`<div class="lqrow"><input type="text" class="lqin${c.k==='la'?' la':''}" autocomplete="off" autocapitalize="off" spellcheck="false" aria-label="Your answer" placeholder="${c.k==='en'?'Type it in English':c.k==='la'?`Type it in ${LANG_NAME}`:'Type your answer'}"><button type="button" class="btn" data-a="check">Check</button></div>${c.k==='en'?'':`<div class="macrons" aria-label="${esc(HTML.macLabel)}">${LS_MARKS().map(m=>`<button type="button" data-m="${m}">${m}</button>`).join('')}</div>`}`;
-  s.el.innerHTML=lsHead(s)+`<p class="lqp">${lsInline(c.p)}</p>${input}<div class="lqfb" aria-live="polite"></div><div class="lqbtns" hidden><button type="button" class="btn quiet" data-a="new">New question</button></div>`;
+  s.el.innerHTML=lsHead(s)+`<p class="lqp">${lsInline(c.p)}</p>${lsWordsBox(c)}${input}<div class="lqfb" aria-live="polite"></div><div class="lqbtns" hidden><button type="button" class="btn quiet" data-a="new">New question</button></div>`;
 }
 /* the buttons that insert letters come from the site's own bar, so each language keeps its own letters */
 const LS_MARKS=()=>[...$('macrons').querySelectorAll('button')].map(b=>b.textContent);
@@ -208,20 +209,20 @@ async function lsAskGrade(s,answer){
   return{correct:j.correct===true,reply:String(j.reply||''),older:typeof j.older==='string'?j.older.trim():null,mood:MOODS[j.mood]?j.mood:'sad',latin:cleanG(j.latin)};
 }
 async function lsAskNew(s){
-  const l=s.l,ex=lsShuffle(s.b.b).slice(0,3).map(({k,p,o,a,w})=>({k,p:lsPlain(p),o,a,w:lsPlain(w)}));
+  const l=s.l,ex=lsShuffle(s.b.b).slice(0,3).map(({k,p,o,a,w,g})=>({k,p:lsPlain(p),o,a,w:lsPlain(w),g}));
   const sys=`You write one new practice question for a ${LANG_NAME} lesson for English-speaking high school students. `+LS_TRUTH+
     "The question must test the skill given, use only grammar from this lesson and the earlier ones, and use common vocabulary from the examples. Every form must be correct: if you cannot be sure of a form, choose a different word. Do not repeat a question already asked. "+
-    "Use the same kind of question as one of the examples. k is \"mc\" (options in \"o\", \"a\" is the index of the right option), \"la\" (typed Latin), \"en\" (typed English) or \"tx\" (a short typed answer); for la, en and tx, \"a\" is a list of every accepted answer. \"w\" is one sentence explaining the answer using this lesson. Write Latin in the prompt between single asterisks, like *puella*, with macrons. Reply only with JSON: {\"k\":\"\",\"p\":\"\",\"o\":[],\"a\":null,\"w\":\"\"}.";
+    "Use the same kind of question as one of the examples. k is \"mc\" (options in \"o\", \"a\" is the index of the right option), \"la\" (typed Latin), \"en\" (typed English) or \"tx\" (a short typed answer); for la, en and tx, \"a\" is a list of every accepted answer. \"w\" is one sentence explaining the answer using this lesson. \"g\" lists every Latin word the question uses as [dictionary entry, English meaning] pairs, as in the examples, with correct macrons; leave out a word only if listing it would give away the answer. Write Latin in the prompt between single asterisks, like *puella*, with macrons. Reply only with JSON: {\"k\":\"\",\"p\":\"\",\"o\":[],\"a\":null,\"w\":\"\",\"g\":[[\"\",\"\"]]}.";
   const user=`${lsBase(l)}\n\nSkill to test: ${s.b.s}\nExamples: ${JSON.stringify(ex)}\nAlready asked, do not repeat:\n${s.seen.slice(-12).map(lsPlain).join('\n')}`;
   const j=parseJ(await aiChat([{role:'system',content:sys},{role:'user',content:user}]));
   return lsValid(j);
 }
 function lsValid(j){
-  const k=j&&j.k,p=j&&typeof j.p==='string'?j.p.trim():'',w=j&&typeof j.w==='string'?j.w.trim():'';
+  const k=j&&j.k,p=j&&typeof j.p==='string'?j.p.trim():'',w=j&&typeof j.w==='string'?j.w.trim():'',g=(Array.isArray(j&&j.g)?j.g:[]).filter(x=>Array.isArray(x)&&x.length===2&&x.every(y=>typeof y==='string'&&y.trim())).slice(0,12);
   if(!p||!w||!['mc','la','en','tx'].includes(k))throw new Error('the AI wrote an unusable question');
-  if(k==='mc'){const o=Array.isArray(j.o)?j.o.map(String).filter(Boolean):[],a=Number(j.a);if(o.length<2||o.length>6||!Number.isInteger(a)||a<0||a>=o.length||new Set(o).size!==o.length)throw new Error('the AI wrote an unusable question');return{k,p,o,a,w,ai:true}}
+  if(k==='mc'){const o=Array.isArray(j.o)?j.o.map(String).filter(Boolean):[],a=Number(j.a);if(o.length<2||o.length>6||!Number.isInteger(a)||a<0||a>=o.length||new Set(o).size!==o.length)throw new Error('the AI wrote an unusable question');return{k,p,o,a,w,g,ai:true}}
   const a=(Array.isArray(j.a)?j.a:[j.a]).filter(x=>typeof x==='string'&&x.trim()).map(x=>x.trim());
-  if(!a.length)throw new Error('the AI wrote an unusable question');return{k,p,a,w,ai:true};
+  if(!a.length)throw new Error('the AI wrote an unusable question');return{k,p,a,w,g,ai:true};
 }
 async function lsNew(s){
   if(s.busy)return;

@@ -74,7 +74,7 @@ Verba is a static website hosted on GitHub Pages. There is no Verba server and n
 | `media/` | The key tutorial video, its captions and poster |
 | `tools/felix.py` | The script that draws Fēlix |
 | `tools/sync_shared.py` | Copies the shared files (everything outside `site/`) from Verba to Palabras, Mots and Wörter; `--check` only reports differences. Change shared code here, then run it |
-| `tools/lessons/` | Writes `site/lessons.js`: `node tools/lessons/make.js` builds it from the lesson parts here, with verb and noun forms from the engine, and `node tools/lessons/check.js` checks every question and Latin word. |
+| `tools/lessons/` | Writes `site/lessons.js`: `node tools/lessons/make.js` builds it from the lesson parts here, with verb and noun forms from the engine and each question's word meanings from `gloss.js`, and `node tools/lessons/check.js` checks every question and Latin word. |
 | `unused/` | Older artwork and resources, kept on purpose but not used by the site |
 
 ## Privacy
