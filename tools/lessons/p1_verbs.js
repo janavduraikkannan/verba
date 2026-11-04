@@ -1,10 +1,11 @@
 const {tr,mc,ty,spot,parseQs,enQs,laQs}=require('./lib.js');
-const a1=['laudāre','portāre','vocāre','spectāre','amāre','servāre','superāre','parāre'];
-const a2=['vidēre','monēre','tenēre','terrēre','docēre','dēlēre','timēre','manēre','sedēre','prohibēre'];
-const a3=['dūcere','mittere','scrībere','legere','vincere','dēfendere','regere','relinquere'];
-const a3i=['capere','iacere','accipere','cōnspicere','interficere'];
-const a4=['audīre','custōdīre','invenīre','pūnīre','impedīre','mūnīre'];
-const mix=[...a1.slice(0,2),...a2.slice(0,2),...a3.slice(0,2),...a3i.slice(0,2),...a4.slice(0,2)];
+/* question verbs are never the ones a lesson conjugates in its own tables */
+const a1=['vocāre','spectāre','amāre','servāre','superāre','parāre','mōnstrāre','dōnāre','narrāre','līberāre'];
+const a2=['tenēre','terrēre','docēre','dēlēre','timēre','manēre','sedēre','prohibēre'];
+const a3=['mittere','scrībere','legere','vincere','dēfendere','regere','relinquere','petere'];
+const a3i=['iacere','accipere','cōnspicere','interficere','cupere'];
+const a4=['custōdīre','invenīre','pūnīre','impedīre','mūnīre'];
+const mix=['vocāre','spectāre','terrēre','tenēre','mittere','regere','iacere','accipere','custōdīre','pūnīre'];
 module.exports={title:'Verbs: the present tense',lessons:[
 {id:'verbs1',title:'Verbs and the 1st conjugation',blurb:'How a Latin verb tells you who is acting, and your first verb group.',body:`
 Welcome to Latin. The first thing to know is that a Latin verb does much more work than an English verb. English needs two words to say *we* and *praise*. Latin packs both ideas into one word:
@@ -198,18 +199,18 @@ Only the first verb changes for person and number. The infinitive never changes.
 
 ?2
 `,q:[mc('Pick out the complementary infinitive or finite verb in a short sentence',[
-['In *Nāvigāre cupimus*, which word is the infinitive?','*nāvigāre*',['*cupimus*','Both','Neither'],'-āre marks the infinitive; *cupimus* has a personal ending.'],
+['In *Currere cupimus*, which word is the infinitive?','*currere*',['*cupimus*','Both','Neither'],'-āre marks the infinitive; *cupimus* has a personal ending.'],
 ['In *Ambulāre solent*, which word tells you who acts?','*solent*',['*ambulāre*','Both','Neither'],'-nt means they, and infinitives have no personal ending.'],
 ['In *Audīre dēbēmus*, who ought to listen?','we',['I','you','they'],'*dēbēmus* ends in -mus, we.'],
 ['In *Currere cupis*, who wants to run?','you (one person)',['we','they','you (more than one person)'],'*cupis* ends in -s.'],
-['In *Scrībere solet*, what does the word *scrībere* do?','It completes the verb *solet*',['It says who is writing','It is the subject','It tells when'],'A complementary infinitive completes the main verb.'],
+['In *Scrībere cupit*, what does the word *scrībere* do?','It completes the verb *cupit*',['It says who is writing','It is the subject','It tells when'],'A complementary infinitive completes the main verb.'],
 ['Which word changes when the subject changes in *Dormīre cupiō*?','*cupiō*',['*dormīre*','Both','Neither'],'Only the main verb has personal endings.'],
 ['How do you say "they ought to work"?','*Labōrāre dēbent*',['*Labōrant dēbēre*','*Labōrāre dēbet*','*Labōrāmus dēbēre*'],'-nt on the main verb, and the infinitive stays the same.'],
 ['How do you say "we hope to sail"?','*Nāvigāre spērāmus*',['*Nāvigāmus spērāre*','*Nāvigāre spērant*','*Nāvigat spērāmus*'],'The main verb takes -mus, and *nāvigāre* stays an infinitive.'],
 ['What does *solēmus* add to *Ambulāre solēmus*?','We usually walk',['We walk alone','We want to walk','We ought to walk'],'*solēre* with an infinitive means to usually do something.'],
-['What does *dēbēre* mean with an infinitive?','ought, should',['to want','to hope','to be used to'],'With an infinitive, *dēbēre* means ought or should.']]),
+['*Scrībere dēbēs* means...','You ought to write.',['You want to write.','You usually write.','You hope to write.'],'With an infinitive, *dēbēre* means ought or should.']]),
 tr('Translate a sentence with a complementary infinitive',[
-['Nāvigāre cupimus.','We <want:p> to sail.'],['Ambulāre solent.','They usually walk.'],['Dormīre dēbēs.','You [ought to|should] sleep.'],['Labōrāre spērō.','I hope to work.'],['Currere cupiunt.','They <want:p> to run.'],['Audīre dēbētis.','You [ought to|should] listen.'],['Scrībere solet.','[He|She] usually writes.'],['Manēre cupit.','[He|She] <want> to stay.'],['Pugnāre dēbēmus.','We [ought to|should] fight.'],['Venīre spērās.','You hope to come.']],'Translate the main verb first, then add the infinitive.')]},
+['Labōrāre cupimus.','We <want:p> to work.'],['Ambulāre solent.','They usually walk.'],['Scrībere dēbēs.','You [ought to|should] write.'],['Labōrāre spērō.','I hope to work.'],['Currere cupiunt.','They <want:p> to run.'],['Audīre dēbētis.','You [ought to|should] listen.'],['Scrībere solet.','[He|She] usually writes.'],['Manēre cupit.','[He|She] <want> to stay.'],['Pugnāre dēbēmus.','We [ought to|should] fight.'],['Venīre spērās.','You hope to come.']],'Translate the main verb first, then add the infinitive.')]},
 
 {id:'prespass',title:'The present passive',blurb:'When the subject receives the action.',body:`
 So far every verb has been **active**: the subject does the action. In the **passive** voice, the subject receives the action.
@@ -256,7 +257,7 @@ Watch one form. In the 3rd conjugation the "you" singular has a short **e**: *d�
 ?2
 
 ?3
-`,q:[spot('Identify the person and number of a present passive verb',parseQs(['laudāre','monēre','dūcere','capere','audīre','portāre','vidēre','mittere','iacere','custōdīre'],'pres','pass')),spot('Translate a present passive verb into English',enQs(mix,'pres','pass')),spot('Write a present passive verb in Latin from English',laQs(mix,'pres','pass'))]},
+`,q:[spot('Identify the person and number of a present passive verb',parseQs(mix,'pres','pass')),spot('Translate a present passive verb into English',enQs(mix,'pres','pass')),spot('Write a present passive verb in Latin from English',laQs(mix,'pres','pass'))]},
 
 {id:'passinf',title:'The passive infinitive',blurb:'How to say "to be carried".',body:`
 The passive also has an infinitive, meaning *to be ...ed*.
@@ -283,7 +284,7 @@ It works as a complementary infinitive just like an active one:
 
 ?2
 `,q:[ty('Write the passive infinitive of a verb',[
-['Write the passive infinitive of *portāre*.','portārī','In the 1st conjugation, -āre becomes -ārī.'],['Write the passive infinitive of *dūcere*.','dūcī','In the 3rd conjugation, -ere becomes -ī.'],['Write the passive infinitive of *monēre*.','monērī','In the 2nd conjugation, -ēre becomes -ērī.'],['Write the passive infinitive of *capere*.','capī','In the 3rd -iō conjugation, -ere becomes -ī.'],['Write the passive infinitive of *audīre*.','audīrī','In the 4th conjugation, -īre becomes -īrī.'],['Write the passive infinitive of *vocāre*.','vocārī','In the 1st conjugation, -āre becomes -ārī.'],['Write the passive infinitive of *mittere*.','mittī','In the 3rd conjugation, -ere becomes -ī.'],['Write the passive infinitive of *vidēre*.','vidērī','In the 2nd conjugation, -ēre becomes -ērī.'],['Write the passive infinitive of *iacere*.','iacī','In the 3rd -iō conjugation, -ere becomes -ī.'],['Write the passive infinitive of *custōdīre*.','custōdīrī','In the 4th conjugation, -īre becomes -īrī.']],'la'),
+['Write the passive infinitive of *amāre*.','amārī','In the 1st conjugation, -āre becomes -ārī.'],['Write the passive infinitive of *regere*.','regī','In the 3rd conjugation, -ere becomes -ī.'],['Write the passive infinitive of *docēre*.','docērī','In the 2nd conjugation, -ēre becomes -ērī.'],['Write the passive infinitive of *accipere*.','accipī','In the 3rd -iō conjugation, -ere becomes -ī.'],['Write the passive infinitive of *pūnīre*.','pūnīrī','In the 4th conjugation, -īre becomes -īrī.'],['Write the passive infinitive of *vocāre*.','vocārī','In the 1st conjugation, -āre becomes -ārī.'],['Write the passive infinitive of *mittere*.','mittī','In the 3rd conjugation, -ere becomes -ī.'],['Write the passive infinitive of *vidēre*.','vidērī','In the 2nd conjugation, -ēre becomes -ērī.'],['Write the passive infinitive of *iacere*.','iacī','In the 3rd -iō conjugation, -ere becomes -ī.'],['Write the passive infinitive of *custōdīre*.','custōdīrī','In the 4th conjugation, -īre becomes -īrī.']],'la'),
 tr('Translate a complementary passive infinitive sentence',[
-['Laudārī cupit.','[He|She] <want> to be praised.'],['Monērī dēbēmus.','We [ought to|should] be warned.'],['Audīrī spērant.','They hope to be heard.'],['Vidērī cupiō.','I <want:p> to be seen.'],['Servārī spērāmus.','We hope to be saved.'],['Vocārī dēbēs.','You [ought to|should] be called.'],['Dūcī cupiunt.','They <want:p> to be led.'],['Pūnīrī dēbent.','They [ought to|should] be punished.'],['Portārī solet.','[He|She] is usually carried.'],['Dēfendī spērō.','I hope to be defended.']],'The main verb has the personal ending, and the passive infinitive adds "to be ...ed".')]},
+['Amārī cupit.','[He|She] <want> to be loved.'],['Docērī dēbēmus.','We [ought to|should] be taught.'],['Invenīrī spērant.','They hope to be found.'],['Vidērī cupiō.','I <want:p> to be seen.'],['Servārī spērāmus.','We hope to be saved.'],['Vocārī dēbēs.','You [ought to|should] be called.'],['Dūcī cupiunt.','They <want:p> to be led.'],['Pūnīrī dēbent.','They [ought to|should] be punished.'],['Portārī solet.','[He|She] is usually carried.'],['Dēfendī spērō.','I hope to be defended.']],'The main verb has the personal ending, and the passive infinitive adds "to be ...ed".')]},
 ]};

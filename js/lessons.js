@@ -67,6 +67,10 @@ function lsBlockHTML(b){
   return'';
 }
 const lsPlain=s=>String(s).replace(/\^\{([^{}|]+)\|([^{}]+)\}/g,'$1 ($2)').replace(LW,'$1').replace(/\*\*|\*|\[\[|\]\]/g,'').replace(/^\?\d+$/gm,'').replace(/^(\|~ |[#>!:-]+ ?)/gm,'').replace(/\n{3,}/g,'\n\n').trim();
+/* true when a question's answer is printed in its own lesson; tools/lessons/check.js holds the written questions to the same rule */
+const lsFold=s=>' '+String(s).normalize('NFC').toLowerCase().replace(LW,'$1').replace(/\[\[|\]\]|\*/g,'').replace(/[^\p{L}\p{M}]+/gu,' ').trim()+' ';
+function lsInLesson(l,c){const body=lsFold(l.body),segs=t=>[...String(t).matchAll(/\*([^*]+)\*/g)].map(m=>m[1]);
+  return(c.k==='la'?[c.a[0]]:c.k==='en'?segs(c.p):c.k==='mc'?segs(c.o[c.a]):[]).some(x=>{const n=lsFold(x);return n.trim()&&body.includes(n)})}
 const lsContext=l=>lsPlain(l.body).slice(0,9000);
 const lsEarlier=l=>lsAll.slice(0,l.num-1).map(x=>`${x.id}: ${x.title}`).join('\n')||'(this is the first lesson)';
 
@@ -86,24 +90,35 @@ function renderLesson(id){
   const l=LS_ON?lsById(id):null,pv=$('pageview');
   if(!l){pv.innerHTML=pvTop()+`<section class="pv"><h1>Lesson not found</h1><p>This lesson doesn’t exist. Open the Lessons tab to see them all.</p></section>`;pvBind();return}
   ls.cur=l;ls.fn=[];ls.spots=[];ls.miss=[];
-  const next=lsAll[l.num];
   pv.innerHTML=pvTop()+`<article class="pv lesson"><p class="lkick">Lesson ${l.num} · ${lsInline(l.unit)}</p><h1>${lsInline(l.title)}</h1><p class="lblurb">${lsInline(l.blurb)}</p>${lsTaught(l)?lsSw('Covered in your class notes'):''}<div class="lstat" id="lsTop"></div>
     ${lsBlocks(l.body).map(lsBlockHTML).join('')}
-    <section class="lend"><h2>Finished reading?</h2><div class="lstat" id="lsEnd"></div>${next?`<p class="hint">Next: <a href="#l/${encodeURIComponent(next.id)}">Lesson ${next.num}, ${esc(plain(next.title).replace(/\*/g,''))}</a></p>`:''}</section></article>`;
+    <section class="lend"><h2>Finished reading?</h2><div class="lstat" id="lsEnd"></div>${lsNav(l)}</section></article>`;
   pvBind();lsStatus();
   pv.querySelectorAll('.lq').forEach(el=>lsSpot(el,l,+el.dataset.q));
   lsChatShow(true);
 }
+function lsNav(l){const next=lsAll[l.num];
+  return`<div class="lnav"><button type="button" class="btn quiet" data-ls="practice">To practice</button>${next?`<a class="btn" href="#l/${encodeURIComponent(next.id)}">Next lesson: ${esc(lsPlain(next.title))} →</a>`:''}</div>`}
+/* To practice: everything the class has covered is ticked, plus this lesson, and this lesson's topics are put in focus */
+function lsPractice(l){
+  const focus=(l.t||[]).filter(id=>TOPICS.some(t=>t.id===id)),ids=TOPICS.filter(t=>TAUGHT.has(t.id)).map(t=>t.id);
+  selected.clear();[...ids,...focus].forEach(id=>selected.add(id));tFocus.clear();focus.forEach(id=>tFocus.add(id));
+  store.set('topics',[...selected]);store.set('tFocus',focus);
+  history.replaceState(null,'',location.pathname+location.search);route();
+  $('tabTopics').click();refreshFromStore();tryStart();
+}
 function lsStatus(){
   const l=ls.cur;if(!l)return;
   const st=lsData().f[l.id];
-  const top=st===1?'<span class="tag ok">Completed</span>':st===2?'<span class="tag edit">Marked complete</span> <button type="button" class="kbtn" data-ls="unmark">Unmark</button>':'<button type="button" class="kbtn" data-ls="mark">Mark complete (no XP)</button>';
+  const go='<button type="button" class="kbtn" data-ls="practice">To practice</button> ';
+  const top=go+(st===1?'<span class="tag ok">Completed</span>':st===2?'<span class="tag edit">Marked complete</span> <button type="button" class="kbtn" data-ls="unmark">Unmark</button>':'<button type="button" class="kbtn" data-ls="mark">Mark complete (no XP)</button>');
   const end=st===1?'<p class="lfin"><span class="tag ok">Completed</span> You’ve finished this lesson.</p>':`<button type="button" class="btn" data-ls="finish">Finish lesson (+${lsFX()} XP)</button>`+(st===2?' <button type="button" class="kbtn" data-ls="unmark">Unmark</button>':' <button type="button" class="kbtn" data-ls="mark">Mark complete (no XP)</button>');
   $('lsTop').innerHTML=top;$('lsEnd').innerHTML=end;
 }
 function lsEdit(fn){const d=lsData();fn(d);store.set('lessons',d)}
 function lsAct(a,btn){
   const l=ls.cur;if(!l)return;
+  if(a==='practice'){lsPractice(l);return}
   if(a==='mark')lsEdit(d=>{d.f[l.id]=2});
   else if(a==='unmark')lsEdit(d=>{if(d.f[l.id]===2)delete d.f[l.id]});
   else if(a==='finish'){if(lsData().f[l.id]===1)return;lsEdit(d=>{d.f[l.id]=1});award(1,lsFX(),btn);boom(false);toast('fish',`Lesson ${l.num} complete! ${TXT.wellDone}!`)}
@@ -211,7 +226,7 @@ async function lsAskGrade(s,answer){
 async function lsAskNew(s){
   const l=s.l,ex=lsShuffle(s.b.b).slice(0,3).map(({k,p,o,a,w,g})=>({k,p:lsPlain(p),o,a,w:lsPlain(w),g}));
   const sys=`You write one new practice question for a ${LANG_NAME} lesson for English-speaking high school students. `+LS_TRUTH+
-    "The question must test the skill given, use only grammar from this lesson and the earlier ones, and use common vocabulary from the examples. Every form must be correct: if you cannot be sure of a form, choose a different word. Do not repeat a question already asked. "+
+    "The question must test the skill given, use only grammar from this lesson and the earlier ones, and use common vocabulary from the examples. Every form must be correct: if you cannot be sure of a form, choose a different word. Do not repeat a question already asked. Never use a sentence, phrase or word form that is printed in the lesson text: choose different words, so the student can't copy the answer from the lesson. "+
     "Use the same kind of question as one of the examples. k is \"mc\" (options in \"o\", \"a\" is the index of the right option), \"la\" (typed Latin), \"en\" (typed English) or \"tx\" (a short typed answer); for la, en and tx, \"a\" is a list of every accepted answer. \"w\" is one sentence explaining the answer using this lesson. \"g\" lists every Latin word the question uses as [dictionary entry, English meaning] pairs, as in the examples, with correct macrons; leave out a word only if listing it would give away the answer. Write Latin in the prompt between single asterisks, like *puella*, with macrons. Reply only with JSON: {\"k\":\"\",\"p\":\"\",\"o\":[],\"a\":null,\"w\":\"\",\"g\":[[\"\",\"\"]]}.";
   const user=`${lsBase(l)}\n\nSkill to test: ${s.b.s}\nExamples: ${JSON.stringify(ex)}\nAlready asked, do not repeat:\n${s.seen.slice(-12).map(lsPlain).join('\n')}`;
   const j=parseJ(await aiChat([{role:'system',content:sys},{role:'user',content:user}]));
@@ -235,7 +250,9 @@ async function lsNew(s){
   }
   s.busy=true;const btn=s.el.querySelector('[data-a=new]');if(btn)btn.disabled=true;
   if(fb)fb.innerHTML=`<div class="lqres">${lsBubble('thinking',`<i>${latH(R(THINKING))}</i><span class="typing"><i></i><i></i><i></i></span>`)}</div>`;
-  try{const c=await lsAskNew(s);s.busy=false;if(!document.body.contains(s.el))return;s.cur=c;lsDraw(s);lsFocus(s)}
+  try{let c=null;for(let i=0;i<3&&!c;i++){const t=await lsAskNew(s);if(!lsInLesson(s.l,t))c=t}
+    if(!c)throw new Error('its questions were already answered in the lesson');
+    s.busy=false;if(!document.body.contains(s.el))return;s.cur=c;lsDraw(s);lsFocus(s)}
   catch(e){s.busy=false;if(btn)btn.disabled=false;if(fb)fb.innerHTML=`<p class="hint">${esc(SITE.cat)} couldn’t write a question (${esc(e.message||'the AI could not be reached')}). <button type="button" class="kbtn" data-a="again">Start the written ones again</button></p>`}
 }
 const lsFocus=s=>{const i=s.el.querySelector('input');if(i)i.focus({preventScroll:true})};

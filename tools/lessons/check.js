@@ -32,6 +32,7 @@ for(const c of LESSONS.courses)for(const u of c.units)for(const l of u.lessons){
  const none=all.filter(([,q])=>/\*[^*]+\*/.test(q.p)&&!(q.g&&q.g.length));
  console.log(all.filter(([,q])=>q.g&&q.g.length).length,'questions have word meanings;',none.length,'Latin questions have none:');none.slice(0,30).forEach(([id,q])=>console.log('  ',id,q.p));
  all.forEach(([id,q])=>{(q.g||[]).forEach(([w])=>{if(q.k!=='mc'&&q.a.some(a=>a.normalize('NFC').toLowerCase()===w.split(/[, ]/)[0].toLowerCase())&&q.p.indexOf('*'+w.split(/[, ]/)[0])<0&&!q.p.includes(w.split(/[, ]/)[0]))E(id+' gloss gives the answer: '+q.p)})})}
+{const{hits}=require('./overlap.js');for(const c of LESSONS.courses)for(const u of c.units)for(const l of u.lessons)l.q.forEach((s,k)=>s.b.forEach(q=>{const h=hits(l,q);if(h.length)E(`${l.id}.${k} answer is printed in the lesson: ${h.join(' / ')}`)}))}
 console.log(n,'questions checked,',errs,'errors');
 const k=Object.keys(bad).sort();console.log(k.length,'words not recognised:');k.forEach(w=>console.log(' ',w,[...bad[w]].slice(0,3).join(' ')));
 process.exit(errs?1:0);

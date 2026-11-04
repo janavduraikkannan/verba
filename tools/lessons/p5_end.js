@@ -1,5 +1,5 @@
 const {tr,mc,ty,spot,enQs,laQs,parseQs,nq}=require('./lib.js');
-const pf=['laudāre','monēre','dūcere','capere','audīre','vidēre','mittere','scrībere','portāre','vincere'];
+const pf=['amāre','docēre','regere','iacere','custōdīre','tenēre','scrībere','vocāre','vincere','pūnīre'];
 module.exports={title:'Finishing Latin I',lessons:[
 {id:'sum',title:'esse: how to “be” in Latin',blurb:'The irregular verb “to be,” the = sign, there is, and adesse/abesse.',body:`
 Not every English “is” means the verb *esse*. First ask: what is the **main idea** of the verb?
@@ -77,28 +77,38 @@ The last sentence starts with a house we already know about and tells us where i
 ?3
 
 ?4
-`,q:[ty('Write a form of esse',[['Write "they are" in Latin.','sunt','3rd person plural present.'],['Write "I am" in Latin.','sum','1st person singular present.'],['Write "you (one person) are" in Latin.','es','2nd person singular present.'],['Write "we were" in Latin.',['erāmus'],'Imperfect.'],['Write "he was" in Latin.','erat','Imperfect.'],['Write "they will be" in Latin.','erunt','Future.'],['Write "I will be" in Latin.','erō','Future.'],['Write "you all are" in Latin.','estis','2nd person plural present.'],['Write "she is" in Latin.','est','3rd person singular present.'],['Write "we will be" in Latin.','erimus','Future.']],'la'),
+`,q:[ty('Write a sentence in Latin using the right form of esse',[
+['Translate into Latin: The girls are tired.','Puellae fessae sunt.','Plural subject, present: *sunt*. The adjective agrees with the subject.'],
+['Translate into Latin: I am happy.',['Laetus sum.','Laeta sum.'],'"I" in the present is *sum*.'],
+['Translate into Latin: You (one person) are a student.',['Discipulus es.','Discipula es.'],'"You" in the present is *es*.'],
+['Translate into Latin: We were tired.',['Fessī erāmus.','Fessae erāmus.'],'"We" in the imperfect is *erāmus*.'],
+['Translate into Latin: The farmer was angry.','Agricola īrātus erat.','Singular subject, imperfect: *erat*. *Agricola* is masculine.'],
+['Translate into Latin: The boys will be happy.','Puerī laetī erunt.','Plural subject, future: *erunt*.'],
+['Translate into Latin: I will be a poet.','Poēta erō.','"I" in the future is *erō*.'],
+['Translate into Latin: You all are friends.',['Amīcī estis.','Amīcae estis.'],'"You all" in the present is *estis*.'],
+['Translate into Latin: The road is wide.','Via lāta est.','Singular subject, present: *est*.'],
+['Translate into Latin: We will be sailors.','Nautae erimus.','"We" in the future is *erimus*.']],'la'),
 tr('Translate a sentence with esse',[
 ['Puella laeta est.','The girl is happy.'],['Agricolae fessī sunt.','The farmers are tired.'],['Nauta bonus erat.','The sailor was good.'],['Dōna pulchra sunt.','The gifts are beautiful.'],['Rēgīna clāra erit.','The queen will be famous.'],['Puerī laetī erant.','The boys were happy.'],['Marcus poēta est.','Marcus is a poet.'],['Discipulī sumus.','We are students.'],['Amīca bona est.','The friend is good.'],['Fēminae īrātae erunt.','The women will be angry.']],'esse links the subject to a nominative word.'),
 mc('Use esse, or not?',[
-['Choose the Latin for "The sailors are sailing."','*Nautae nāvigant.*',['*Nautae nāvigant sunt.*','*Nautae sunt nāvigāre.*','*Nautae nāvigat.*'],'The main idea is sailing, so Latin uses the present tense of *nāvigāre*, with no *esse*.'],
-['Choose the Latin for "The sailors are tired."','*Nautae fessī sunt.*',['*Nautae fessōs sunt.*','*Nautae fessae sunt.*','*Nautae fessī.*'],'Sailors = tired, so the adjective is nominative and agrees with *nautae*, which is masculine.'],
+['Choose the Latin for "The poets are working."','*Poētae labōrant.*',['*Poētae labōrant sunt.*','*Poētae sunt labōrāre.*','*Poētae labōrat.*'],'The main idea is working, so Latin uses the present tense of *labōrāre*, with no *esse*.'],
+['Choose the Latin for "The poets are tired."','*Poētae fessī sunt.*',['*Poētae fessōs sunt.*','*Poētae fessae sunt.*','*Poētae fessī.*'],'Poets = tired, so the adjective is nominative and agrees with *poētae*, which is masculine.'],
 ['In "The queen is a girl," what case is “girl”?','nominative',['accusative','genitive','dative'],'Queen = girl, so both are nominative.'],
 ['In "The sailor praises the farmer," what case is “farmer”?','accusative',['nominative','genitive','dative'],'The farmer receives the action, so he is the direct object.'],
 ['In "The sailor is a farmer," what case is “farmer”?','nominative',['accusative','genitive','ablative'],'Sailor = farmer: a predicate nominative.'],
 ['In "The queen summons the farmer," what case is “farmer”?','accusative',['nominative','genitive','dative'],'The farmer receives the action of summoning.'],
 ['In "The queen of the island is happy," what case is “island”?','genitive',['nominative','accusative','ablative'],'“Of the island”: genitive.'],
 ['In "The queen of the island is happy," what case is “happy”?','nominative',['accusative','genitive','dative'],'Queen = happy: a predicate adjective, nominative like the subject.'],
-['Why is *laetum* accusative in *Videō nautam laetum esse*?','It refers to *nautam*, the accusative subject of the indirect statement.',['It is a direct object.','*Esse* always takes the accusative.','Adjectives after *videō* are accusative.'],'The = sign keeps both sides in the same case, and the subject of an indirect statement is accusative.'],
-['What does *abest* mean?','he or she is absent',['he or she is present','he or she is near','he or she will be'],'*Ab-* means away from: *abesse* is to be away, absent.']]),
+['Why is *fessum* accusative in *Videō puerum fessum esse*?','It refers to *puerum*, the accusative subject of the indirect statement.',['It is a direct object.','*Esse* always takes the accusative.','Adjectives after *videō* are accusative.'],'The = sign keeps both sides in the same case, and the subject of an indirect statement is accusative.'],
+['What does *Nautae aberant* mean?','The sailors were absent.',['The sailors were present.','The sailors were near.','The sailors will be away.'],'*Ab-* means away from: *abesse* is to be away, absent.']]),
 tr('Translate esse in more ways',[
-['Videō nautam laetum esse.','I see that the sailor is happy.'],
+['Videō puerum fessum esse.','I see that the boy is tired.'],
 ['Dīcit puellam rēgīnam esse.','[He|She] says that the girl is a queen.'],
 ['Magister adest.','The teacher is [present|here].'],
 ['Discipulī absunt.','The students are [absent|away].'],
-['Est casa prope silvam.','There is a house near the forest.'],
+['Est vīlla prope agrum.','There is a farmhouse near the field.'],
 ['Sunt templa prope oppidum.','There are temples near the town.'],
-['Casa est prope silvam.','The house is near the forest.'],
+['Vīlla est prope agrum.','The farmhouse is near the field.'],
 ['Putābat agricolās fessōs esse.','[He|She] [was thinking|thought] that the farmers were tired.'],
 ['Aderāmus.','We were [present|here].'],
 ['Nautae Graecī erant.','The sailors were Greeks.']],'In indirect statement both sides of esse are accusative; adesse and abesse work like esse; est or sunt first means there is or there are.',{alt:{1:['Dīcit puellam esse rēgīnam.'],7:['Putābat agricolās esse fessōs.']}})]},
@@ -123,10 +133,19 @@ tr('Translate esse in more ways',[
 ?1
 
 ?2
-`,q:[mc('Choose a form of possum',[
-['Choose "we can".','*possumus*',['*potumus*','*possimus*','*poteramus*'],'*t* becomes *s* before *s*.'],['Choose "they can".','*possunt*',['*potunt*','*poterunt*','*potest*'],'*t* becomes *s* before *s*.'],['Choose "she can".','*potest*',['*possit*','*possunt*','*potes*'],'*pot-* + *est*.'],['Choose "you (one person) can".','*potes*',['*posses*','*potest*','*possum*'],'*pot-* + *es*.'],['Choose "I could".','*poteram*',['*possum*','*poterō*','*potuit*'],'*pot-* + *eram*.'],['Choose "they will be able".','*poterunt*',['*poterant*','*possunt*','*potērunt*'],'*pot-* + *erunt*.'],['Choose "you all can".','*potestis*',['*possetis*','*potes*','*possumus*'],'*pot-* + *estis*.'],['Choose "I can".','*possum*',['*potum*','*potes*','*poterō*'],'*t* becomes *s* before *s*.'],['What does *possum* take?','a complementary infinitive',['a dative','an ablative','a vocative'],'*Possum* needs another verb.'],['Choose "we could".','*poterāmus*',['*possumus*','*poterimus*','*poteramur*'],'*pot-* + *erāmus*.']]),
+`,q:[mc('Choose the sentence with the right form of possum',[
+['Choose "We can walk."','*Ambulāre possumus.*',['*Ambulāre potumus.*','*Ambulāre possimus.*','*Ambulāre poteramus.*'],'The *t* of *pot-* becomes *s* before *s*.'],
+['Choose "They can run."','*Currere possunt.*',['*Currere potunt.*','*Currere poterunt.*','*Currere potest.*'],'The *t* of *pot-* becomes *s* before *s*.'],
+['Choose "She can write."','*Scrībere potest.*',['*Scrībere possit.*','*Scrībere possunt.*','*Scrībere potes.*'],'*pot-* + *est*.'],
+['Choose "You (one person) can stay."','*Manēre potes.*',['*Manēre posses.*','*Manēre potest.*','*Manēre possum.*'],'*pot-* + *es*.'],
+['Choose "I could read."','*Legere poteram.*',['*Legere possum.*','*Legere poterō.*','*Legere potuit.*'],'*pot-* + *eram*.'],
+['Choose "They will be able to work."','*Labōrāre poterunt.*',['*Labōrāre poterant.*','*Labōrāre possunt.*','*Labōrāre potērunt.*'],'*pot-* + *erunt*.'],
+['Choose "You all can fight."','*Pugnāre potestis.*',['*Pugnāre possetis.*','*Pugnāre potes.*','*Pugnāre possumus.*'],'*pot-* + *estis*.'],
+['Choose "I can sail."','*Nāvigāre possum.*',['*Nāvigāre potum.*','*Nāvigāre potes.*','*Nāvigāre poterō.*'],'The *t* of *pot-* becomes *s* before *s*.'],
+['In *Puella legere potest*, what does *legere* do?','It completes the main verb',['It is the subject','It is a direct object','It names a place'],'A form of *possum* takes a complementary infinitive.'],
+['Choose "We could sleep."','*Dormīre poterāmus.*',['*Dormīre possumus.*','*Dormīre poterimus.*','*Dormīre poteramur.*'],'*pot-* + *erāmus*.']]),
 tr('Translate a sentence with possum',[
-['Nāvigāre possumus.','We [can sail|are able to sail].'],['Vidēre poterat.','[He|She] [could see|was able to see].'],['Venīre poterunt.','They will be able to come.'],['Puella scrībere potest.','The girl [can write|is able to write].'],['Nautae pugnāre possunt.','The sailors [can fight|are able to fight].'],['Currere nōn possum.','I [cannot|can not|am not able to] run.'],['Legere potes.','You [can read|are able to read].'],['Agricola labōrāre poterat.','The farmer [could work|was able to work].'],['Dormīre poterimus.','We will be able to sleep.'],['Puerī audīre possunt.','The boys [can hear|are able to hear].']],'possum is translated can or be able, with an infinitive.')]},
+['Currere possumus.','We [can run|are able to run].'],['Audīre poterat.','[He|She] [could hear|was able to hear].'],['Manēre poterunt.','They will be able to stay.'],['Puella scrībere potest.','The girl [can write|is able to write].'],['Nautae pugnāre possunt.','The sailors [can fight|are able to fight].'],['Currere nōn possum.','I [cannot|can not|am not able to] run.'],['Legere potes.','You [can read|are able to read].'],['Agricola labōrāre poterat.','The farmer [could work|was able to work].'],['Dormīre poterimus.','We will be able to sleep.'],['Puerī audīre possunt.','The boys [can hear|are able to hear].']],'possum is translated can or be able, with an infinitive.')]},
 {id:'perfect',title:'The perfect active',blurb:'What happened and is finished.',body:`
 The **perfect** tells about a completed action. It has its own stem, so dictionaries give it as the third principal part.
 
@@ -203,7 +222,17 @@ Personal pronouns stand in for people. Latin only uses them in the nominative fo
 ?1
 
 ?2
-`,q:[ty('Write the Latin personal pronoun for an English pronoun in a given case',[['Write "me" as a direct object.','mē','Accusative of *ego*.'],['Write "to you (one person)".','tibi','Dative of *tū*.'],['Write "to me".','mihi','Dative of *ego*.'],['Write "with me".','mēcum','*cum* attaches to the end.'],['Write "with us".','nōbīscum','*cum* attaches to the end.'],['Write "you (one person)" as a direct object.','tē','Accusative of *tū*.'],['Write "to us".','nōbīs','Dative of *nōs*.'],['Write "with you all".','vōbīscum','*cum* attaches to the end.'],['Write "we" as an emphatic subject.','nōs','Nominative plural.'],['Write "to you all".','vōbīs','Dative of *vōs*.']],'la'),
+`,q:[ty('Write a Latin sentence using the right personal pronoun',[
+['Translate into Latin: The girl sees me.','Puella mē videt.','"Me" as a direct object is *mē*.'],
+['Translate into Latin: The sailor gives a rose to you (one person).','Nauta tibi rosam dat.','"To you" is the dative *tibi*.'],
+['Translate into Latin: The teacher tells a story to me.','Magister mihi fābulam narrat.','"To me" is the dative *mihi*.'],
+['Translate into Latin: The boy walks with me.','Puer mēcum ambulat.','*cum* attaches to the end of *mē*.'],
+['Translate into Latin: The farmers work with us.','Agricolae nōbīscum labōrant.','*cum* attaches to the end of *nōbīs*.'],
+['Translate into Latin: The queen calls you (one person).','Rēgīna tē vocat.','"You" as a direct object is *tē*.'],
+['Translate into Latin: The friend gives a gift to us.','Amīcus nōbīs dōnum dat.','"To us" is the dative *nōbīs*.'],
+['Translate into Latin: The sailors sail with you all.','Nautae vōbīscum nāvigant.','*cum* attaches to the end of *vōbīs*.'],
+['Translate into Latin: The master warns us.','Dominus nōs monet.','"Us" as a direct object is *nōs*.'],
+['Translate into Latin: The woman shows the money to you all.','Fēmina vōbīs pecūniam mōnstrat.','"To you all" is the dative *vōbīs*.']],'la'),
 tr('Translate a sentence with a personal pronoun',[
-['Mē videt.','[He|She] <see> me.'],['Tibi dōnum dō.','I <give:p> [you a gift|a gift to you].'],['Ego labōrō, tū dormīs.','I <work:p>, you <sleep:p>.'],['Nōs vocant.','They <call:p> us.'],['Mēcum ambulat.','[He|She] <walk> with me.'],['Tē laudāmus.','We <praise:p> you.'],['Nōbīs fābulam narrat.','[He|She] <tell> [us a story|a story to us].'],['Vōbīscum nāvigō.','I <sail:p> with you.'],['Mihi epistulam scrībit.','[He|She] <write> [me a letter|a letter to me].'],['Vōs monēmus.','We <warn:p> you.']],'Pronouns use case endings of their own. Nominative pronouns add emphasis.')]},
+['Mē vocat.','[He|She] <call> me.'],['Tibi rosam dō.','I <give:p> [you a rose|a rose to you].'],['Ego ambulō, tū curris.','I <walk:p>, you <run:p>.'],['Nōs vocant.','They <call:p> us.'],['Mēcum ambulat.','[He|She] <walk> with me.'],['Tē laudāmus.','We <praise:p> you.'],['Nōbīs fābulam narrat.','[He|She] <tell> [us a story|a story to us].'],['Vōbīscum nāvigō.','I <sail:p> with you.'],['Mihi epistulam scrībit.','[He|She] <write> [me a letter|a letter to me].'],['Vōs monēmus.','We <warn:p> you.']],'Pronouns use case endings of their own. Nominative pronouns add emphasis.')]},
 ]};

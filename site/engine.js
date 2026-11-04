@@ -517,6 +517,14 @@ function gEsse(){
   const ie=ht==='impf'?beQ(ik?5:2):beP(ik?5:2);
   return S([V(hv,ht,'act',hp),ist,ct,{la:'esse',lemma:'esse',cids:['sum'],concept:'present infinitive of esse',forms:[],vocab:'esse, sum : to be'}],`${hE} ${engV(hv,ht,'act',hp)} that ${np(is,ik)} ${ie} ${cE}`);
 }
+/* personal pronouns: as a direct object, as a dative, and with cum attached */
+const PRONS=[['mē','mihi','mēcum','me','ego, mē : I, me'],['tē','tibi','tēcum','you','tū, tē : you (one person)'],['nōs','nōbīs','nōbīscum','us','nōs : we, us'],['vōs','vōbīs','vōbīscum','you (pl.)','vōs : you (more than one person)']];
+function gPron(){
+  const P=R(PRONS),s=R(PEOPLE),k=num(s),vp=k?5:2,tok=(la,c)=>({la,lemma:P[0],cids:['pron'],concept:c,forms:[],vocab:P[4]}),m=R([0,1,2]);
+  if(m===0){const v=R(TV.filter(x=>x.obj.includes('p')));return S([N(s,0,k,'nom'),tok(P[0],'accusative'),V(v,'pres','act',vp)],`${np(s,k)} ${engV(v,'pres','act',vp)} ${P[3]}`)}
+  if(m===1){const v=vb(R(GIVE)),o=R(objFor(v)),ok=num(o),full=`${np(o,ok)} to ${P[3]}`;ALT.push([full,`${P[3]} ${np(o,ok)}`]);return S([N(s,0,k,'nom'),tok(P[1],'dative'),N(o,3,ok,'acc'),V(v,'pres','act',vp)],`${np(s,k)} ${engV(v,'pres','act',vp)} ${full}`)}
+  const v=R(IV);return S([N(s,0,k,'nom'),Object.assign(tok(P[2],'ablative with cum'),{vocab:P[4]+'; -cum : with'}),V(v,'pres','act',vp)],`${np(s,k)} ${engV(v,'pres','act',vp)} with ${P[3]}`);
+}
 function gSum(){
   const t=R(['pres','pres','impf','fut']),p=R([0,1,2,3,4,5]),m=R([0,1,2]);
   if(m===0){const pr=PREPS[10],n=R(NOUNS.filter(x=>x.tag==='c'||x.nom==='silva'||x.nom==='ager')),k=num(n);
@@ -1064,6 +1072,7 @@ const TOPICS=[
 ['adv','I','Nouns and adjectives','Adverbs',()=>B('stmt',['adv'])],
 ['medsum','I','Nouns and adjectives','medius and summus (the middle of, the top of)',()=>B('stmt',['medsum'])],
 ['d3','I','Nouns and adjectives','3rd declension',()=>gDecl('3')],
+['pron','I','Nouns and adjectives','Personal pronouns',gPron],
 ['pa1','I','Verbs','1st conjugation: present',()=>gAct('pres','1')],
 ['pa2','I','Verbs','2nd conjugation: present',()=>gAct('pres','2')],
 ['pa3','I','Verbs','3rd conjugation: present',()=>gAct('pres','3')],

@@ -74,6 +74,8 @@
 .lqbtns{margin-top:12px}
 .lend{margin-top:34px;border-top:1px solid var(--line);padding-top:6px}
 .lfin{margin:6px 0}
+.lnav{display:flex;flex-wrap:wrap;gap:12px;align-items:center;margin-top:18px}
+.lnav a.btn{text-decoration:none;display:inline-block}
 .lchatbtn{position:fixed;right:max(16px,env(safe-area-inset-right,0px));bottom:calc(16px + env(safe-area-inset-bottom,0px));z-index:25;display:flex;align-items:center;gap:8px;background:var(--accent2);color:var(--accent2-ink);border:0;border-radius:999px;padding:7px 16px 7px 8px;font-weight:800;cursor:pointer;box-shadow:var(--shadow)}
 .lchatbtn img{width:34px;height:34px}
 .lchat{position:fixed;right:max(16px,env(safe-area-inset-right,0px));bottom:calc(72px + env(safe-area-inset-bottom,0px));z-index:26;width:min(400px,calc(100vw - 24px));max-height:min(70vh,560px);display:flex;flex-direction:column;background:var(--surface);border:1px solid var(--line2);border-radius:16px;padding:10px 12px 12px;box-shadow:var(--shadow)}

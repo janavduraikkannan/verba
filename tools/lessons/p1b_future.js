@@ -1,7 +1,7 @@
 const {tr,mc,ty,spot,parseQs,enQs,laQs}=require('./lib.js');
-const a12=['laudāre','portāre','vocāre','vidēre','monēre','tenēre','spectāre','terrēre'];
-const a34=['dūcere','mittere','scrībere','audīre','custōdīre','capere','iacere','invenīre','legere','pūnīre'];
-const all=['portāre','vidēre','dūcere','capere','audīre','laudāre','monēre','mittere','iacere','custōdīre'];
+const a12=['laudāre','vocāre','vidēre','tenēre','spectāre','terrēre','amāre','docēre'];
+const a34=['mittere','scrībere','custōdīre','iacere','invenīre','legere','pūnīre','regere','accipere','mūnīre'];
+const all=['vocāre','vidēre','mittere','iacere','custōdīre','laudāre','tenēre','regere','accipere','pūnīre'];
 module.exports={title:'Verbs: the future',lessons:[
 {id:'fut12',title:'The future: 1st and 2nd conjugations',blurb:'Saying what will happen, with the -bi- signal.',body:`
 Latin marks the **future** tense inside the verb, where English adds the word *will*. The 1st and 2nd conjugations put a signal between the stem and the ending: usually **-bi-**.
@@ -53,7 +53,7 @@ They end the same way, but they mean different things. An *e* before the ending 
 
 ?3
 `,q:[mc('Decide whether a verb form is present or future from its conjugation',[
-['*monet* (2nd conjugation) is...','present',['future'],'In the 2nd conjugation, -et is present.'],['*dūcet* (3rd conjugation) is...','future',['present'],'In the 3rd conjugation, -et is future.'],['*vident* (2nd conjugation) is...','present',['future'],'In the 2nd conjugation, -ent is present.'],['*mittent* (3rd conjugation) is...','future',['present'],'In the 3rd conjugation, -ent is future.'],['*audiet* (4th conjugation) is...','future',['present'],'4th conjugation present is *audit*, so *audiet* is future.'],['*capient* (3rd -iō conjugation) is...','future',['present'],'The present is *capiunt*, so *capient* is future.'],['*tenet* (2nd conjugation) is...','present',['future'],'In the 2nd conjugation, -et is present.'],['*legēmus* (3rd conjugation) is...','future',['present'],'The present is *legimus*, so *legēmus* is future.'],['*terrēmus* (2nd conjugation) is...','present',['future'],'The future would be *terrēbimus*.'],['*scrībet* (3rd conjugation) is...','future',['present'],'The present is *scrībit*.']]),
+['*docet* (2nd conjugation) is...','present',['future'],'In the 2nd conjugation, -et is present.'],['*vincet* (3rd conjugation) is...','future',['present'],'In the 3rd conjugation, -et is future.'],['*vident* (2nd conjugation) is...','present',['future'],'In the 2nd conjugation, -ent is present.'],['*mittent* (3rd conjugation) is...','future',['present'],'In the 3rd conjugation, -ent is future.'],['*pūniet* (4th conjugation) is...','future',['present'],'4th conjugation present is *pūnit*, so *pūniet* is future.'],['*iacient* (3rd -iō conjugation) is...','future',['present'],'The present is *iaciunt*, so *iacient* is future.'],['*tenet* (2nd conjugation) is...','present',['future'],'In the 2nd conjugation, -et is present.'],['*legēmus* (3rd conjugation) is...','future',['present'],'The present is *legimus*, so *legēmus* is future.'],['*terrēmus* (2nd conjugation) is...','present',['future'],'The future would be *terrēbimus*.'],['*scrībet* (3rd conjugation) is...','future',['present'],'The present is *scrībit*.']]),
 spot('Translate a 3rd, 3rd -iō or 4th conjugation future active verb into English',enQs(a34,'fut','act')),spot('Write a 3rd, 3rd -iō or 4th conjugation future active verb in Latin',laQs(a34,'fut','act'))]},
 
 {id:'futpass',title:'The future passive',blurb:'Saying what will be done, in all conjugations.',body:`
