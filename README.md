@@ -10,7 +10,7 @@ Learning Spanish too? [Palabras](https://janavduraikkannan.github.io/palabras/) 
 
 Verba builds fresh Latin sentences from the topics you pick, then has you translate the whole sentence, English to Latin or Latin to English. It checks your answer, tells you exactly what went wrong, and lets you ask Fēlix, an AI tutor, questions about the grammar along the way. It was made for a high school Latin class, and its topics follow the Tennessee course sequence (Latin I Honors, Latin II Honors, Latin III Honors, AP Latin).
 
-> **Privacy, in short:** Verba has no server of its own. Your practice runs in your browser, your AI key goes straight from your browser to the AI company you chose, and nothing is saved anywhere else unless you make an account. If you do, your account and anything you put on the leaderboard are stored with Google Firebase, are **not encrypted**, and **are not private**. Read the full [Privacy Statement](PRIVACY.md) before making an account.
+> **Privacy, in short:** Verba has no database server of its own. Your practice runs in your browser, and your AI requests and AI key go to the AI company you chose, through the Verba relay (a small Cloudflare Worker that saves nothing; you can switch it off), and nothing is saved anywhere else unless you make an account. If you do, your account and anything you put on the leaderboard are stored with Google Firebase, are **not encrypted**, and **are not private**. Read the full [Privacy Statement](PRIVACY.md) before making an account.
 
 > **Passwords, in short:** optional, and Verba never asks for an email. You log in with your username and password. **A forgotten password can't be recovered**, so keep your account key saved too.
 

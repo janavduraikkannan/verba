@@ -1,25 +1,25 @@
 # Verba Privacy Statement
 
-*Last updated: November 2, 2026 (lesson progress added to accounts)*
+*Last updated: November 4, 2026 (AI relay added)*
 
 This page explains, as plainly as possible, what information Verba stores, where it goes, and who can see it. Verba is a free practice site made by a student for a Latin class. It is not run by a company, a school or a school district.
 
 ## Our honest promise
 
-Verba keeps as little about you as it can, and tells you plainly about everything it does keep. **Verba cannot promise that anything you give it is private or secure.** Verba has no server of its own, no staff, and no way to encrypt your data. Your practice happens in your own browser. If you choose to make an account or join the leaderboard, that information is stored with Google Firebase, is not encrypted, and can be seen by the site's owner and, for leaderboard information, by anyone. Other companies you connect to through Verba, such as the AI company that checks your answers, have their own privacy policies, and Verba cannot make any promises about what they do. **Only give Verba information you would be comfortable with anyone seeing.** Never type your address, your phone number or other personal details into Verba, and never use a password for Verba that you use anywhere else.
+Verba keeps as little about you as it can, and tells you plainly about everything it does keep. **Verba cannot promise that anything you give it is private or secure.** Verba has no database server of its own (only a small relay that passes AI requests along without saving them), no staff, and no way to encrypt your data. Your practice happens in your own browser. If you choose to make an account or join the leaderboard, that information is stored with Google Firebase, is not encrypted, and can be seen by the site's owner and, for leaderboard information, by anyone. Other companies you connect to through Verba, such as the AI company that checks your answers, have their own privacy policies, and Verba cannot make any promises about what they do. **Only give Verba information you would be comfortable with anyone seeing.** Never type your address, your phone number or other personal details into Verba, and never use a password for Verba that you use anywhere else.
 
 ## At a glance
 
 | Information | Where it's kept | Who can see it |
 | --- | --- | --- |
 | Your progress and settings (without an account) | Only in your browser | Only you, on that browser |
-| Your AI key (not saved) | Nowhere; it is only used while the page is open | Only the AI company it belongs to |
+| Your AI key (not saved) | Nowhere; it is only used while the page is open | The AI company it belongs to. With the relay on, it also passes through the Verba relay, which doesn't save it |
 | Your AI key (saved to this browser) | Your browser, as plain text | Anyone who can use your browser |
 | Your AI key (saved to your account) | Google Firebase, as plain text | Anyone with your account key, and the site's owner |
 | Your account (progress, settings, full profile) | Google Firebase, not encrypted | Anyone with your account key or your username and password, and the site's owner |
 | Your password (only if you set one) | Nowhere; only a scrambled, one-way form is kept | No one |
 | Your leaderboard entry and public profile | Google Firebase, public | **Anyone on the internet** |
-| Sentences, your answers and your questions to Fēlix | Sent to the AI company you chose | That company, under its own policy |
+| Sentences, your answers and your questions to Fēlix | Sent to the AI company you chose (through the Verba relay, unless you switch it off) | That company, under its own policy. The relay passes them along without saving them |
 
 ## What Verba stores
 
@@ -29,7 +29,7 @@ Verba saves these in your browser's local storage, on your device only:
 
 - Your XP, level, daily and weekly streaks, and the date you started.
 - Your chosen topics, exercise settings, sentence-builder choices and light or dark mode.
-- Whether you've finished the welcome tour.
+- Whether you've finished the welcome tour, and whether you've switched the AI relay off.
 - Your AI key or keys and their order, **only if** you tick "Remember key(s) on this browser." They are stored as plain text.
 - Your account key, if you have signed in on this browser.
 - Your profile details, if you have filled any in.
@@ -81,7 +81,7 @@ Verba and [Palabras](https://janavduraikkannan.github.io/palabras/) (the Spanish
 
 ## What the site's owner can see
 
-The owner of Verba runs the Firebase project and can see **everything stored in it**: every account (including full names and any AI keys saved to accounts), every leaderboard entry, and every username. The owner cannot see what is only in your browser, cannot see AI keys you haven't saved to an account, and does not receive your conversations with Fēlix.
+The owner of Verba runs the Firebase project and can see **everything stored in it**: every account (including full names and any AI keys saved to accounts), every leaderboard entry, and every username. The owner cannot see what is only in your browser, cannot see AI keys you haven't saved to an account, and does not receive your conversations with Fēlix. The relay's code passes AI requests and AI keys along without saving or logging them. In principle the owner could change that code, so the code is public in the Verba repository ([relay/worker.js](https://github.com/janavduraikkannan/verba/blob/main/relay/worker.js)) for anyone to check.
 
 The owner will not sell your information or use it for anything except running Verba. Because Verba is a free project run by one student, it cannot offer the protections a company or school system can.
 
@@ -94,6 +94,12 @@ Verba relies on other companies to work. When your browser talks to them, they r
 - **GitHub** hosts the website and may keep visitor logs, including IP addresses. [GitHub Privacy Statement](https://docs.github.com/en/site-policy/privacy-policies/github-general-privacy-statement)
 - **Google Firebase (Cloud Firestore)** stores accounts, the leaderboard and usernames, and may keep request logs. [Firebase privacy](https://firebase.google.com/support/privacy) · [Google Privacy Policy](https://policies.google.com/privacy)
 
+### The Verba AI relay
+
+When the relay is on (it is unless you switch it off), your browser sends each AI request, including your AI key, to a small program run for Verba on **Cloudflare Workers**. The relay forwards the request to the AI company and passes the answer straight back. It only accepts requests from the practice sites at janavduraikkannan.github.io, only forwards them to the AI companies listed below, and does not save or log the request, the answer or your key. Cloudflare runs the computers it works on and may keep basic request logs, such as your IP address. [Cloudflare Privacy Policy](https://www.cloudflare.com/privacypolicy/)
+
+To stop using the relay, untick "Send AI requests through the Verba relay" under the AI key box. Your browser then talks to the AI company directly. If the relay ever stops working, your browser also falls back to talking to the AI company directly.
+
 ### Things the page loads
 
 - **Google Fonts** provides the fonts. [Google Fonts privacy](https://developers.google.com/fonts/faq/privacy)
@@ -102,7 +108,7 @@ Verba relies on other companies to work. When your browser talks to them, they r
 
 ### AI companies
 
-When an answer needs checking or you ask Fēlix a question, your browser sends that sentence, the correct answer, the vocabulary, your answer, your question and your earlier questions about that sentence **directly to the AI company whose key you entered**. Verba never sees these requests. Only the company you chose receives them, and it may store them, review them or use them to improve its products, depending on its policy and on whether you use a free plan. **Free plans often allow more use of your data.**
+When an answer needs checking or you ask Fēlix a question, your browser sends that sentence, the correct answer, the vocabulary, your answer, your question and your earlier questions about that sentence **to the AI company whose key you entered**, through the Verba relay unless you switch it off. The relay passes them along without saving them, so Verba never keeps these requests. Only the company you chose receives them, and it may store them, review them or use them to improve its products, depending on its policy and on whether you use a free plan. **Free plans often allow more use of your data.**
 
 | Company | Privacy policy |
 | --- | --- |
