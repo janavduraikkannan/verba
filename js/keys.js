@@ -2,15 +2,27 @@
 /* ---------- Key slots. Simple mode uses slot 1 from the bar; advanced mode uses every slot that is on, in rank order. ---------- */
 const lsGet=(k,d)=>{try{const v=localStorage.getItem(k);return v===null?d:JSON.parse(v)}catch(e){return d}};
 const lsSet=(k,v)=>{try{v===undefined?localStorage.removeItem(k):localStorage.setItem(k,JSON.stringify(v))}catch(e){}};
-let kid=0;const mkSlot=(o={})=>({id:++kid,key:String(o.key||''),prov:PROVIDERS[o.prov]?o.prov:'auto',on:o.on!==false,st:null,err:''});
+let kid=0;const mkSlot=(o={})=>({id:++kid,key:String(o.key||''),prov:PROVIDERS[o.prov]?o.prov:'auto',on:o.on!==false,st:null,err:'',local:!!o.local,tie:!!o.tie});
 let keyRemB=lsGet('verba-keys-browser',false),keyRemA=lsGet('verba-keys-account',false),advanced=store.get('keyadv',false);
-let slots=((keyRemB&&lsGet('verba-aikeys',null))||[{prov:store.get('prov','auto')}]).map(mkSlot);
-const serialKeys=()=>slots.map(s=>({key:s.key,prov:s.prov,on:s.on}));
-function saveKeys(){lsSet('verba-aikeys',keyRemB?serialKeys():undefined);if(keyRemA)try{acctDirty('aikeys')}catch(e){}}
-const provName=s=>s.st?PROVIDERS[s.st.prov].name:PROVIDERS[s.prov]?PROVIDERS[s.prov].name:s.key.trim()&&guessProv(s.key.trim()).length?PROVIDERS[guessProv(s.key.trim())[0]].name:'unknown provider';
-function syncSimple(){const s=slots[0],k=$('key').value.trim(),p=$('prov').value;if(s.key!==k||s.prov!==p){s.key=k;s.prov=p;s.st=null;s.err='';saveKeys()}}
-function fillSimple(){$('key').value=slots[0].key;$('prov').value=slots[0].prov}
-const activeSlots=()=>advanced?slots.filter(s=>s.on&&s.key.trim()):(syncSimple(),slots[0].key?[slots[0]]:[]);
+/* Sites with a local AI: it is a slot at the top of the list. The first time older saved keys load, they move below it, turned off,
+   and advanced mode comes on so the student can see them. mv:1 marks a list that has already moved. */
+let keysMoved=false;
+function moveKeys(list){
+  if(!SITE.localAI)return list;
+  const legacy=list.some(x=>x.key&&!x.mv);
+  if(legacy){list.forEach(x=>{x.on=false});advanced=true;store.set('keyadv',true);keysMoved=true}
+  if(!list.some(x=>x.local)){const p=lsGet('verba-local-prefs',{});list.unshift({local:true,on:p.on!==false,tie:!!p.tie})}
+  if(!list.some(x=>!x.local))list.push({prov:store.get('prov','auto')});
+  return list;
+}
+let slots=moveKeys((keyRemB&&lsGet('verba-aikeys',null))||[{prov:store.get('prov','auto')}]).map(mkSlot);
+const keySlots=()=>slots.filter(s=>!s.local);
+const serialKeys=()=>slots.map(s=>s.local?{local:true,on:s.on,tie:s.tie,mv:1}:{key:s.key,prov:s.prov,on:s.on,mv:1});
+function saveKeys(){const L=slots.find(s=>s.local);if(L)lsSet('verba-local-prefs',{on:L.on,tie:L.tie});lsSet('verba-aikeys',keyRemB?serialKeys():undefined);if(keyRemA)try{acctDirty('aikeys')}catch(e){}}
+const provName=s=>s.local?'Local AI':s.st?PROVIDERS[s.st.prov].name:PROVIDERS[s.prov]?PROVIDERS[s.prov].name:s.key.trim()&&guessProv(s.key.trim()).length?PROVIDERS[guessProv(s.key.trim())[0]].name:'unknown provider';
+function syncSimple(){const s=keySlots()[0],k=$('key').value.trim(),p=$('prov').value;if(s.key!==k||s.prov!==p){s.key=k;s.prov=p;s.st=null;s.err='';saveKeys()}}
+function fillSimple(){const s=keySlots()[0];$('key').value=s.key;$('prov').value=s.prov}
+const activeSlots=()=>advanced?keySlots().filter(s=>s.on&&s.key.trim()):(syncSimple(),keySlots()[0].key?[keySlots()[0]]:[]);
 const aiName=()=>{const s=activeSlots()[0];return s?provName(s):'the AI'};
 // A short fingerprint of a key (not the key itself), used to remember which Gemini model last worked for it,
 // so a page reload doesn't start on a model that was overloaded last time.
@@ -39,6 +51,7 @@ function keyNotice(s,e,nextS){
 }
 const provOpts=v=>`<option value="auto">Detect from key</option><optgroup label="Free keys">${Object.entries(PROVIDERS).filter(([,P])=>!P.paid).map(([id,P])=>`<option value="${id}"${v===id?' selected':''}>${esc(P.name)}</option>`).join('')}</optgroup><optgroup label="Paid keys">${Object.entries(PROVIDERS).filter(([,P])=>P.paid).map(([id,P])=>`<option value="${id}"${v===id?' selected':''}>${esc(P.name)}</option>`).join('')}</optgroup>`;
 function statText(s){
+  if(s.local)return !s.on?['bad','Off']:LAI.usable()?['ok','Ready on this device']:LAI.choice()==='unsupported'?['bad','This browser or device can’t run it']:['','Not downloaded yet (about 2.4 GB)'];
   if(!s.key.trim())return['','No key yet'];
   if(!s.on)return['bad','Off'+(s.err?': last failed ('+s.err+')':'')];
   if(s.err)return['bad','Last attempt failed: '+s.err];
@@ -47,18 +60,21 @@ function statText(s){
 }
 function kStatus(){if(!$('keysdlg').open)return;document.querySelectorAll('#klist .krow').forEach(li=>{const s=slots.find(x=>x.id==li.dataset.id);if(!s)return;const[c,t]=statText(s),el=li.querySelector('.kstat');el.className='kstat '+c;el.textContent=t})}
 function renderKeys(){
-  if(advanced)while(slots.length<2)slots.push(mkSlot());
+  if(advanced)while(keySlots().length<2)slots.push(mkSlot());
   $('keysdlg').classList.toggle('dim',!advanced);$('advOn').checked=advanced;
-  $('klist').innerHTML=slots.map((s,i)=>`<li class="krow${s.on?'':' off'}" data-id="${s.id}"><span class="krank" aria-label="Rank ${i+1}">${i+1}</span>
+  $('klist').innerHTML=slots.map((s,i)=>s.local?localRow(s,i):`<li class="krow${s.on?'':' off'}" data-id="${s.id}"><span class="krank" aria-label="Rank ${i+1}">${i+1}</span>
     <div class="kfields"><select data-f="prov" aria-label="Provider for key ${i+1}">${provOpts(s.prov)}</select><input type="password" data-f="key" autocomplete="off" spellcheck="false" placeholder="Paste API key ${i+1}" aria-label="API key ${i+1}" value="${esc(s.key)}"></div>
     <div><div class="kctl"><label><input type="checkbox" data-f="on"${s.on?' checked':''}> On</label><button data-a="up" aria-label="Move key ${i+1} up"${i?'':' disabled'}>▲</button><button data-a="down" aria-label="Move key ${i+1} down"${i<slots.length-1?'':' disabled'}>▼</button><button data-a="del" aria-label="Remove key ${i+1}"${slots.length>1?'':' disabled'}>Remove</button></div><div class="kstat"></div></div></li>`).join('');
   kStatus();
 }
+const localRow=(s,i)=>`<li class="krow${s.on?'':' off'}" data-id="${s.id}" data-local="1"><span class="krank" aria-label="Rank ${i+1}">${i+1}</span>
+    <div class="kfields"><b>Local AI</b> <span class="hint">Grades translations on this device, with no key.</span></div>
+    <div><div class="kctl"><label><input type="checkbox" data-f="on"${s.on?' checked':''}> On</label><label><input type="checkbox" data-f="tie"${s.tie?' checked':''}> Use the local AI for tie-breaks</label><button data-a="up" aria-label="Move Local AI up"${i?'':' disabled'}>▲</button><button data-a="down" aria-label="Move Local AI down"${i<slots.length-1?'':' disabled'}>▼</button>${LAI.usable()||LAI.choice()==='unsupported'?'':'<button data-a="dl">Download</button>'}</div><div class="kstat"></div></div></li>`;
 function keysUI(full){
   $('simplekey').hidden=advanced;$('advkey').hidden=!advanced;
   if(!advanced)fillSimple();
-  const withKey=slots.filter(s=>s.key.trim()),on=withKey.filter(s=>s.on);
-  $('advsum').textContent=!withKey.length?'none added yet':`${withKey.length} ranked, ${on.length} on${on.length?', trying '+provName(on[0])+' first':''}`;
+  const withKey=keySlots().filter(s=>s.key.trim()),on=withKey.filter(s=>s.on),L=slots.find(s=>s.local);
+  $('advsum').textContent=(L&&L.on?'Local AI'+(withKey.length?' + ':''):'')+(!withKey.length?(L&&L.on?'':'none added yet'):`${withKey.length} ranked, ${on.length} on${on.length?', trying '+provName(on[0])+' first':''}`);
   $('kadv').hidden=advanced;
   $('kRemB').checked=keyRemB;
   let ready=false;try{ready=acctReady()}catch(e){}const inn=ready&&!!acct.key;
@@ -100,9 +116,11 @@ function setupKeys(){
   $('klist').addEventListener('input',e=>{const s=slotOf(e.target);if(!s||e.target.dataset.f!=='key')return;s.key=e.target.value.trim();s.st=null;s.err='';saveKeys();keysUI()});
   $('klist').addEventListener('change',e=>{const s=slotOf(e.target),f=e.target.dataset.f;if(!s||f==='key')return;
     if(f==='prov'){s.prov=e.target.value;s.st=null;s.err='';kStatus()}
+    else if(f==='tie'){s.tie=e.target.checked}
     else if(f==='on'){s.on=e.target.checked;if(s.on){s.err='';const n=document.querySelector(`.knote[data-id="${s.id}"]`);if(n)n.remove()}e.target.closest('.krow').classList.toggle('off',!s.on);kStatus()}
     saveKeys();keysUI()});
   $('klist').addEventListener('click',e=>{const a=e.target.dataset.a;if(!a)return;const s=slotOf(e.target),i=slots.indexOf(s);
+    if(a==='dl'){LAI.download();return}
     if(a==='up'&&i>0)[slots[i-1],slots[i]]=[slots[i],slots[i-1]];
     else if(a==='down'&&i<slots.length-1)[slots[i+1],slots[i]]=[slots[i],slots[i+1]];
     else if(a==='del'&&slots.length>1){if(s.key.trim()&&!confirm(`Remove key ${i+1} · ${provName(s)}?`))return;slots.splice(i,1)}

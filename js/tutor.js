@@ -6,6 +6,7 @@ const ctxOf=q=>{const e2l=q.mode==='e2l',vocab=[...new Set(q.tokens.map(t=>t.voc
   return{e2l,src:q.choice?q.line+' ('+q.cite+')':e2l?cap(q.en)+q.end:q.latin,model:q.choice?q.answer:e2l?q.latin:cap(q.en)+q.end,vocab}};
 async function aiGrade(q,answer){
   const c=ctxOf(q);
+  if(typeof localFirst==='function'&&localFirst(q)){try{return await LAI.grade({...c,topic:q.topic&&q.topic.id},answer)}catch(e){if(!activeSlots().length)throw new Error('the local AI could not grade this: '+(e.message||'unknown error'))}}
   const t=await aiChat(gradeMessages(c,answer));
   const j=parseJ(t);return{ok:j.correct===true,reason:String(j.reason||'')};
 }

@@ -1,6 +1,6 @@
 # Verba Privacy Statement
 
-*Last updated: November 4, 2026 (AI relay added)*
+*Last updated: November 5, 2026 (local AI added)*
 
 This page explains, as plainly as possible, what information Verba stores, where it goes, and who can see it. Verba is a free practice site made by a student for a Latin class. It is not run by a company, a school or a school district.
 
@@ -150,6 +150,12 @@ Verba is meant for high school Latin students.
 - **Your password login:** click "Turn off password login" in the Account window. This switches off the login record.
 - **Your account and leaderboard entry:** you can't delete these yourself from the site. Ask the site's owner to delete them. Don't post your account key publicly to do this.
 - **With an AI company:** follow that company's own instructions.
+
+## The local AI
+
+If you agree to the download, an AI model of about 2.4 GB is saved in this browser and grades your translations on your device, so those answers aren't sent to an AI company. To grade them, Verba looks up the Latin words with a free dictionary service (latin.71m.us), which receives those words.
+
+If the local AI's two checks disagree and you have no AI key on, that one exercise and your answer go through Verba's relay to Gonka Broker (DeepSeek) to settle it. You can tick "Use the local AI for tie-breaks" under Edit keys to keep tie-breaks on your device.
 
 ## Changes
 

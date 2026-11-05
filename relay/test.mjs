@@ -67,5 +67,21 @@ await t("health check", async () => { const r = await worker.fetch(req("/health"
 await t("ALLOWED_ORIGINS variable works (localhost for testing)", async () => {
   const r = await worker.fetch(new Request(W + "/health", { headers: { Origin: "http://localhost:8000" } }), { ALLOWED_ORIGINS: "https://janavduraikkannan.github.io, http://localhost:8000" }); eq(r.status, 200, "status");
 });
+await t("tie-break uses the Worker secret and only the grading prompt", async () => {
+  const e = { GONKA_KEY: "secret" }; next = async () => new Response(JSON.stringify({ choices: [{ message: { content: '{"correct":true}' } }] }));
+  const r = await worker.fetch(req("/verba-tiebreak", { method: "POST", body: JSON.stringify({ e2l: true, src: "a", model: "b", ans: "c", messages: ["ignored"], max_tokens: 9999 }) }), e);
+  eq(r.status, 200, "status"); eq(calls[0].init.headers.Authorization, "Bearer secret", "key"); const b = JSON.parse(calls[0].init.body); eq(b.model, "deepseek-ai/DeepSeek-V4-Flash-0731", "model"); eq(b.max_tokens, 150, "tokens"); eq(b.messages.length, 2, "messages");
+  eq((await r.json()).text, '{"correct":true}', "text");
+});
+await t("tie-break refuses other sites and reports a missing secret", async () => {
+  const bad = await worker.fetch(new Request(W + "/verba-tiebreak", { method: "POST", headers: { Origin: "https://evil.example" }, body: "{}" }), { GONKA_KEY: "secret" });
+  eq(bad.status, 403, "origin"); const none = await worker.fetch(req("/verba-tiebreak", { method: "POST", body: "{}" }), {}); eq(none.status, 503, "no secret"); eq(calls.length, 0, "no upstream");
+});
+await t("tie-break is rate limited", async () => {
+  const e = { GONKA_KEY: "secret" }; next = async () => new Response(JSON.stringify({ choices: [{ message: { content: "x" } }] })); let last;
+  for (let i = 0; i < 25; i++) last = await worker.fetch(new Request(W + "/verba-tiebreak", { method: "POST", headers: { Origin: O, "CF-Connecting-IP": "9.9.9.9" }, body: JSON.stringify({ src: "a", model: "b", ans: "c" }) }), e);
+  eq(last.status, 429, "limited");
+});
+
 console.log(`\n${pass} passed, ${fail} failed`);
 process.exit(fail ? 1 : 0);

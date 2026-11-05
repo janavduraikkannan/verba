@@ -3,6 +3,7 @@
    This folder, site/, holds what differs: this file (names, text, lists), cat.js (the tutor cat and its AI prompts),
    language.js (how the language behaves in the shared code), engine.js (sentences and grading), uses.js and theme.css. */
 const SITE={
+  localAI:true, // Qwen in the browser grades translations (js/localai.js); the other language sites leave this out
   id:"verba", // the folder name; prefix for this language's saved progress (verba.xp) and for keys like verba-onboarded
   name:"Verba", title:"Verba · Latin practice with Fēlix",
   langKey:null, // where this language's progress sits in the shared account document (Verba: null, the top level)

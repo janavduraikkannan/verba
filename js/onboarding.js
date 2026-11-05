@@ -46,7 +46,7 @@ const ONB=[
   body:()=>`<p class="onbstep">Step 4 of 5 · Save and paste</p><h2 id="onbTitle">Save your key, then paste it here</h2>
    <p class="onbbig">Paste your key into a notes app, a password manager, or a document only you can see. Treat it like a password: don’t share it or post it anywhere.</p>
    <p><b>Your AI key</b> (it starts with <code>gsk_</code>). Click the box, then press Ctrl+V (Cmd+V on a Mac):</p>
-   <input id="onbKey" type="password" autocomplete="off" spellcheck="false" placeholder="gsk_…" aria-label="Your AI key" value="${esc(slots[0].key)}">
+   <input id="onbKey" type="password" autocomplete="off" spellcheck="false" placeholder="gsk_…" aria-label="Your AI key" value="${esc(keySlots()[0].key)}">
    <div class="row"><button class="btn quiet" type="button" id="onbCheck">Check my key</button><span class="msg" id="onbMsg"></span></div>
    <label class="chk"><input type="checkbox" id="onbSaved"${onb.saved?' checked':''}> I saved my key somewhere safe</label>
    <label class="chk"><input type="checkbox" id="onbRem"${keyRemB?' checked':''}> Remember my key on this browser</label>
@@ -96,9 +96,9 @@ function onbNextState(){$('onbNext').disabled=onb.i===4&&!(onb.keyOk&&onb.saved)
 function onbGo(i){const d=i>onb.i?1:-1;while(ONB[i]&&ONB[i].skip&&ONB[i].skip())i+=d;onb.i=Math.max(0,Math.min(ONB.length-1,i));onbShow()}
 function onbUseKey(k,st){
   // Put the key where the site reads it: slot 1 in simple mode, or on top of the ranked list in advanced mode.
-  if(advanced&&slots[0].key&&slots[0].key!==k){const ex=slots.find(x=>x.key===k);if(ex)slots.splice(slots.indexOf(ex),1);slots.unshift(mkSlot({key:k}))}
-  else slots[0].key=k;
-  const s=slots[0];s.prov=st.prov;s.st=st;s.err='';s.on=true;fillSimple();saveKeys();keysUI(true);
+  if(advanced&&keySlots()[0].key&&keySlots()[0].key!==k){const ex=slots.find(x=>x.key===k);if(ex)slots.splice(slots.indexOf(ex),1);slots.splice(slots.indexOf(keySlots()[0]),0,mkSlot({key:k}))}
+  else keySlots()[0].key=k;
+  const s=keySlots()[0];s.prov=st.prov;s.st=st;s.err='';s.on=true;fillSimple();saveKeys();keysUI(true);
 }
 function onbKeyStep(){
   const msg=(t,c)=>{$('onbMsg').className='msg '+(c||'');$('onbMsg').textContent=t};
@@ -129,7 +129,7 @@ function onbLoggedIn(){onb.login=false;$('onbFelix').src=onbFace('delighted');
   if(slots.some(x=>x.key)){onb.keyOk=true;onbGo(ONB.length-2);$('onbSay').innerHTML=latH(TXT.helloAgain+' You’re logged in and your AI key came with your account. All set!')}
   else{onbGo(1);$('onbSay').innerHTML=latH('You’re logged in! Your account doesn’t have an AI key saved, so let’s get you one.')}}
 function onbDone(){lsSet(SITE.id+'-onboarded',true);if(lsGet('verba-relay',null)===null)lsSet('verba-relay',relayOn());if($('onb').open)$('onb').close()}
-function openOnb(i=0){onb.keyOk=!!(slots[0].st&&slots[0].key);$('onb').showModal();onbGo(i);$('onbNext').focus()}
+function openOnb(i=0){const k0=keySlots()[0];onb.keyOk=!!(k0.st&&k0.key);$('onb').showModal();onbGo(i);$('onbNext').focus()}
 function setupOnboarding(){
   $('onbNext').onclick=()=>{const st=ONB[onb.i];if(st.go)return st.go();if(onb.i>=ONB_LOGIN-1){onbDone();return}onbGo(onb.i+1)};
   $('onbBack').onclick=()=>{const st=ONB[onb.i];if(st.backTo!==undefined){onb.login=false;return onbGo(st.backTo)}onbGo(onb.i-1)};
@@ -137,6 +137,9 @@ function setupOnboarding(){
   $('onb').addEventListener('close',()=>{lsSet(SITE.id+'-onboarded',true);if(lsGet('verba-relay',null)===null)lsSet('verba-relay',relayOn())});
   $('kguide').addEventListener('click',()=>openOnb(0));
   // First visit: no key anywhere and not signed in.
-  if(!lsGet(SITE.id+'-onboarded',false)&&!slots.some(x=>x.key)&&!acct.key)openOnb(0);
-  if(AI_RELAY&&lsGet('verba-relay',null)===null&&!$('onb').open)relayNotice();
+  ONB.slice(1,5).forEach(st=>{const old=st.skip;st.skip=()=>LAI.usable()||!!(old&&old())}); // the key steps aren't needed when the local AI is ready
+  LAI.firstRun(()=>{
+    if(!lsGet(SITE.id+'-onboarded',false)&&!slots.some(x=>x.key)&&!acct.key)openOnb(0);
+    if(AI_RELAY&&lsGet('verba-relay',null)===null&&!$('onb').open)relayNotice();
+  });
 }

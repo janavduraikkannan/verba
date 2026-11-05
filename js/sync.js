@@ -57,7 +57,7 @@ function applyRemote(d){
   GLOBAL_KEYS.forEach(k=>{if(k in d){try{localStorage.setItem('verba.'+k,JSON.stringify(d[k]))}catch(e){}}});
   LANG_KEYS.forEach(k=>{if(k in r){try{localStorage.setItem(SITE.id+'.'+k,JSON.stringify(r[k]))}catch(e){}}});
   }
-  if(Array.isArray(d.aikeys)&&d.aikeys.length){slots=d.aikeys.map(mkSlot);keyRemA=true;lsSet('verba-keys-account',true);if(keyRemB)lsSet('verba-aikeys',serialKeys())}
+  if(Array.isArray(d.aikeys)&&d.aikeys.length){slots=moveKeys(d.aikeys).map(mkSlot);keyRemA=true;lsSet('verba-keys-account',true);if(keyRemB)lsSet('verba-aikeys',serialKeys());if(keysMoved){keysMoved=false;saveKeys();try{keysUI(true);toast('happy','Your saved AI keys moved to Edit keys and are turned off. Turn any of them back on there.')}catch(e){}}}
   else if(keyRemA){keyRemA=false;lsSet('verba-keys-account',false)}
   refreshFromStore();
 }

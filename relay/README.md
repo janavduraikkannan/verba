@@ -10,6 +10,10 @@ This is the code running at `https://verba-relay.janav-durai.workers.dev`. Verba
 
 Paste `worker.js` into the Worker's code editor in the Cloudflare dashboard and click **Deploy**, or run `npx wrangler deploy` in this folder.
 
+## Verba's tie-break key
+
+The tie-break route needs one secret. In the Cloudflare dashboard, open the Worker, go to **Settings > Variables and Secrets**, and add a **Secret** named `GONKA_KEY`. Never put the key in this repository or in a page.
+
 ## Testing
 
 `node test.mjs` runs the logic tests (Node 18 or newer).
