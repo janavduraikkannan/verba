@@ -276,22 +276,23 @@ function lsChatShow(on){
 }
 const lsChatLog=()=>ls.chats[ls.cur.id]||(ls.chats[ls.cur.id]=[]);
 function lsChatDraw(){
-  const log=$('lchatLog'),h=lsChatLog(),hasKey=lsHasAI();
-  log.innerHTML=`<li class="greet">${lsBubble('happy',`Ask me anything about ${esc(lsPlain(ls.cur.title))}.${hasKey?'':` First you’ll need a free AI key. <button type="button" class="kbtn" id="lchatKey">Set up a key</button>`}`)}</li>`+h.map((x,i)=>`<li><p class="cq">${esc(x.q)}</p>${lsBubble(x.pending?'thinking':x.err?'sad':x.mood,x.pending?`<i>${latH(x.thinking)}</i><span class="typing"><i></i><i></i><i></i></span>`:x.err?`<span class="tag bad">Couldn’t ask</span> ${esc(x.err)}`:mdL(x.a)+(lsById(x.older)&&lsById(x.older).num<ls.cur.num?`<br><a href="#l/${encodeURIComponent(x.older)}">Review Lesson ${lsById(x.older).num}: ${esc(lsPlain(lsById(x.older).title))}</a>`:''))}</li>`).join('');
+  const log=$('lchatLog'),h=lsChatLog(),hasKey=localMsgFirst()||messageSlots().length>0;
+  log.innerHTML=`<li class="greet">${lsBubble('happy',`Ask me anything about ${esc(lsPlain(ls.cur.title))}.${hasKey?'':` First you’ll need a free AI key. <button type="button" class="kbtn" id="lchatKey">Set up a key</button>`}`)}</li>`+h.map((x,i)=>`<li><p class="cq">${esc(x.q)}</p>${lsBubble(x.pending?'thinking':x.err?'sad':x.mood,x.pending?(x.live?esc(x.live):`<i>${latH(x.thinking)}</i><span class="typing"><i></i><i></i><i></i></span>`):x.err?`<span class="tag bad">Couldn’t ask</span> ${esc(x.err)}`:mdL(x.a)+(lsById(x.older)&&lsById(x.older).num<ls.cur.num?`<br><a href="#l/${encodeURIComponent(x.older)}">Review Lesson ${lsById(x.older).num}: ${esc(lsPlain(lsById(x.older).title))}</a>`:''))}</li>`).join('');
   log.querySelectorAll('.ca').forEach((el,i)=>{const x=h[i-1];if(x&&x.latin)glossify(el,x.latin)});
   log.scrollTop=log.scrollHeight;const k=$('lchatKey');if(k)k.addEventListener('click',lsOpenKey);
 }
-const lsOpenKey=()=>{$('kguide').click()};
+const lsOpenKey=()=>{$('keysdlg').showModal();renderKeys()};
 async function lsChatSend(){
   const inp=$('lchatIn'),text=inp.value.trim(),l=ls.cur;if(!text||!l)return;
   const h=lsChatLog(),item={q:text,pending:true,thinking:R(THINKING)};h.push(item);inp.value='';lsChatDraw();
-  try{Object.assign(item,await lsAskChat(l,h.slice(0,-1).filter(x=>!x.err),text))}catch(e){item.err=e.message||'The AI could not be reached'}
+  try{Object.assign(item,await lsAskChat(l,h.slice(0,-1).filter(x=>!x.err),text,p=>{item.live=p;if(ls.cur===l)lsChatDraw()}))}catch(e){item.err=e.message||'The AI could not be reached'}
   item.pending=false;if(ls.cur===l)lsChatDraw();
 }
-async function lsAskChat(l,past,question){
+async function lsAskChat(l,past,question,onLive){
+  if(localMsgFirst()){try{return await LAI.askLesson(l,past,question,onLive)}catch(e){if(!messageSlots().length)throw e}}
   const sys=PERSONA+`You are tutoring an English-speaking high school student who is reading a ${LANG_NAME} lesson. `+LS_TRUTH+"Answer the newest question clearly in 2 to 6 short sentences, in terms of this lesson. Assume the student knows the earlier lessons, and do not teach later material unless asked. If the student asks you to answer a practice question for them, guide them to it first. "+lsOlderRule+"Reply only with JSON: {\"reply\": \"your answer\", \"older\": null or \"lesson id\", \"mood\": \"one of the expressions\"}.";
   const hist=past.map((x,i)=>`Q${i+1}: ${x.q}\nA${i+1}: ${x.a}`).join('\n')||'(none)';
-  const t=await aiChat([{role:'system',content:sys},{role:'user',content:`${lsBase(l)}\n\nThe student's recent mistakes in this lesson:\n${lsMissText()}\n\nEarlier conversation:\n${hist}\n\nNewest question: ${question}`}]);
+  const t=await aiChat([{role:'system',content:sys},{role:'user',content:`${lsBase(l)}\n\nThe student's recent mistakes in this lesson:\n${lsMissText()}\n\nEarlier conversation:\n${hist}\n\nNewest question: ${question}`}],{noGonka:true});
   try{const j=parseJ(t);return{a:String(j.reply||''),older:typeof j.older==='string'?j.older.trim():null,mood:MOODS[j.mood]?j.mood:'happy',latin:cleanG(j.latin)}}catch(e){return{a:t.trim(),mood:'happy',older:null}}
 }
 

@@ -5,7 +5,7 @@ const ONB_PRIV=`<div class="onbtri">
     <li>Your AI key, unless you choose to save it. ${SITE.name} never stores it: it goes from your browser to the AI company, passing through the ${SITE.name} relay (a small server on Cloudflare that saves nothing) unless you switch the relay off.</li>
     <li>Without an account, your progress stays in this browser only.</li></ul></section>
   <section class="maybe"><h3>Up to other companies</h3><ul>
-    <li>On this device, the local AI grades your translations and they stay here. If you use an AI key, the sentence, your answer and your question go to that AI company, and what they keep is up to their privacy policy. If the local AI’s two checks disagree and you have no key on, that exercise and your answer go through the ${SITE.name} relay to Gonka Broker to settle it.</li>
+    <li>On this device, the local AI grades your translations and answers your messages, and they stay here. If you use an AI key, the sentence, your answer and your question go to that AI company, and what they keep is up to their privacy policy. If the local AI’s two checks disagree and you have no key on, that exercise and your answer go through the ${SITE.name} relay to Gonka Broker to settle it.</li>
     <li>GitHub hosts this site, Google Firebase stores accounts, and Cloudflare runs the relay. They may keep basic logs, like your IP address.</li></ul></section>
   <section class="no"><h3>Not private</h3><ul>
     <li>The leaderboard and anything you put in your profile can be seen by other people.</li>

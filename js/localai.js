@@ -4,7 +4,8 @@
    next key that is on, or to Verba's own tie-break, or to Qwen itself when the student ticks that option or nothing else answers.
    The AI library (6 MB) and the model (about 2.4 GB) load only after the student agrees to the download. */
 const LAI={
-  model:'Qwen3.5-4B-q4f16_1-MLC',engine:null,loading:null,G:{},groundFor:null,
+  model:'Qwen3.5-4B-q4f16_1-MLC',engine:null,loading:null,G:{},groundFor:null,turn:Promise.resolve(),
+  run(fn){const p=this.turn.then(fn,fn);this.turn=p.catch(()=>{});return p}, // one request at a time: grading and messages share the model
   choice(){return lsGet('verba-local-choice',null)}, // 'yes', 'no', or null when the student hasn't been asked
   setChoice(v){lsSet('verba-local-choice',v)},
   downloaded(){return lsGet('verba-local-ready',false)===true},
@@ -33,10 +34,44 @@ const LAI={
     })();
     try{return await this.loading}catch(e){this.loading=null;throw e}
   },
-  async ask(msgs,max){
+  ask(msgs,max){return this.run(async()=>{
     const e=await this.start();await e.resetChat();
     const a=await e.chat.completions.create({messages:msgs,temperature:0,seed:1,max_tokens:max,extra_body:{enable_thinking:false}});
     return(a.choices&&a.choices[0]&&a.choices[0].message&&a.choices[0].message.content)||'';
+  })},
+  /* Messages: a short prompt, a required JSON shape and a low cap keep Qwen quick and stop it looping. The reply streams as it's written. */
+  stream(messages,cap,schema,onLive){return this.run(async()=>{
+    const e=await this.start(),base={messages,temperature:0,seed:1,max_tokens:cap,repetition_penalty:1.1,stream:true,extra_body:{enable_thinking:false}};
+    const go=async body=>{await e.resetChat();let t='',last=0;
+      for await(const ch of await e.chat.completions.create(body)){const d=ch.choices&&ch.choices[0];if(d&&d.delta&&d.delta.content){t+=d.delta.content;const p=this.partial(t);if(p&&onLive&&performance.now()-last>120){last=performance.now();onLive(p)}}}
+      return t};
+    try{return await go({...base,response_format:{type:'json_object',schema:JSON.stringify(schema)}})}catch(x){return go(base)}
+  })},
+  partial(t){const m=t.match(/"reply"\s*:\s*"((?:[^"\\]|\\.)*)/);if(!m)return'';try{return JSON.parse('"'+m[1].replace(/\\$/,'')+'"')}catch(e){return m[1]}},
+  sentences(t){const m=t.match(/^[\s\S]*[.!?](?=\s|$)/);return m?m[0]:t},
+  read(t){let j=null;try{j=JSON.parse(t)}catch(e){}
+    const mood0=j?j.mood:(t.match(/"mood"\s*:\s*"(\w+)"/)||[])[1],edit=j?j.edit:(t.match(/"edit"\s*:\s*"((?:[^"\\]|\\.)*)"/)||[])[1];
+    const raw=j?j.reply:this.sentences(this.partial(t)||t.replace(/<think>[\s\S]*?<\/think>/g,''));
+    const a=String(raw||'').replace(/\{([^{}|]+)(\|[^{}]*)?\}/g,'$1').trim();if(!a||/^\{/.test(a))throw new Error('the local AI gave an unreadable reply');
+    return{a,mood:MOODS[mood0]?mood0:'happy',leading:j?j.leading===true:/"leading"\s*:\s*true/.test(t),edit:typeof edit==='string'&&edit.trim()?edit.trim():null};
+  },
+  base(){return `You are ${SITE.cat}, the friendly cat tutor on ${SITE.name}, a ${LANG_NAME} practice site. Answer the newest question in at most 2 short sentences, with the answer in the first sentence. Use only the facts you are given. Never guess, and never correct yourself. If the facts do not cover it, say you are not sure. Do not repeat yourself. Choose a mood from: ${Object.entries(MOODS).map(([k,v])=>`${k} (${v.split(':')[0]})`).join(', ')}. `},
+  schema(extra){return{type:'object',properties:{...extra,mood:{type:'string',enum:Object.keys(MOODS)},reply:{type:'string'}},required:[...Object.keys(extra),'mood','reply'],additionalProperties:false}},
+  facts(q){return(q.tokens||[]).map(t=>{const m=((t.vocab||'').split(' : ')[1]||'').trim(),id=t.cids&&t.cids[0],u=id&&(TOPICS.find(x=>x.id===id)||{}).name;return t.concept?`${t.la} = ${t.concept} of ${t.lemma}${m?` (${m})`:''}${u?`, use: ${u}`:''}`:`${t.la}${m?` = ${m}`:''}`}).join('\n')},
+  gloss(q,t){const low=s=>s.normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase(),map={};(q.tokens||[]).forEach(x=>{const m=((x.vocab||'').split(' : ')[1]||'').trim();if(m)map[low(x.la)]=m.replace(/[{}|]/g,'')});return t.replace(/\p{L}[\p{L}\p{M}]*/gu,w=>map[low(w)]?`{${w}|${map[low(w)]}}`:w)},
+  async askExercise(q,c,question,draft,after,onLive){
+    const hist=q.chat.filter(x=>!x.pending&&!x.err).slice(-2).map(x=>`Student: ${x.q}\n${SITE.cat}: ${String(x.a).replace(/\{([^{}|]+)\|[^{}]*\}/g,'$1')}`).join('\n')||'(none)';
+    const sys=this.base()+(after?'The student has submitted, so explain openly.':`The student has not submitted yet. Set leading using these rules. ${LEAD_RULES[levelOf(q)]} If leading is false, do not say which form a word takes in this exercise and do not write its translation. Only if the student asks you to correct or fill in their answer, put the full corrected answer in edit; otherwise edit is null.`);
+    const user=`Facts:\n${this.facts(q)}\nSentence: ${c.src}\nCorrect answer: ${c.model}\n${after?`Student's submitted answer: ${q.submitted||'(none)'}\nResult: ${q.result||''}`:`Student's current draft: ${draft||'(empty)'}`}\nEarlier conversation:\n${hist}\nNewest question: ${question}`;
+    const v=this.read(await this.stream([{role:'system',content:sys},{role:'user',content:user}],after?110:130,this.schema(after?{}:{leading:{type:'boolean'},edit:{type:['string','null']}}),onLive));
+    const a=this.gloss(q,v.a);if(after)return{a,mood:v.mood,after:true};
+    const edit=!q.choice?v.edit:null;return{a,leading:v.leading||!!edit||askingForCheck(question),why:'',edit,mood:v.mood};
+  },
+  async askLesson(l,past,question,onLive){
+    const hist=past.slice(-2).map(x=>`Student: ${x.q}\n${SITE.cat}: ${x.a}`).join('\n')||'(none)';
+    const user=`Facts (the lesson the student is reading):\n${lsPlain(l.body).slice(0,6000)}\nEarlier conversation:\n${hist}\nNewest question: ${question}`;
+    const v=this.read(await this.stream([{role:'system',content:this.base()+'If the student asks you to answer a practice question for them, guide them to it first.'},{role:'user',content:user}],130,this.schema({}),onLive));
+    return{a:v.a,mood:v.mood,older:null};
   },
   async words(list){ // Whitaker's Words, kept on this device so each word is looked up once
     if(!this.groundFor){this.groundFor=1;try{this.G=JSON.parse(localStorage.getItem('verba-lw')||'{}')}catch(e){this.G={}}}
@@ -101,6 +136,15 @@ const LAI={
     catch(e){this.setChoice(null);if(st)st.textContent='The download didn’t finish: '+(e.message||'unknown error')}
   },
 };
+// The site's rules count checking or giving the answer as too leading, so code catches the plain cases Qwen misses.
+const askingForCheck=s=>/\b(is|are|was|does|did)\s+(my|this|that|it)\b.*\b(right|correct|wrong|good|ok|okay)\b|\b(check|fix|correct)\s+(my|this)\b|\b(what|tell me|give me)\b.*\b(the\s+)?(answer|translation)\b|\bhow (do|would) (i|you) (say|translate|write) (this|that|it|the sentence)\b/i.test(s);
+// Messages use the local AI when its messages option is on and no key that is on is ranked above it.
+function localMsgFirst(){
+  if(!LAI.usable())return false;
+  const s=slots.find(x=>x.local);if(!s||!s.on||!s.msg)return false;
+  if(!advanced)return true;
+  const i=slots.indexOf(s);return !slots.slice(0,i).some(x=>!x.local&&x.on&&x.key.trim()&&!isGonka(x));
+}
 // Local AI grades when it's on, downloaded, and no key that is on is ranked above it.
 function localFirst(q){
   if(!LAI.usable()||!q||q.choice||(q.mode!=='e2l'&&q.mode!=='l2e'))return false;

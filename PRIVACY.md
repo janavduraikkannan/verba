@@ -155,6 +155,8 @@ Verba is meant for high school Latin students.
 
 If you agree to the download, an AI model of about 2.4 GB is saved in this browser and grades your translations on your device, so those answers aren't sent to an AI company. To grade them, Verba looks up the Latin words with a free dictionary service (latin.71m.us), which receives those words.
 
+Messages you send to Fēlix also stay on your device when the local AI answers them. Untick "Use the local AI for messages" under Edit keys to use your own AI key instead. Messages never go to Gonka Broker.
+
 If the local AI's two checks disagree and you have no AI key on, that one exercise and your answer go through Verba's relay to Gonka Broker (DeepSeek) to settle it. You can tick "Use the local AI for tie-breaks" under Edit keys to keep tie-breaks on your device.
 
 ## Changes

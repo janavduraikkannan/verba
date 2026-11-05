@@ -2,7 +2,7 @@
 /* ---------- Key slots. Simple mode uses slot 1 from the bar; advanced mode uses every slot that is on, in rank order. ---------- */
 const lsGet=(k,d)=>{try{const v=localStorage.getItem(k);return v===null?d:JSON.parse(v)}catch(e){return d}};
 const lsSet=(k,v)=>{try{v===undefined?localStorage.removeItem(k):localStorage.setItem(k,JSON.stringify(v))}catch(e){}};
-let kid=0;const mkSlot=(o={})=>({id:++kid,key:String(o.key||''),prov:PROVIDERS[o.prov]?o.prov:'auto',on:o.on!==false,st:null,err:'',local:!!o.local,tie:!!o.tie});
+let kid=0;const mkSlot=(o={})=>({id:++kid,key:String(o.key||''),prov:PROVIDERS[o.prov]?o.prov:'auto',on:o.on!==false,st:null,err:'',local:!!o.local,tie:!!o.tie,msg:o.msg!==false});
 let keyRemB=lsGet('verba-keys-browser',false),keyRemA=lsGet('verba-keys-account',false),advanced=store.get('keyadv',false);
 /* Sites with a local AI: it is a slot at the top of the list. The first time older saved keys load, they move below it, turned on,
    and advanced mode comes on so the student can see them. mv:2 marks a list that has already moved. */
@@ -11,14 +11,14 @@ function moveKeys(list){
   if(!SITE.localAI)return list;
   const legacy=list.some(x=>x.key&&x.mv!==2);
   if(legacy){list.forEach(x=>{if(x.key)x.on=true});advanced=true;store.set('keyadv',true);keysMoved=true}
-  if(!list.some(x=>x.local)){const p=lsGet('verba-local-prefs',{});list.unshift({local:true,on:p.on!==false,tie:!!p.tie})}
+  if(!list.some(x=>x.local)){const p=lsGet('verba-local-prefs',{});list.unshift({local:true,on:p.on!==false,tie:!!p.tie,msg:p.msg!==false})}
   if(!list.some(x=>!x.local))list.push({prov:store.get('prov','auto')});
   return list;
 }
 let slots=moveKeys((keyRemB&&lsGet('verba-aikeys',null))||[{prov:store.get('prov','auto')}]).map(mkSlot);
 const keySlots=()=>slots.filter(s=>!s.local);
-const serialKeys=()=>slots.map(s=>s.local?{local:true,on:s.on,tie:s.tie,mv:2}:{key:s.key,prov:s.prov,on:s.on,mv:2});
-function saveKeys(){const L=slots.find(s=>s.local);if(L)lsSet('verba-local-prefs',{on:L.on,tie:L.tie});lsSet('verba-aikeys',keyRemB?serialKeys():undefined);if(keyRemA)try{acctDirty('aikeys')}catch(e){}}
+const serialKeys=()=>slots.map(s=>s.local?{local:true,on:s.on,tie:s.tie,msg:s.msg,mv:2}:{key:s.key,prov:s.prov,on:s.on,mv:2});
+function saveKeys(){const L=slots.find(s=>s.local);if(L)lsSet('verba-local-prefs',{on:L.on,tie:L.tie,msg:L.msg});lsSet('verba-aikeys',keyRemB?serialKeys():undefined);if(keyRemA)try{acctDirty('aikeys')}catch(e){}}
 const provName=s=>s.local?'Local AI':s.st?PROVIDERS[s.st.prov].name:PROVIDERS[s.prov]?PROVIDERS[s.prov].name:s.key.trim()&&guessProv(s.key.trim()).length?PROVIDERS[guessProv(s.key.trim())[0]].name:'unknown provider';
 function syncSimple(){const s=keySlots()[0],k=$('key').value.trim(),p=$('prov').value;if(s.key!==k||s.prov!==p){s.key=k;s.prov=p;s.st=null;s.err='';saveKeys()}}
 function fillSimple(){const s=keySlots()[0];$('key').value=s.key;$('prov').value=s.prov}
@@ -31,8 +31,12 @@ async function useSlot(s){if(s.st)return;s.st=await detectKey(s.key.trim(),s.pro
   if(s.st.prov==='gemini'){const m=lsGet('verba-gmodel-'+keyTag(s.key),null),all=[s.st.model,...(s.st.cands||[])];
     if(m&&all.includes(m)){s.st.model=m;s.st.cands=all.filter(x=>x!==m)}}}
 // Every AI request starts again at the top-ranked key that is on, and falls down the list on any failure.
-async function aiChat(messages){
-  const list=activeSlots();
+// Student messages (noGonka) never use Gonka Broker.
+const isGonka=s=>(s.st&&s.st.prov==='gonka')||s.prov==='gonka'||(!s.st&&guessProv(s.key.trim())[0]==='gonka');
+const messageSlots=()=>activeSlots().filter(s=>!isGonka(s));
+async function aiChat(messages,opts={}){
+  const list=opts.noGonka?messageSlots():activeSlots();
+  if(!list.length&&opts.noGonka)throw new Error('add an AI key, or turn on Use the local AI for messages under Edit keys');
   if(!list.length)throw new Error(advanced?'every AI key is turned off; turn one back on under Edit keys':'no AI key was entered');
   let last;
   for(let i=0;i<list.length;i++){const s=list[i];
@@ -68,8 +72,8 @@ function renderKeys(){
   kStatus();
 }
 const localRow=(s,i)=>`<li class="krow${s.on?'':' off'}" data-id="${s.id}" data-local="1"><span class="krank" aria-label="Rank ${i+1}">${i+1}</span>
-    <div class="kfields"><b>Local AI</b> <span class="hint">Grades translations on this device, with no key.</span></div>
-    <div><div class="kctl"><label><input type="checkbox" data-f="on"${s.on?' checked':''}> On</label><label><input type="checkbox" data-f="tie"${s.tie?' checked':''}> Use the local AI for tie-breaks</label><button data-a="up" aria-label="Move Local AI up"${i?'':' disabled'}>▲</button><button data-a="down" aria-label="Move Local AI down"${i<slots.length-1?'':' disabled'}>▼</button>${LAI.usable()||LAI.choice()==='unsupported'?'':'<button data-a="dl">Download</button>'}</div><div class="kstat"></div></div></li>`;
+    <div class="kfields"><b>Local AI</b> <span class="hint">Grades translations and answers messages on this device, with no key.</span></div>
+    <div><div class="kctl"><label><input type="checkbox" data-f="on"${s.on?' checked':''}> On</label><label><input type="checkbox" data-f="tie"${s.tie?' checked':''}> Use the local AI for tie-breaks</label><label><input type="checkbox" data-f="msg"${s.msg?' checked':''}> Use the local AI for messages</label><button data-a="up" aria-label="Move Local AI up"${i?'':' disabled'}>▲</button><button data-a="down" aria-label="Move Local AI down"${i<slots.length-1?'':' disabled'}>▼</button>${LAI.usable()||LAI.choice()==='unsupported'?'':'<button data-a="dl">Download</button>'}</div><div class="kstat"></div></div></li>`;
 function keysUI(full){
   $('simplekey').hidden=advanced;$('advkey').hidden=!advanced;
   if(!advanced)fillSimple();
@@ -117,6 +121,7 @@ function setupKeys(){
   $('klist').addEventListener('change',e=>{const s=slotOf(e.target),f=e.target.dataset.f;if(!s||f==='key')return;
     if(f==='prov'){s.prov=e.target.value;s.st=null;s.err='';kStatus()}
     else if(f==='tie'){s.tie=e.target.checked}
+    else if(f==='msg'){s.msg=e.target.checked}
     else if(f==='on'){s.on=e.target.checked;if(s.on){s.err='';const n=document.querySelector(`.knote[data-id="${s.id}"]`);if(n)n.remove()}e.target.closest('.krow').classList.toggle('off',!s.on);kStatus()}
     saveKeys();keysUI()});
   $('klist').addEventListener('click',e=>{const a=e.target.dataset.a;if(!a)return;const s=slotOf(e.target),i=slots.indexOf(s);
