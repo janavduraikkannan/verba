@@ -27,6 +27,7 @@ const UPSTREAMS = {
   "api.openai.com": ["/v1/"],
   "api.anthropic.com": ["/v1/"],
   "api.x.ai": ["/v1/"],
+  "proxy.gonkabroker.com": ["/v1/"],
 };
 
 // Request headers passed on to the AI company. Everything else (cookies, IP headers, etc.) is dropped.

@@ -29,6 +29,10 @@ await t("GET model list with Gemini header + query string kept", async () => {
   const r = await worker.fetch(req("/?u=" + enc(u), { headers: { "x-goog-api-key": "AQ.test" } }), env);
   eq(r.status, 200, "status"); eq(calls[0].url, u, "url"); eq(calls[0].init.headers.get("x-goog-api-key"), "AQ.test", "key"); eq(calls[0].init.body, undefined, "no body");
 });
+await t("Gonka Broker allowed", async () => {
+  const r = await worker.fetch(req("/?u=" + encodeURIComponent("https://proxy.gonkabroker.com/v1/chat/completions"), { method: "POST", body: "{}", headers: { Authorization: "Bearer gnk-prx-x" } }), env);
+  eq(r.status, 200, "status"); eq(calls[0].url, "https://proxy.gonkabroker.com/v1/chat/completions", "url");
+});
 await t("Anthropic headers forwarded", async () => {
   await worker.fetch(req("/?u=" + enc("https://api.anthropic.com/v1/messages"), { method: "POST", body: "{}", headers: { "x-api-key": "sk-ant-x", "anthropic-version": "2023-06-01", "anthropic-dangerous-direct-browser-access": "true" } }), env);
   eq(calls[0].init.headers.get("x-api-key"), "sk-ant-x", "key"); eq(calls[0].init.headers.get("anthropic-version"), "2023-06-01", "ver");
