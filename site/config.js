@@ -19,7 +19,7 @@ const SITE={
 const LANG_NAME="Latin";
 /* text the shared code drops into its messages; {word|meaning} marks a hover definition */
 const TXT={
-  onbHello:"{Salvē|hello}! I’m {Fēlix|lucky (my name; fēlēs means cat)}, your Latin tutor cat. Let’s get you set up. It takes about 5 minutes.",
+  onbHello:"{Salvē|hello}! I’m {Fēlix|lucky (my name; fēlēs means cat)}, your Latin tutor cat. Here’s a quick tour.",
   onbAlso:"",
   onbLogin:"I have a Verba account: log in",
   onbDone:"{Euge|well done}! You’re all set. Here are a few tricks before you start.",

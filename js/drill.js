@@ -4,7 +4,7 @@ async function tryStart(){
   $('keymsg').textContent='';store.set('prov',$('prov').value);
   const list=activeSlots(),L=slots.find(x=>x.local),local=!!(L&&L.on&&LAI.usable());
   if(local&&!list.length){start();return}
-  if(!list.length){if(!advanced&&!acct.key&&!slots.some(x=>x.key)){openOnb(3);return}$('keymsg').textContent=advanced?'Add a key, or turn one back on, under Edit keys.':'Paste an AI API key first. Tap ⓘ for keys that work.';if(!advanced)$('key').focus();return;}
+  if(!list.length){$('keymsg').textContent=advanced?'Add a key, or turn one back on, under Edit keys.':'Paste an AI API key first. Tap ⓘ for keys that work.';if(!advanced)$('key').focus();return;}
   if(!list.some(s=>s.st)){$('startbtn').disabled=true;$('startbtn').textContent=list.length>1?'Checking keys…':'Checking key…';
     let ok=false,last=null;
     try{for(let i=0;i<list.length&&!ok;i++){const s=list[i];try{await useSlot(s);s.err='';ok=true}catch(e){last=e;s.err=e.message||'failed';if(advanced)keyNotice(s,e,list[i+1])}}}

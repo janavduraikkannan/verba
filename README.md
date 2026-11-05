@@ -71,7 +71,6 @@ Verba is a static website hosted on GitHub Pages. There is no Verba server and n
 | `site/` | Everything that is only Verba: `lessons.js` (the lessons, their question banks and XP values; a site without this file has no Lessons tab), `config.js` (names, wording, courses, ranks, profile pictures), `cat.js` (Fēlix's personality and the AI prompts), `language.js` (how Latin behaves in the shared code: typing accents, charts, marking words), `engine.js` (the Latin sentence engine and answer checker), `uses.js` (extra uses for the identify-the-use tab) and `theme.css` (colours) |
 | `img/felix/` | Fēlix, in every mood |
 | `img/icons/` | Interface icons |
-| `media/` | The key tutorial video, its captions and poster |
 | `tools/felix.py` | The script that draws Fēlix |
 | `tools/sync_shared.py` | Copies the shared files (everything outside `site/`) from Verba to Palabras, Mots and Wörter; `--check` only reports differences. Change shared code here, then run it |
 | `tools/lessons/` | Writes `site/lessons.js`: `node tools/lessons/make.js` builds it from the lesson parts here, with verb and noun forms from the engine and each question's word meanings from `gloss.js`, and `node tools/lessons/check.js` checks every question and Latin word, and fails if a question's answer is printed in its own lesson (`overlap.js`). |

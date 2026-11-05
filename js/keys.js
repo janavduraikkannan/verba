@@ -4,20 +4,20 @@ const lsGet=(k,d)=>{try{const v=localStorage.getItem(k);return v===null?d:JSON.p
 const lsSet=(k,v)=>{try{v===undefined?localStorage.removeItem(k):localStorage.setItem(k,JSON.stringify(v))}catch(e){}};
 let kid=0;const mkSlot=(o={})=>({id:++kid,key:String(o.key||''),prov:PROVIDERS[o.prov]?o.prov:'auto',on:o.on!==false,st:null,err:'',local:!!o.local,tie:!!o.tie});
 let keyRemB=lsGet('verba-keys-browser',false),keyRemA=lsGet('verba-keys-account',false),advanced=store.get('keyadv',false);
-/* Sites with a local AI: it is a slot at the top of the list. The first time older saved keys load, they move below it, turned off,
-   and advanced mode comes on so the student can see them. mv:1 marks a list that has already moved. */
+/* Sites with a local AI: it is a slot at the top of the list. The first time older saved keys load, they move below it, turned on,
+   and advanced mode comes on so the student can see them. mv:2 marks a list that has already moved. */
 let keysMoved=false;
 function moveKeys(list){
   if(!SITE.localAI)return list;
-  const legacy=list.some(x=>x.key&&!x.mv);
-  if(legacy){list.forEach(x=>{x.on=false});advanced=true;store.set('keyadv',true);keysMoved=true}
+  const legacy=list.some(x=>x.key&&x.mv!==2);
+  if(legacy){list.forEach(x=>{if(x.key)x.on=true});advanced=true;store.set('keyadv',true);keysMoved=true}
   if(!list.some(x=>x.local)){const p=lsGet('verba-local-prefs',{});list.unshift({local:true,on:p.on!==false,tie:!!p.tie})}
   if(!list.some(x=>!x.local))list.push({prov:store.get('prov','auto')});
   return list;
 }
 let slots=moveKeys((keyRemB&&lsGet('verba-aikeys',null))||[{prov:store.get('prov','auto')}]).map(mkSlot);
 const keySlots=()=>slots.filter(s=>!s.local);
-const serialKeys=()=>slots.map(s=>s.local?{local:true,on:s.on,tie:s.tie,mv:1}:{key:s.key,prov:s.prov,on:s.on,mv:1});
+const serialKeys=()=>slots.map(s=>s.local?{local:true,on:s.on,tie:s.tie,mv:2}:{key:s.key,prov:s.prov,on:s.on,mv:2});
 function saveKeys(){const L=slots.find(s=>s.local);if(L)lsSet('verba-local-prefs',{on:L.on,tie:L.tie});lsSet('verba-aikeys',keyRemB?serialKeys():undefined);if(keyRemA)try{acctDirty('aikeys')}catch(e){}}
 const provName=s=>s.local?'Local AI':s.st?PROVIDERS[s.st.prov].name:PROVIDERS[s.prov]?PROVIDERS[s.prov].name:s.key.trim()&&guessProv(s.key.trim()).length?PROVIDERS[guessProv(s.key.trim())[0]].name:'unknown provider';
 function syncSimple(){const s=keySlots()[0],k=$('key').value.trim(),p=$('prov').value;if(s.key!==k||s.prov!==p){s.key=k;s.prov=p;s.st=null;s.err='';saveKeys()}}
