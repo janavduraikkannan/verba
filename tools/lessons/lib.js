@@ -1,5 +1,5 @@
 /* Helpers for writing Latin lessons. Forms come from Verba's own engine (site/engine.js), so a lesson can't disagree with the practice mode. */
-const G=require('../../site/engine.js');
+const G=require('../../site/engine.js');G.setEr(true); /* lessons may use every word, including -er/-ir nouns */
 const vb=x=>{const v=G.VERBS.find(v=>v.inf===x);if(!v)throw new Error('no verb '+x);return v};
 const nn=x=>{const n=G.NOUNS.find(n=>n.nom===x);if(!n)throw new Error('no noun '+x);return n};
 const PERS=['I','you','he','we','you','they'];

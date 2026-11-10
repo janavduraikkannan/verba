@@ -110,6 +110,11 @@ liber,librī,libr,2r,m,book,books,w
 gener,generī,gener,2r,m,son-in-law,sons-in-law,p
 sīgnifer,sīgniferī,sīgnifer,2r,m,standard-bearer,standard-bearers,p
 cancer,cancrī,cancr,2r,m,crab,crabs,a
+magistra,-ae,magistr,1,f,teacher,teachers,p
+lupus,-ī,lup,2,m,wolf,wolves,a
+porcus,-ī,porc,2,m,pig,pigs,a
+fīcus,-ī,fīc,2,f,fig tree,fig trees,t,T
+caelum,-ī,cael,2n,n,sky,skies,l,S
 dōnum,-ī,dōn,2n,n,gift,gifts,t
 oppidum,-ī,oppid,2n,n,town,towns,c
 templum,-ī,templ,2n,n,temple,temples,c
@@ -204,6 +209,7 @@ impedīre|impedīvī|impedītum|4|hinder|hindered|hindered|hindering|pg
 mūnīre|mūnīvī|mūnītum|4|fortify|fortified|fortified|fortifying|c
 ambulāre|ambulāvī|ambulātum|1|walk|walked|walked|walking||M
 nūntiāre|nūntiāvī|nūntiātum|1|announce|announced|announced|announcing||Z
+clāmāre|clāmāvī|clāmātum|1|shout|shouted|shouted|shouting||Z
 comperīre|comperī|compertum|4|find out|found out|found out|finding out||Z
 reprehendere|reprehendī|reprehēnsum|3|scold|scolded|scolded|scolding|p
 reddere|reddidī|redditum|3|give back|gave back|given back|giving back|tw|D
@@ -299,7 +305,7 @@ function V(v,t,vc,p,g,xc=[]){
 function s3(b){const[w,...r]=b.split(' ');const x=/(s|sh|ch|x|o)$/.test(w)?w+'es':/[^aeiou]y$/.test(w)?w.slice(0,-1)+'ies':w+'s';return[x,...r].join(' ')}
 const beP=p=>['am','are','is','are','are','are'][p], beQ=p=>['was','were','was','were','were','were'][p];
 const be=(t,p)=>t==='pres'?beP(p):t==='impf'?beQ(p):'will be';
-let ALT=[],GDAT=null;
+let ALT=[],GDAT=null,POSNEED=null;
 /* Uses of the cases (types), from the class notes */
 const USES={
  gen:{name:'Genitive',word:'genitive',list:[
@@ -374,6 +380,7 @@ pulcher|pulchr|12|beautiful|pt|more beautiful|most beautiful|pulchrē|beautifull
 miser|miser|12|wretched|p|more wretched|most wretched|miserē|wretchedly
 līber|līber|12|free|p|freer|freest|līberē|freely
 aeger|aegr|12|sick|p|sicker|sickest
+parātus|parāt|12|ready|p|more ready|most ready
 maestus|maest|12|sad|p|sadder|saddest|maestē|sadly
 avārus|avār|12|greedy|p|greedier|greediest|avārē|greedily
 saevus|saev|12|fierce|pt|fiercer|fiercest|saevē|fiercely
@@ -542,6 +549,49 @@ function gEsse(){
   ALT.push([' that ',' ']);
   const ie=ht==='impf'?beQ(ik?5:2):beP(ik?5:2);
   return S([V(hv,ht,'act',hp),ist,ct,{la:'esse',lemma:'esse',cids:['sum'],concept:'present infinitive of esse',forms:[],vocab:'esse, sum : to be'}],`${hE} ${engV(hv,ht,'act',hp)} that ${np(is,ik)} ${ie} ${cE}`);
+}
+/* possessive adjectives, from the notes "Whose is it?": the stem tells the owner, the ending agrees with the thing owned */
+const POSS={me:{st:'me',nom:'meus',e:'my',own:'mine',v:'meus, -a, -um : my'},tu:{st:'tu',nom:'tuus',e:'your',own:'yours',v:'tuus, -a, -um : your (one person)'},su:{st:'su',nom:'suus',v:'suus, -a, -um : his, her, its, their (own)'},nostr:{st:'nostr',nom:'noster',e:'our',own:'ours',v:'noster, nostra, nostrum : our'},vestr:{st:'vestr',nom:'vester',e:'your',own:'yours',v:'vester, vestra, vestrum : your (more than one person)'}};
+function possTok(P,c,k,g){return{la:d12(P.st,c,k,g,P.nom),lemma:P.nom,cids:['poss'],concept:`${CASES[c]} ${NUM[k]} ${GN[g]} (agrees with the thing owned)`,forms:[],vocab:P.v}}
+const suE=(n,k)=>k?'their':n?(n.g==='f'?'her':n.g==='n'?'its':'his'):null;
+const ownNote=key=>key==='tu'?' (your = one person)':key==='vestr'?' (your = more than one person)':'';
+function gPoss(){
+  const t=R(['pres','pres','impf','fut']),m=R(['obj','obj','obj','dat','pred']);
+  if(m==='pred'){const key=R(['me','tu','nostr','vestr']),P=POSS[key],n=R(NOUNS.filter(x=>'tw'.includes(x.tag)&&!x.sgOnly)),k=num(n),p=k?5:2;
+    const q=S([N(n,0,k,'nom'),possTok(P,0,k,n.g),SUMT(t,p)],`${np(n,k)} ${be(t,p)} ${P.own}${ownNote(key)}`);q.posNeed=[P.own,P.e];return q}
+  const key=R(['me','tu','su','su','nostr','vestr']),P=POSS[key];let p,sTok=[],sE,s=null,need;
+  if(key==='su'){if(chance(.6)){s=R(PEOPLE);const k=num(s);p=k?5:2;sTok=[N(s,0,k,'nom')];sE=np(s,k);need=[suE(s,k)]}else{p=R([2,5]);sE=PRON[p];need=p===5?['their']:['his','her'];if(p===2)ALT.push(['he','she'])}}
+  else if(chance(.5)){p={me:0,tu:1,nostr:3,vestr:4}[key];sE=PRON[p];need=[P.e]}
+  else{s=R(PEOPLE);const k=num(s);p=k?5:2;sTok=[N(s,0,k,'nom')];sE=np(s,k);need=[P.e]}
+  const pe=need[0],note=p===1||p===4?'':ownNote(key);let q;
+  if(m==='dat'){const v=vb(R(GIVE)),th=R(objFor(v)),tk=num(th),ow=R(PEOPLE.filter(x=>x!==s)),ok=num(ow),own=`${pe} ${ok?ow.ep:ow.e}`;
+    ALT.push([`to ${own}`,`to ${pe} own ${ok?ow.ep:ow.e}`]);if(key==='su'&&need.length>1)ALT.push([own,own.replace(/^his/,'her')]);
+    q=S([...sTok,N(th,3,tk,'acc'),N(ow,2,ok,'dat'),possTok(P,2,ok,ow.g),V(v,t,'act',p)],`${sE} ${engV(v,t,'act',p)} ${np(th,tk)} to ${own}${note}`)}
+  else{const v=R(TV.filter(x=>!GIVE.includes(x.inf))),o=R(objFor(v).filter(x=>x!==s)),ok=num(o),own=`${pe} ${ok?o.ep:o.e}`;
+    ALT.push([own,`${pe} own ${ok?o.ep:o.e}`]);if(key==='su'&&need.length>1)ALT.push([own,own.replace(/^his/,'her')]);
+    q=S([...sTok,N(o,3,ok,'acc'),possTok(P,3,ok,o.g),V(v,t,'act',p)],`${sE} ${engV(v,t,'act',p)} ${own}${note}`)}
+  q.posNeed=need;return q;
+}
+/* indirect statement with esse, from the class practice sheet: an adjective, a noun or a place on the far side of the = sign */
+function gIndEsse(){
+  const hv=vb(R(['dīcere','putāre','crēdere','narrāre','audīre','nūntiāre','clāmāre','vidēre','scīre'])),ht=R(['pres','pres','impf']);
+  let hTok=[],hp,hE,hs=null,hk=0;if(chance(.7)){hs=R(PEOPLE);hk=num(hs);hp=hk?5:2;hTok=[N(hs,0,hk,'nom')];hE=np(hs,hk)}else{hp=R([0,1,2,3,4,5]);hE=PRON[hp];if(hp===2)ALT.push(['he','she'])}
+  const kind=R(['adj','adj','noun','place','place']),neg=kind!=='noun'&&chance(.2);
+  const is=kind==='place'?R(NOUNS.filter(x=>'pacg'.includes(x.tag)&&x!==hs)):R(PEOPLE.filter(x=>x!==hs)),ik=is.sgOnly?0:num(is),ist=N(is,3,ik,'indst');ist.concept+=' (subject of the infinitive)';
+  const toks=[ist];let isE=np(is,ik),need=null;
+  if(hs&&is.tag==='p'&&chance(.25)){toks.push(possTok(POSS.su,3,ik,is.g));need=[suE(hs,hk)];isE=`${need[0]} ${ik?is.ep:is.e}`;ALT.push([isE,`${need[0]} own ${ik?is.ep:is.e}`])}
+  let cE;
+  if(kind==='adj'){const a=adjFor(is,['12']);const ct=A(a,3,ik,is.g,['adj12']);ct.concept+=' (agrees with the accusative subject)';toks.push(ct);cE=a.e}
+  else if(kind==='noun'){const pr=R(PEOPLE.filter(x=>x!==is&&x!==hs&&!x.sgOnly&&x.e!==is.e));const ct=N(pr,3,ik,'predis');ct.concept+=' (renames the accusative subject)';toks.push(ct);cE=ik?pr.ep:artE(pr.e)}
+  else{const r=R(['in','in','prope','danger']);
+    if(r==='danger'&&nn('perīculum')){toks.push(W('in','in (+abl) : in'),N(nn('perīculum'),4,0,'placeWhere'));cE='in danger'}
+    else if(r==='prope'){const pl=R(NOUNS.filter(x=>'lc'.includes(x.tag)&&x!==is)),pk=num(pl),nt=N(pl,3,pk,'accprep');toks.push(prepW(PREPS[4],nt.la),nt);cE='near '+np(pl,pk)}
+    else{const pl=R(NOUNS.filter(x=>'lc'.includes(x.tag)&&x!==is)),pk=num(pl),nt=N(pl,4,pk,'placeWhere');toks.push(prepW(PREPS[10],nt.la),nt);cE='in '+np(pl,pk);ALT.push([cE,'on '+np(pl,pk),'at '+np(pl,pk)])}}
+  if(neg)toks.push(W('nōn','nōn : not'));
+  ALT.push([' that ',' ']);
+  const ie=(ht==='impf'?beQ(ik?5:2):beP(ik?5:2))+(neg?' not':'');
+  const q=S([...hTok,V(hv,ht,'act',hp),...toks,{la:'esse',lemma:'esse',cids:['sum'],concept:'present infinitive of esse',forms:[],vocab:'esse, sum : to be'}],`${hE} ${engV(hv,ht,'act',hp)} that ${isE} ${ie} ${cE}`);
+  if(need)q.posNeed=need;return q;
 }
 /* personal pronouns: as a direct object, as a dative, and with cum attached */
 const PRONS=[['mē','mihi','mēcum','me','ego, mē : I, me'],['tē','tibi','tēcum','you','tū, tē : you (one person)'],['nōs','nōbīs','nōbīscum','us','nōs : we, us'],['vōs','vōbīs','vōbīscum','you (pl.)','vōs : you (more than one person)']];
@@ -764,11 +814,11 @@ const GIVE=['dare','dōnāre','mōnstrāre','trādere','narrāre','reddere'];
 const DATREF=['portāre','servāre','dēfendere','pugnāre','labōrāre','scrībere','custōdīre','capere','invenīre','parāre'];
 const MEANS={terrēre:['sagitta','gladius','tēlum'],superāre:['gladius','tēlum','sagitta'],dēfendere:['gladius','tēlum'],portāre:['equus','carrus'],dēlectāre:['iocus','fābula'],pugnāre:['gladius','tēlum','sagitta'],interficere:['gladius','sagitta']};
 const SEPV=['līberāre','prohibēre'];
-const NOBUILD=new Set(['nūntiāre','comperīre','dīcere','putāre','scīre','rogāre','imperāre','ōrāre','timēre','dēbēre','cupere','solēre','crēdere','spērāre','exspectāre','relinquere','spectāre']);
+const NOBUILD=new Set(['clāmāre','nūntiāre','comperīre','dīcere','putāre','scīre','rogāre','imperāre','ōrāre','timēre','dēbēre','cupere','solēre','crēdere','spērāre','exspectāre','relinquere','spectāre']);
 const INTO=['silva','caverna','hortus','ager','oppidum','casa','taberna','templum','vīlla'];
 const FIXADV=[['hodiē','today'],['saepe','often'],['semper','always'],['nunc','now']];
 const ING_ALL=[
- ['adj','Adjective agreement','Nouns and adjectives'],['tricky','Nouns that look like a different gender','Nouns and adjectives'],['appos','Apposition','Nouns and adjectives'],['que','et and -que','Nouns and adjectives'],['adv','Adverbs','Nouns and adjectives'],['medsum','medius and summus (middle of, top of)','Nouns and adjectives'],['er','2nd declension -er/-ir nouns and -er adjectives','Nouns and adjectives'],
+ ['adj','Adjective agreement','Nouns and adjectives'],['tricky','Nouns that look like a different gender','Nouns and adjectives'],['appos','Apposition','Nouns and adjectives'],['que','et and -que','Nouns and adjectives'],['adv','Adverbs','Nouns and adjectives'],['medsum','medius and summus (middle of, top of)','Nouns and adjectives'],['er','2nd declension -er/-ir nouns and -er adjectives','Nouns and adjectives'],['poss','Possessive adjectives (meus, tuus, suus, noster, vester)','Nouns and adjectives'],
  ['dat','Dative: indirect object (to)','Cases'],['datref','Dative of reference (for)','Cases'],['placeTo','Accusative of place to which','Cases'],['placeWhere','Ablative of place where','Cases'],['placeFrom','Ablative of place from which','Cases'],['town','Towns and small islands (no preposition)','Cases'],['sep','Ablative of separation','Cases'],['means','Ablative of means','Cases'],['accomp','Ablative of accompaniment (cum)','Cases'],['manner','Ablative of manner (cum)','Cases'],['agent','Ablative of personal agent','Cases'],['voc','Vocative','Cases'],['cause','Ablative of cause','Cases'],
  ['genposs','Genitive of possession','Genitive'],['genpart','Partitive genitive','Genitive'],['genso','Subjective or objective genitive','Genitive'],['genmat','Genitive of material','Genitive'],
  ['pass','Passive voice','Verbs'],['fut','Future tense','Verbs'],['impf','Continuous past (imperfect)','Verbs']];
@@ -921,6 +971,15 @@ function bClause0(set,o={}){
       if(n&&'lct'.includes(n.tag)){const d=medsumDeco(n,3);O0.toks.unshift(d.tok);O0.en=d.phrase;ALT.push([d.phrase,...d.alts]);ok=true}}
     if(!ok)missing.push('medsum');
   }
+  if(set.has('poss')){
+    if(O0&&O0.toks.length===1&&/^the /.test(O0.en)){const ot=O0.toks[0],n=nn(ot.lemma),k=/plural/.test(ot.concept||'')?1:0,c=3;
+      const opts=['me','tu','nostr','vestr'];if((S0||p!=null)&&o.inf!=='indst')opts.push('su','su');const key=R(opts),P=POSS[key];
+      let need;if(key==='su'){need=S0?[suE(nn(S0.toks[0].lemma),S0.k)]:p===5?['their']:p===2?['his','her']:null}else need=[P.e];
+      if(!need||!need[0]||(key==='su'&&(p===0||p===1||p===3||p===4)))missing.push('poss');
+      else{O0.toks.push(possTok(P,c,k,n.g));const before=O0.en;O0.en=O0.en.replace(/^the /,need[0]+' ');ALT.push([O0.en,O0.en.replace(need[0]+' ',need[0]+' own ')]);
+        POSNEED=need;if((key==='tu'||key==='vestr')&&p!==1&&p!==4)POSNEED.note=ownNote(key)}}
+    else missing.push('poss');
+  }
   if(set.has('er')){const W_=ERWORDS(),all=[...(S0?S0.toks:[]),...(O0?O0.toks:[]),...adjs.flatMap(a=>a.toks)];if(!all.some(t=>W_.has(t.lemma)))missing.push('er')}
   return{v,vc,t,p,sE,S0,O0,adjs,advT,advE,verbT,missing,objE:O0?O0.en:'',restE:[O0?O0.en:'',...adjs.map(a=>a.en)].filter(Boolean).join(' ')};
 }
@@ -1030,7 +1089,7 @@ function B(frame,ings,must){
   if(only)list=list.filter(x=>only.includes(x));list=list.filter(x=>!not.includes(x));
   if(list.includes('fut')&&list.includes('impf')){const drop=must==='fut'?'impf':must==='impf'?'fut':R(['fut','impf']);list=list.filter(x=>x!==drop)}
   for(let tries=0;tries<60;tries++){
-    const set=new Set(list);GDAT=null;
+    const set=new Set(list);GDAT=null;POSNEED=null;
     if(set.has('agent'))set.add('pass');
     if(set.has('town')&&!['placeTo','placeFrom','placeWhere','sep'].some(x=>set.has(x)))set.add(R(['placeTo','placeFrom']));
     if(set.has('medsum')&&!['placeTo','placeFrom','placeWhere'].some(x=>set.has(x))&&chance(.6))set.add(R(['placeWhere','placeTo']));
@@ -1038,6 +1097,7 @@ function B(frame,ings,must){
     if(r){
       const q=S(r.tokens,r.ens[0],r.end);q.enAlt=r.ens.slice(1);q.altTokens=r.altTokens;q.ne=r.ne;q.extraVocab=r.extraVocab;
       q.and=r.tokens.some(t=>t.et);q.display=latinOf(r.tokens,{ne:r.ne,que:q.and&&chance(.5)});q.built=[frame,...list].filter(x=>x!=='gdat');
+      if(POSNEED){q.posNeed=[...POSNEED];if(POSNEED.note){q.en+=POSNEED.note;q.enAlt=(q.enAlt||[]).map(e=>e+POSNEED.note)}}
       if(GDAT&&!set.has('dat')&&!set.has('datref')){const g=GDAT;q.enAlt.push(...r.ens.filter(e=>e.includes(g.full)).map(e=>tidy(e.replace(g.full,g.plain)+' '+g.forE)));q.gdat=1}
       return q;
     }
@@ -1102,6 +1162,7 @@ const TOPICS=[
 ['medsum','I','Nouns and adjectives','medius and summus (the middle of, the top of)',()=>B('stmt',['medsum'])],
 ['d3','I','Nouns and adjectives','3rd declension',()=>gDecl('3')],
 ['pron','I','Nouns and adjectives','Personal pronouns',gPron],
+['poss','I','Nouns and adjectives','Possessive adjectives (meus, tuus, suus, noster, vester)',gPoss],
 ['pa1','I','Verbs','1st conjugation: present',()=>gAct('pres','1')],
 ['pa2','I','Verbs','2nd conjugation: present',()=>gAct('pres','2')],
 ['pa3','I','Verbs','3rd conjugation: present',()=>gAct('pres','3')],
@@ -1120,6 +1181,7 @@ const TOPICS=[
 ['conj','I','Sentence types','And: et and -que',()=>B('stmt',['que'])],
 ['gap','I','Sentence types','Gapping',()=>B('gap',[])],
 ['indst','I','Sentence types','Indirect statement',()=>B('is',chance(.35)?['pass']:[])],
+['indesse','I','Sentence types','Indirect statement with esse',gIndEsse],
 ['indst2','I','Sentence types','Indirect statement II: with past tenses',()=>B('is',chance(.35)?['impf','pass']:['impf'],'impf')],
 ['pcond','I','Sentence types','Open conditions: present',()=>B('condP',[])],
 ['fcond','I','Sentence types','Open conditions: future',()=>B('condF',[])],
@@ -1164,7 +1226,7 @@ const TOPICS=[
 /* how each topic maps onto the sentence builder, so a focus topic can be mixed with other selected topics */
 const TOPIC_PLAN={placeTo:{ing:['placeTo']},dat:{ing:['dat']},datref:{ing:['datref']},placeFrom:{ing:['placeFrom']},sep:{ing:['sep']},means:{ing:['means']},accomp:{ing:['accomp']},manner:{ing:['manner']},placeWhere:{ing:['placeWhere']},agent:{ing:['agent']},town:{ing:['town']},voc:{ing:['voc']},appos:{ing:['appos']},cause:{ing:['cause']},
  gen:{ing:['genposs']},gendat:{ing:['genposs','gdat']},genpart:{ing:['genpart']},genso:{ing:['genso']},genmat:{ing:['genmat']},adj12:{ing:['adj']},tricky:{ing:['tricky']},adv:{ing:['adv']},conj:{ing:['que']},fut:{ing:['fut']},ppas:{ing:['pass']},fpas:{ing:['pass','fut']},
- inf:{frame:'ci'},pinf:{frame:'ci',ing:['pass']},ques:{frame:'ne|quis'},gap:{frame:'gap'},indst:{frame:'is'},d2er:{ing:['er']},imp:{frame:'imp'},medsum:{ing:['medsum']},indst2:{frame:'is',ing:['impf']},impf:{ing:['impf']},ipas:{ing:['pass','impf']},pcond:{frame:'condP'},fcond:{frame:'condF'}};
+ inf:{frame:'ci'},pinf:{frame:'ci',ing:['pass']},ques:{frame:'ne|quis'},gap:{frame:'gap'},indst:{frame:'is'},poss:{ing:['poss']},d2er:{ing:['er']},imp:{frame:'imp'},medsum:{ing:['medsum']},indst2:{frame:'is',ing:['impf']},impf:{ing:['impf']},ipas:{ing:['pass','impf']},pcond:{frame:'condP'},fcond:{frame:'condF'}};
 /* every sentence is about one focus topic; other selected topics may join in */
 function makeFocused0(selected,focus){
   const foc=[...focus].filter(x=>selected.has(x));if(!foc.length)return makeQuestion(selected,false);
@@ -1223,6 +1285,7 @@ function gradeLatin(q,input){
 const normE=s=>s.toLowerCase().replace(/\([^)]*\)/g,' ').replace(/[’‘]/g,"'").replace(/\bdon't\b/g,'do not').replace(/[^a-z' ]/g,' ').replace(/\b(the|a|an)\b/g,' ').replace(/\b(am|are|is) able to\b/g,'can').replace(/\b(was|were) able to\b/g,'could').replace(/\bought to\b/g,'should').replace(/\baway from\b/g,'from').replace(/\byou all\b|\by'all\b|\byou guys\b/g,'you').replace(/\b(his|her|their|its|my|our|your|o)\b/g,' ').replace(/\s+/g,' ').trim();
 function gradeEnglish(q,input){
   const u=normE(input);if(!u)return{ok:false,empty:true};
+  if(q.posNeed){const raw=String(input).toLowerCase().replace(/\([^)]*\)/g,' ');if(!q.posNeed.some(w=>new RegExp('\\b'+w+'\\b').test(raw)))return{ok:false}}
   for(const base of [q.en,...(q.enAlt||[])]){
     let vs=[base];
     for(const g of q.alts||[]){const re=new RegExp('\\b'+g[0].replace(/[()]/g,'\\$&')+'(?![a-z])');vs=vs.flatMap(v=>re.test(v)?g.map(a=>v.replace(re,a)):[v]);if(vs.length>4000)vs=vs.slice(0,4000);}

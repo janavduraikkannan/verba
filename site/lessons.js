@@ -2041,6 +2041,14 @@ In indirect statement the subject becomes accusative. The two sides of the = sti
 
 The order *videō nautam esse laetum* is also correct, but *videō nautam laetum esse* is very common.
 
+The far side of the = can also be a place, and *nōn* can go before *esse*:
+
+: Nauta putat amīcum in silvā esse. = The sailor thinks that the friend is in the forest.
+: Puerī clāmābant lupum prope vīllam esse. = The boys were shouting that the wolf was near the country house.
+: Magister putābat discipulōs nōn parātōs esse. = The teacher was thinking that the students were not ready.
+
+There is practice with these at the end of the lesson.
+
 ## adesse and abesse
 
 Once you know *esse*, you know two more verbs. Add *ad-* (toward, at) or *ab-* (away from):
@@ -2071,7 +2079,11 @@ The last sentence starts with a house we already know about and tells us where i
 
 ?3
 
-?4`,
+?4
+
+## Practice: indirect statement with esse
+
+?5`,
    q:[
     {s:"Write a sentence in Latin using the right form of esse",b:[
      {"k":"la","p":"Translate into Latin: The girls are tired.","a":["Puellae fessae sunt."],"w":"Plural subject, present: *sunt*. The adjective agrees with the subject.","g":[["puella, -ae, f.","girl"],["fessus -a -um","tired"],["esse, sum","to be"]]},
@@ -2120,6 +2132,18 @@ The last sentence starts with a house we already know about and tells us where i
      {"k":"la","p":"Translate into Latin: He was thinking that the farmers were tired.","a":["Putābat agricolās fessōs esse.","Putābat agricolās esse fessōs."],"w":"In indirect statement both sides of esse are accusative; adesse and abesse work like esse; est or sunt first means there is or there are.","g":[["putāre, -ō","to think"],["agricola, -ae, m.","farmer"],["fessus -a -um","tired"],["esse, sum","to be"]]},
      {"k":"en","p":"Translate into English: *Aderāmus.*","a":["We were present.","We were here."],"w":"In indirect statement both sides of esse are accusative; adesse and abesse work like esse; est or sunt first means there is or there are.","g":[["adesse, adsum","to be present, to be here"]]},
      {"k":"la","p":"Translate into Latin: The sailors were Greeks.","a":["Nautae Graecī erant."],"w":"In indirect statement both sides of esse are accusative; adesse and abesse work like esse; est or sunt first means there is or there are.","g":[["nauta, -ae, m.","sailor"],["Graecus, -ī, m.","Greek"],["esse, sum","to be"]]},
+    ]},
+    {s:"Indirect statement with esse",b:[
+     {"k":"en","p":"Translate into English: *Magister clāmat puerōs laetōs esse.*","a":["The teacher shouts that the boys are happy."],"w":"In indirect statement the subject and whatever it equals are both accusative; a place phrase keeps its own case.","g":[["magister, -trī, m.","teacher"],["clāmāre, -ō","to shout"],["puer, -ī, m.","boy"],["laetus -a -um","happy"],["esse, sum","to be"]]},
+     {"k":"la","p":"Translate into Latin: The girl thinks that the boy is happy.","a":["Puella putat puerum laetum esse.","Puella putat puerum esse laetum."],"w":"In indirect statement the subject and whatever it equals are both accusative; a place phrase keeps its own case.","g":[["puella, -ae, f.","girl"],["putāre, -ō","to think"],["puer, -ī, m.","boy"],["laetus -a -um","happy"],["esse, sum","to be"]]},
+     {"k":"en","p":"Translate into English: *Puella putat amīcum in hortō esse.*","a":["The girl thinks that the friend is in the garden."],"w":"In indirect statement the subject and whatever it equals are both accusative; a place phrase keeps its own case.","g":[["puella, -ae, f.","girl"],["putāre, -ō","to think"],["amīcus, -ī, m.","friend"],["in","in, on (+abl); into (+acc)"],["hortus, -ī, m.","garden"],["esse, sum","to be"]]},
+     {"k":"la","p":"Translate into Latin: The sailors shout that the island is large.","a":["Nautae clāmant īnsulam magnam esse.","Nautae clāmant īnsulam esse magnam."],"w":"In indirect statement the subject and whatever it equals are both accusative; a place phrase keeps its own case.","g":[["nauta, -ae, m.","sailor"],["clāmāre, -ō","to shout"],["īnsula, -ae, f.","island"],["magnus -a -um","great"],["esse, sum","to be"]]},
+     {"k":"en","p":"Translate into English: *Agricola crēdit equōs in agrīs esse.*","a":["The farmer believes that the horses are in the fields."],"w":"In indirect statement the subject and whatever it equals are both accusative; a place phrase keeps its own case.","g":[["agricola, -ae, m.","farmer"],["crēdere, -ō","to believe"],["equus, -ī, m.","horse"],["in","in, on (+abl); into (+acc)"],["ager, agrī, m.","field"],["esse, sum","to be"]]},
+     {"k":"la","p":"Translate into Latin: The messenger announces that the town is in danger.","a":["Nūntius nūntiat oppidum in perīculō esse.","Nūntius nūntiat oppidum esse in perīculō."],"w":"In indirect statement the subject and whatever it equals are both accusative; a place phrase keeps its own case.","g":[["nūntius, -ī, m.","messenger"],["nūntiāre, -ō","to announce"],["oppidum, -ī, n.","town"],["in","in, on (+abl); into (+acc)"],["perīculum, -ī, n.","danger"],["esse, sum","to be"]]},
+     {"k":"en","p":"Translate into English: *Servī dīcēbant dominum īrātum esse.*","a":["The slaves were saying that the master was angry.","The slaves said that the master was angry."],"w":"In indirect statement the subject and whatever it equals are both accusative; a place phrase keeps its own case.","g":[["servus, -ī, m.","slave"],["dīcere, -ō","to say"],["dominus, -ī, m.","master"],["īrātus -a -um","angry"],["esse, sum","to be"]]},
+     {"k":"la","p":"Translate into Latin: The woman was thinking that her daughter was sick.","a":["Fēmina putābat fīliam suam aegram esse.","Fēmina putābat fīliam suam esse aegram."],"w":"In indirect statement the subject and whatever it equals are both accusative; a place phrase keeps its own case.","g":[["fēmina, -ae, f.","woman"],["putāre, -ō","to think"],["fīlia, -ae, f.","daughter"],["suus -a -um","his, her, its, their (own)"],["aeger aegra aegrum","sick"],["esse, sum","to be"]]},
+     {"k":"en","p":"Translate into English: *Magistra putābat discipulās nōn parātās esse.*","a":["The teacher was thinking that the students were not ready.","The teacher thought that the students were not ready."],"w":"In indirect statement the subject and whatever it equals are both accusative; a place phrase keeps its own case.","g":[["magistra, -ae, f.","teacher"],["putāre, -ō","to think"],["discipula, -ae, f.","student"],["nōn","not"],["parātus -a -um","ready"],["esse, sum","to be"]]},
+     {"k":"la","p":"Translate into Latin: The Romans believed that the gods were angry.","a":["Rōmānī crēdēbant deōs īrātōs esse.","Rōmānī crēdēbant deōs esse īrātōs."],"w":"In indirect statement the subject and whatever it equals are both accusative; a place phrase keeps its own case.","g":[["Rōmānus, -ī, m.","Roman"],["crēdere, -ō","to believe"],["deus, -ī, m.","god"],["īrātus -a -um","angry"],["esse, sum","to be"]]},
     ]},
    ]},
   {id:"possum",title:"possum: to be able",blurb:"esse with a prefix, and a verb that needs an infinitive.",t:["sum"],
@@ -2280,7 +2304,7 @@ Some nouns, called **i-stems**, have *-ium* in the genitive plural, such as *hos
      {"k":"la","p":"Translate into Latin: The mothers work for the sons.","a":["Mātrēs fīliīs labōrant."],"w":"Find the stem from the genitive, then read the ending for the case.","g":[["māter, mātris, f.","mother"],["fīlius, -ī, m.","son"],["labōrāre, -ō","to work"]]},
     ]},
    ]},
-  {id:"pronouns",title:"Personal pronouns",blurb:"I, you, we and you all, in every case.",t:["pron"],
+  {id:"pronouns",title:"Personal pronouns and possessive adjectives",blurb:"I, you, we and you all in every case; my, your, his, her, our and their.",t:["pron","poss"],
    body:`Personal pronouns stand in for people. Latin only uses them in the nominative for emphasis, since the verb ending already shows the subject.
 
 |~ Personal pronouns
@@ -2304,7 +2328,49 @@ Some nouns, called **i-stems**, have *-ium* in the genitive plural, such as *hos
 
 ?1
 
-?2`,
+?2
+
+## Possessive adjectives
+
+Possessive adjectives tell you who something belongs to.
+
+|~ Possessive adjectives
+|Latin|Meaning|
+|meus, -a, -um|my|
+|tuus, -a, -um|your (one person)|
+|suus, -a, -um|his, her, its, their (own)|
+|noster, nostra, nostrum|our|
+|vester, vestra, vestrum|your (more than one person)|
+
+They are adjectives, so they agree with the noun they describe, just like *bonus*. Keep two ideas separate: the **possessive** tells you who owns something, and its **ending** agrees with the thing owned.
+
+: Tuās victōriās nūntiat. = He announces your victories. (*tuās* agrees with *victōriās*)
+
+A possessive can stand without a noun, like English "mine" and "yours":
+
+: Liber meus est. = The book is mine.
+: Liber tuus est. = The book is yours.
+
+**Two ways to say your.** Latin asks whether you are speaking to one person (*tuus*) or more than one (*vester*):
+
+: Librum tuum legis. = You are reading your book. (one person)
+: Librum vestrum legitis. = You are reading your book. (more than one person)
+
+*Noster* and *vester* work like the -er adjectives: the other forms show the stem (**nostr-**, **vestr-**).
+
+**The tricky one: suus.** **Su-** can mean his, her, its or their, depending on the subject; the ending still agrees with the thing owned.
+
+: Sextus puerum suum vocat. = Sextus calls his boy.
+: Iūlia puerum suum vocat. = Julia calls her boy.
+: Pecūniam amīcō suō dant. = They give money to their friend.
+
+! Not sure of the ending? Imagine *bonus* in its place (*amīcō bonō*), then swap **bon-** for **su-** (*amīcō suō*).
+
+Latin often leaves the possessive out when the owner is clear, and English supplies it: *amīcam videō*, I see my friend. Latin adds the possessive for clarity or emphasis: *amīcam meam videō*.
+
+?3
+
+?4`,
    q:[
     {s:"Write a Latin sentence using the right personal pronoun",b:[
      {"k":"la","p":"Translate into Latin: The girl sees me.","a":["Puella mē videt."],"w":"\"Me\" as a direct object is *mē*.","g":[["puella, -ae, f.","girl"],["ego","I, me"],["vidēre, -eō","to see"]]},
@@ -2329,6 +2395,30 @@ Some nouns, called **i-stems**, have *-ium* in the genitive plural, such as *hos
      {"k":"la","p":"Translate into Latin: I sail with you.","a":["Vōbīscum nāvigō."],"w":"Pronouns use case endings of their own. Nominative pronouns add emphasis.","g":[["vōs","you (more than one person)"],["cum (+abl)","with"],["nāvigāre, -ō","to sail"]]},
      {"k":"en","p":"Translate into English: *Mihi epistulam scrībit.*","a":["He writes me a letter.","He writes a letter to me.","He is writing me a letter.","He is writing a letter to me.","He does write me a letter.","He does write a letter to me.","She writes me a letter.","She writes a letter to me.","She is writing me a letter.","She is writing a letter to me.","She does write me a letter.","She does write a letter to me."],"w":"Pronouns use case endings of their own. Nominative pronouns add emphasis.","g":[["ego","I, me"],["epistula, -ae, f.","letter"],["scrībere, -ō","to write"]]},
      {"k":"la","p":"Translate into Latin: We warn you.","a":["Vōs monēmus."],"w":"Pronouns use case endings of their own. Nominative pronouns add emphasis.","g":[["vōs","you (more than one person)"],["monēre, -eō","to warn"]]},
+    ]},
+    {s:"Choose the right possessive",b:[
+     {"k":"mc","p":"Julia sees her own friends (*amīcōs*). Which form?","o":["*suōs*","*suās*","*suum*","*suīs*"],"a":0,"w":"**Su-** is her; *-ōs* agrees with *amīcōs*, masculine accusative plural.","g":[["amīcus, -ī, m.","friend"],["suus -a -um","his, her, its, their (own)"]]},
+     {"k":"mc","p":"Marcus sees his own sister (*sorōrem*, feminine). Which form?","o":["*suam*","*suum*","*suās*","*suō*"],"a":0,"w":"The ending agrees with the sister: feminine accusative singular.","g":[["soror, sorōris, f.","sister"],["suus -a -um","his, her, its, their (own)"]]},
+     {"k":"mc","p":"You are writing your letter (speaking to one person).","o":["*epistulam tuam*","*epistulam vestram*","*epistulam tuum*","*epistulam suam*"],"a":0,"w":"One person: *tuus*, agreeing with *epistulam*.","g":[["epistula, -ae, f.","letter"],["tuus -a -um","your (one person)"],["vester vestra vestrum","your (more than one person)"],["suus -a -um","his, her, its, their (own)"]]},
+     {"k":"mc","p":"You are writing your letter (speaking to several people).","o":["*epistulam vestram*","*epistulam tuam*","*epistulam vestrum*","*epistulam nostram*"],"a":0,"w":"More than one person: *vester*, agreeing with *epistulam*.","g":[["epistula, -ae, f.","letter"],["vester vestra vestrum","your (more than one person)"],["tuus -a -um","your (one person)"],["vōs","you (more than one person)"],["noster nostra nostrum","our"]]},
+     {"k":"mc","p":"The boys give money to their own daughter (*fīliae*). Which form?","o":["*suae*","*suō*","*suīs*","*suam*"],"a":0,"w":"**Su-** is their; *-ae* agrees with *fīliae*, feminine dative singular.","g":[["fīlia, -ae, f.","daughter"],["suus -a -um","his, her, its, their (own)"]]},
+     {"k":"mc","p":"What does *Epistula mea est* mean?","o":["The letter is mine.","My letter is.","I am the letter.","The letter is ours."],"a":0,"w":"A possessive can stand without a noun, like \"mine.\"","g":[["epistula, -ae, f.","letter"],["meus -a -um","my"],["esse, sum","to be"]]},
+     {"k":"mc","p":"Why is it *meās* in *Meās rosās portat*?","o":["It agrees with *rosās*.","It agrees with the owner.","It is always feminine.","*Portat* takes the accusative plural."],"a":0,"w":"The ending agrees with the thing owned, not the owner.","g":[["meus -a -um","my"],["rosa, -ae, f.","rose"],["portāre, -ō","to carry"]]},
+     {"k":"mc","p":"Which form means \"our\" with *rosās*?","o":["*nostrās*","*vestrās*","*meās*","*suās*"],"a":0,"w":"*Noster* means our; *-ās* agrees with *rosās*.","g":[["rosa, -ae, f.","rose"],["noster nostra nostrum","our"],["vester vestra vestrum","your (more than one person)"],["meus -a -um","my"],["suus -a -um","his, her, its, their (own)"]]},
+     {"k":"mc","p":"In *Epistulam fīliae suae mittunt*, what does *suae* mean?","o":["their","his","her","your"],"a":0,"w":"The subject is plural (*mittunt*), so **su-** is their.","g":[["epistula, -ae, f.","letter"],["fīlia, -ae, f.","daughter"],["mittere, -ō","to send"]]},
+     {"k":"mc","p":"*Fīlium vocat.* What does it most likely mean?","o":["He calls his son.","He calls your son.","The son calls him.","He calls our son."],"a":0,"w":"Latin often leaves out the possessive when the owner is clear; English supplies one.","g":[["fīlius, -ī, m.","son"],["vocāre, -ō","to call"]]},
+    ]},
+    {s:"Translate with a possessive adjective",b:[
+     {"k":"en","p":"Translate into English: *Marcus fīlium suum vocat.*","a":["Marcus calls his own son."],"w":"The stem tells you the owner; the ending agrees with the thing owned.","g":[["fīlius, -ī, m.","son"],["suus -a -um","his, her, its, their (own)"],["vocāre, -ō","to call"]]},
+     {"k":"la","p":"Translate into Latin: She is reading her own book.","a":["Librum suum legit."],"w":"The stem tells you the owner; the ending agrees with the thing owned.","g":[["liber, librī, m.","book"],["suus -a -um","his, her, its, their (own)"],["legere, -ō","to read"]]},
+     {"k":"en","p":"Translate into English: *Iūlia amīcās suās laudat.*","a":["Julia praises her own friends."],"w":"The stem tells you the owner; the ending agrees with the thing owned.","g":[["amīca, -ae, f.","friend"],["suus -a -um","his, her, its, their (own)"],["laudāre, -ō","to praise"]]},
+     {"k":"la","p":"Translate into Latin: Friend, they are reading your books.","a":["Amīce, librōs tuōs legunt."],"w":"The stem tells you the owner; the ending agrees with the thing owned.","g":[["amīcus, -ī, m.","friend"],["liber, librī, m.","book"],["tuus -a -um","your (one person)"],["legere, -ō","to read"]]},
+     {"k":"en","p":"Translate into English: *Rosās meās portō.*","a":["I carry my roses.","I am carrying my roses."],"w":"The stem tells you the owner; the ending agrees with the thing owned.","g":[["rosa, -ae, f.","rose"],["meus -a -um","my"],["portāre, -ō","to carry"]]},
+     {"k":"la","p":"Translate into Latin: Farmers, you are sending your pig.","a":["Agricolae, porcum vestrum mittitis."],"w":"The stem tells you the owner; the ending agrees with the thing owned.","g":[["agricola, -ae, m.","farmer"],["porcus, -ī, m.","pig"],["vōs","you (more than one person)"],["mittere, -ō","to send"]]},
+     {"k":"en","p":"Translate into English: *Hortus noster est.*","a":["The garden is ours."],"w":"The stem tells you the owner; the ending agrees with the thing owned.","g":[["hortus, -ī, m.","garden"],["noster nostra nostrum","our"],["esse, sum","to be"]]},
+     {"k":"la","p":"Translate into Latin: They give money to their daughter.","a":["Pecūniam fīliae suae dant."],"w":"The stem tells you the owner; the ending agrees with the thing owned.","g":[["pecūnia, -ae, f.","money"],["fīlia, -ae, f.","daughter"],["suus -a -um","his, her, its, their (own)"],["dare, dō","to give"]]},
+     {"k":"en","p":"Translate into English: *Vestram victōriam videt.*","a":["He sees your victory.","She sees your victory."],"w":"The stem tells you the owner; the ending agrees with the thing owned.","g":[["vester vestra vestrum","your (more than one person)"],["victōria, -ae, f.","victory"],["vidēre, -eō","to see"]]},
+     {"k":"la","p":"Translate into Latin: The farmers praise our gardens.","a":["Agricolae hortōs nostrōs laudant."],"w":"The stem tells you the owner; the ending agrees with the thing owned.","g":[["agricola, -ae, m.","farmer"],["hortus, -ī, m.","garden"],["noster nostra nostrum","our"],["laudāre, -ō","to praise"]]},
     ]},
    ]},
  ]},
