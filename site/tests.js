@@ -109,11 +109,11 @@ const PTESTS=(function(){
   const tests={
     pfi:{
       title:'Present, future & imperfect practice test',
-      intro:'Write the Latin for each phrase. Your answers are graded by code, and the AI then explains anything you missed.',
+      intro:'Write the Latin for each phrase; the verb to use is shown beside it. Your answers are graded by code, and the AI then explains anything you missed.',
       bankTitle:'Verbs on this test',
       tutor:'You are a friendly Latin 1 tutor. A student took a practice test on present, future and imperfect verbs (active and passive).',
       rules:RULES,
-      bank,make,grade,describe
+      bank,make,grade,describe,hint:q=>q.v.inf
     }
   };
 

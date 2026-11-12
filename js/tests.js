@@ -88,7 +88,7 @@ function ptStart(fresh){
   ptx.tok++;
   if(fresh||!ptx.qs.length)ptx.qs=ptx.t.make();
   ptx.qs.forEach(q=>{q.done=false;q.res=null;q.raw='';q.ai=null});
-  $('ptQs').innerHTML=ptx.qs.map((q,i)=>`<li id="ptq${i}"><label class="ptp" for="ptin${i}">${esc(q.en)}</label><div class="ptrow"><input class="ptin la" id="ptin${i}" data-i="${i}" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false" lang="la" aria-label="Latin for: ${esc(q.en)}"><button type="button" class="btn quiet ptone" data-pt="one" data-i="${i}">Check</button></div><div class="ptfb" aria-live="polite"></div></li>`).join('');
+  $('ptQs').innerHTML=ptx.qs.map((q,i)=>`<li id="ptq${i}"><label class="ptp" for="ptin${i}">${esc(q.en)}${ptx.t.hint?` <span class="pthint la">(${esc(ptx.t.hint(q))})</span>`:''}</label><div class="ptrow"><input class="ptin la" id="ptin${i}" data-i="${i}" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false" lang="la" aria-label="Latin for: ${esc(q.en)}${ptx.t.hint?' ('+esc(ptx.t.hint(q))+')':''}"><button type="button" class="btn quiet ptone" data-pt="one" data-i="${i}">Check</button></div><div class="ptfb" aria-live="polite"></div></li>`).join('');
   ptx.qs.forEach((q,i)=>{const li=$('ptq'+i);q.li=li;q.input=li.querySelector('input');q.fb=li.querySelector('.ptfb')});
   ptx.focus='';$('ptScore').hidden=true;$('ptStatus').textContent='';
   ptModeUI();window.scrollTo({top:0,behavior:'smooth'});

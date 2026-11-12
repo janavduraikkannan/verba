@@ -119,3 +119,4 @@
   .ptin{max-width:none}
 }
 @media print{.ptjump,.ptmac{display:none}}
+.pthint{font-weight:400;color:var(--accent2);font-style:italic}
