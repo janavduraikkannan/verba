@@ -78,11 +78,12 @@ async function showProfile(key){
   }catch(e){pv.innerHTML=pvTop()+`<section class="pv"><h1>Couldn’t load this profile</h1><p>${esc(e.message)}</p></section>`;pvBind()}
 }
 function route(){
-  const h=decodeURIComponent(location.hash.slice(1)),pv=$('pageview'),on=h==='ranks'||/^(u|p|l)\//.test(h);
+  const h=decodeURIComponent(location.hash.slice(1)),pv=$('pageview'),on=h==='ranks'||/^(u|p|l|t)\//.test(h);
   document.body.classList.toggle('paged',on);pv.hidden=!on;
   if(!h.startsWith('l/'))lessonsLeave();
+  if(!h.startsWith('t/'))testsLeave();
   if(!on){page.inside=false;return}
-  scrollTo(0,0);if(h==='ranks')renderRanks();else if(h.startsWith('l/'))renderLesson(h.slice(2));else showProfile(h);
+  scrollTo(0,0);if(h==='ranks')renderRanks();else if(h.startsWith('l/'))renderLesson(h.slice(2));else if(h.startsWith('t/'))renderTestPage(h.slice(2));else showProfile(h);
 }
 addEventListener('hashchange',route);
 addEventListener('keydown',e=>{if(e.key==='Escape'&&document.body.classList.contains('paged')&&!document.querySelector('dialog[open]')){const b=$('pvBack');if(b)b.click()}});

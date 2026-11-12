@@ -6,3 +6,4 @@ buildStart();
 setupKeys();
 setupOnboarding();
 lessonsSetup();
+testsSetup();

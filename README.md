@@ -27,6 +27,7 @@ Verba builds fresh Latin sentences from the topics you pick, then has you transl
 - **Charts and vocabulary.** Ending charts and a vocabulary list for each sentence, shown by default and easy to hide. Click a vocabulary word to insert it.
 - **XP, levels and streaks.** Roman ranks from Discipulus to Imperātor, a daily streak, and a Laurea for finishing AP Latin.
 - **Optional accounts and a live leaderboard.** A personal account key keeps your progress on every device. You can also set a password and log in with your username instead; the account key always works too.
+- **Practice Test mode.** A tab that lists pages in groups. The first group, Present, future & imperfect verbs, has a Study Guide and a 20-question Practice Test. Code grades every answer; the AI (your key or the local AI) then explains each miss. Choose to check as you go or all at the end.
 - **Light and dark mode.**
 
 ## Getting started
@@ -68,7 +69,7 @@ Verba is a static website hosted on GitHub Pages. There is no Verba server and n
 | `index.html`, `keys.html`, `getkey.html` | The pages. These are identical on every practice site; Verba's name, cat and wording are filled in from `site/config.js` |
 | `css/` | Styles, identical on every practice site (`main.css` for the app, `usemode.css` for the identify-the-use tab) |
 | `js/` | The app, identical on every practice site, one file per part: `core.js` (state and saving), `topics.js` (start screen), `lessons.js` (how lessons work), `ai.js` and `keys.js` (AI providers and keys), `onboarding.js`, `tutor.js` (asking Fēlix), `drill.js` (each new sentence), `check.js` (checking answers), `progress.js` (XP and streaks), `sync.js` and `login.js` (accounts), `leaderboard.js`, `pages.js` (profile and ranks pages), `profile.js`, `identify.js` and `usemode.js` (the identify-the-use tab), `vocab.js`, `widgets.js`, `boot.js` (start-up), plus `head.js` and `site-fill.js` (put the site's own text into the pages) |
-| `site/` | Everything that is only Verba: `lessons.js` (the lessons, their question banks and XP values; a site without this file has no Lessons tab), `config.js` (names, wording, courses, ranks, profile pictures), `cat.js` (Fēlix's personality and the AI prompts), `language.js` (how Latin behaves in the shared code: typing accents, charts, marking words), `engine.js` (the Latin sentence engine and answer checker), `uses.js` (extra uses for the identify-the-use tab) and `theme.css` (colours) |
+| `site/` | Everything that is only Verba: `tests.js` (the Practice Test tab's pages, study guide and verb checker; a site without it has no Practice Test tab), `lessons.js` (the lessons, their question banks and XP values; a site without this file has no Lessons tab), `config.js` (names, wording, courses, ranks, profile pictures), `cat.js` (Fēlix's personality and the AI prompts), `language.js` (how Latin behaves in the shared code: typing accents, charts, marking words), `engine.js` (the Latin sentence engine and answer checker), `uses.js` (extra uses for the identify-the-use tab) and `theme.css` (colours) |
 | `img/felix/` | Fēlix, in every mood |
 | `img/icons/` | Interface icons |
 | `tools/felix.py` | The script that draws Fēlix |
