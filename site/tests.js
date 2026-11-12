@@ -113,7 +113,7 @@ const PTESTS=(function(){
       bankTitle:'Verbs on this test',
       tutor:'You are a friendly Latin 1 tutor. A student took a practice test on present, future and imperfect verbs (active and passive).',
       rules:RULES,
-      bank,make,grade,describe,hint:q=>q.v.inf
+      bank,make,grade,describe,hint:q=>q.v.inf+(q.v.note?', '+q.v.note:'')
     }
   };
 
