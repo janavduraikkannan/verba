@@ -1,0 +1,20 @@
+name = "verba-stats"
+main = "worker.js"
+compatibility_date = "2026-10-01"
+
+[triggers]
+crons = ["5 0 * * *"]
+
+[[d1_databases]]
+binding = "DB"
+database_name = "verba-stats"
+database_id = "03b9e6eb-d12b-413e-b77a-444dd03c5f9c"
+
+[[ratelimits]]
+name = "LIMITER"
+namespace_id = "7301"
+simple = { limit = 30, period = 60 }
+
+# Secrets are NOT stored here. Set them once with:
+#   npx wrangler secret put SALT         (random, never change it)
+#   npx wrangler secret put DASH_TOKEN   (the dashboard password)
