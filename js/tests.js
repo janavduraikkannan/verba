@@ -48,7 +48,7 @@ function testsSetup(){
     if(i===ptx.qs.length-1){$('ptAll').focus();return}
     ptFocusAfter(i);
   });
-  pv.addEventListener('focusin',e=>{const t=e.target;if(t.classList&&t.classList.contains('ptin')){ptx.last=t;if(!t.dataset.mk){t.dataset.mk='1';lsMacronKeys(t)}}});
+  pv.addEventListener('focusin',e=>{const t=e.target;if(t.classList&&t.classList.contains('ptin')){ptx.last=t;if(!t.dataset.mk){t.dataset.mk='1';if(window.typeAssist)t.addEventListener('input',()=>window.typeAssist(t))}}});
 }
 function ptInsert(el,ch){const p=el.selectionStart??el.value.length;el.value=el.value.slice(0,p)+ch+el.value.slice(el.selectionEnd??p);el.focus();el.setSelectionRange(p+ch.length,p+ch.length)}
 function ptFocusAfter(i){
@@ -71,8 +71,8 @@ function renderTestPage(id){
       <label><input type="radio" name="ptwhen" value="go"><span><b>As I go</b><small>Check each answer right after you write it, and see what went wrong before the next one.</small></span></label>
       <label><input type="radio" name="ptwhen" value="end"><span><b>At the end</b><small>Answer everything first, then check all of it at once.</small></span></label>
     </fieldset>
-    <div class="ptopts"><label class="advsw"><input type="checkbox" id="ptStrict"> Count missing macrons as wrong</label>
-      <span class="hint">Type <kbd>a-</kbd> for ā, <kbd>e-</kbd> for ē, and so on, or tap a letter below.</span></div>
+    <div class="ptopts"><label class="advsw"><input type="checkbox" id="ptStrict"> Count missing ${esc(TXT.marks)} as wrong</label>
+      <span class="hint">Tap a letter below, ${esc(HTML.macHint)}</span></div>
     <div class="ptscore" id="ptScore" aria-live="polite" hidden></div>
     <ol class="ptqs" id="ptQs"></ol>
     <div class="ptactions"><button type="button" class="btn" data-pt="all" id="ptAll">Check answers</button><button type="button" class="btn quiet" data-pt="retry">Retry same test</button><button type="button" class="btn quiet" data-pt="new">New test</button></div>
@@ -88,7 +88,7 @@ function ptStart(fresh){
   ptx.tok++;
   if(fresh||!ptx.qs.length)ptx.qs=ptx.t.make();
   ptx.qs.forEach(q=>{q.done=false;q.res=null;q.raw='';q.ai=null});
-  $('ptQs').innerHTML=ptx.qs.map((q,i)=>`<li id="ptq${i}"><label class="ptp" for="ptin${i}">${esc(q.en)}${ptx.t.hint?` <span class="pthint la">(${esc(ptx.t.hint(q))})</span>`:''}</label><div class="ptrow"><input class="ptin la" id="ptin${i}" data-i="${i}" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false" lang="la" aria-label="Latin for: ${esc(q.en)}${ptx.t.hint?' ('+esc(ptx.t.hint(q))+')':''}"><button type="button" class="btn quiet ptone" data-pt="one" data-i="${i}">Check</button></div><div class="ptfb" aria-live="polite"></div></li>`).join('');
+  $('ptQs').innerHTML=ptx.qs.map((q,i)=>`<li id="ptq${i}"><label class="ptp" for="ptin${i}">${esc(q.en)}${ptx.t.hint?` <span class="pthint la">(${esc(ptx.t.hint(q))})</span>`:''}</label><div class="ptrow"><input class="ptin la" id="ptin${i}" data-i="${i}" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false" lang="${SITE.langKey||'la'}" aria-label="${LANG_NAME} for: ${esc(q.en)}${ptx.t.hint?' ('+esc(ptx.t.hint(q))+')':''}"><button type="button" class="btn quiet ptone" data-pt="one" data-i="${i}">Check</button></div><div class="ptfb" aria-live="polite"></div></li>`).join('');
   ptx.qs.forEach((q,i)=>{const li=$('ptq'+i);q.li=li;q.input=li.querySelector('input');q.fb=li.querySelector('.ptfb')});
   ptx.focus='';$('ptScore').hidden=true;$('ptStatus').textContent='';
   ptModeUI();window.scrollTo({top:0,behavior:'smooth'});
@@ -105,7 +105,7 @@ function ptGrade(i){
   const q=ptx.qs[i];if(q.done)return false;
   q.raw=q.input.value;q.res=ptx.t.grade(q,q.raw,ptx.strict);q.done=true;q.input.disabled=true;
   q.li.classList.remove('ok','bad','warn');q.li.classList.add('done',q.res.status);
-  const g=q.res,verdict=g.status==='ok'?'Correct':g.status==='warn'?'Correct, but missing macrons':'Not quite';
+  const g=q.res,verdict=g.status==='ok'?'Correct':g.status==='warn'?'Correct, but missing '+TXT.marks:'Not quite';
   let h=`<span class="ptv">${verdict}.</span> `;
   if(g.status!=='ok')h+=`Answer: <span class="ptright la">${q.answers.map(esc).join(' <span class="or">or</span> ')}</span>`;
   q.fb.innerHTML=h;
@@ -116,7 +116,7 @@ const ptWrong=()=>ptx.qs.map((q,i)=>({q,n:i+1})).filter(x=>x.q.done&&x.q.res.sta
 function ptScoreUI(){
   const done=ptx.qs.filter(q=>q.done),right=done.filter(q=>q.res.status!=='bad').length,mac=done.filter(q=>q.res.status==='warn').length,all=done.length===ptx.qs.length;
   const box=$('ptScore');box.hidden=!done.length;
-  box.innerHTML=`<div class="ptbig">${right}<span> / ${all?ptx.qs.length:done.length}</span></div><p>${all?(ptx.qs.length-right?`${ptx.qs.length-right} to fix.`:'Every answer is right.'):`${done.length} of ${ptx.qs.length} checked so far.`}${mac?` ${mac} counted right but missing macrons.`:''}</p><p class="ptfocus" id="ptFocus"></p>`;
+  box.innerHTML=`<div class="ptbig">${right}<span> / ${all?ptx.qs.length:done.length}</span></div><p>${all?(ptx.qs.length-right?`${ptx.qs.length-right} to fix.`:'Every answer is right.'):`${done.length} of ${ptx.qs.length} checked so far.`}${mac?` ${mac} counted right but missing ${TXT.marks}.`:''}</p><p class="ptfocus" id="ptFocus"></p>`;
   if(ptx.focus&&all)$('ptFocus').textContent=ptx.focus;
 }
 function ptCheckOne(i){

@@ -18,8 +18,10 @@ SHARED_DIRS = ['css', 'js']
 def shared_paths(root):
     out = [f for f in SHARED_FILES if os.path.exists(os.path.join(root, f))]
     for d in SHARED_DIRS:
-        for name in sorted(os.listdir(os.path.join(root, d))):
-            if not name.startswith('.'): out.append(f'{d}/{name}')
+        for folder, subdirs, names in os.walk(os.path.join(root, d)):
+            subdirs[:] = sorted(x for x in subdirs if not x.startswith('.'))
+            for name in sorted(names):
+                if not name.startswith('.'): out.append(os.path.relpath(os.path.join(folder, name), root))
     return out
 
 def main():

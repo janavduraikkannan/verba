@@ -90,6 +90,7 @@ function setupTyping(){
     const p=t.selectionStart,v=t.value;if(p>1&&(v[p-1]==='-'||v[p-1]==='_')&&MAC[v[p-2]]){t.value=v.slice(0,p-2)+MAC[v[p-2]]+v.slice(p);t.setSelectionRange(p-1,p-1);}});
   $('macrons').innerHTML=['ā','ē','ī','ō','ū'].map(c=>`<button type="button" aria-label="Insert ${c}">${c}</button>`).join('');
   $('askq').addEventListener('input',e=>{const t=e.target,p=t.selectionStart,v=t.value;if(p>1&&(v[p-1]==='-'||v[p-1]==='_')&&MAC[v[p-2]]){t.value=v.slice(0,p-2)+MAC[v[p-2]]+v.slice(p);t.setSelectionRange(p-1,p-1);}});
+  window.typeAssist=t=>{const p=t.selectionStart,v=t.value;if(p>1&&(v[p-1]==='-'||v[p-1]==='_')&&MAC[v[p-2]]){t.value=v.slice(0,p-2)+MAC[v[p-2]]+v.slice(p);t.setSelectionRange(p-1,p-1)}}; // typing shortcuts for the practice test's boxes
 }
 /* js/vocab.js: the word to type when a vocabulary line is clicked */
 function vocabWords(v){
