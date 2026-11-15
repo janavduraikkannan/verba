@@ -96,4 +96,71 @@ await t("logCsv has the header and one row per log row", async () => {
   eq(lines.includes("day,2026-11-14,all,1"), true); eq(lines.includes("total,2026-11-14,all,1"), true);
 });
 
+
+/* ---------- Worker routes ---------- */
+const worker = (await import("./worker.js")).default;
+const O = "https://janavduraikkannan.github.io", W = "https://stats.example.workers.dev", TOKEN = "tok-123";
+const mkEnv = (extra = {}) => ({ DB: makeDb(), SALT, DASH_TOKEN: TOKEN, ...extra });
+const hitReq = (body, { origin = O, raw, method = "POST" } = {}) =>
+  new Request(W + "/hit", { method, headers: { ...(origin ? { Origin: origin } : {}), "Content-Type": "application/json" }, body: method === "POST" ? (raw ?? JSON.stringify(body)) : undefined });
+const get = (path, token) => new Request(W + path, { headers: token ? { Authorization: "Bearer " + token } : {} });
+const count = async env => (await rows(env.DB, "SELECT * FROM hits")).length;
+
+await t("hit stores one row and returns 204", async () => {
+  const env = mkEnv(); const r = await worker.fetch(hitReq({ id: ID(1), site: "verba" }), env);
+  eq(r.status, 204); eq(await count(env), 1); eq(r.headers.get("Access-Control-Allow-Origin"), O);
+});
+await t("hit with a bad origin returns 403 and stores nothing", async () => {
+  const env = mkEnv(); eq((await worker.fetch(hitReq({ id: ID(1), site: "verba" }, { origin: "https://evil.example" }), env)).status, 403); eq(await count(env), 0);
+});
+await t("hit with no origin returns 403", async () => { const env = mkEnv(); eq((await worker.fetch(hitReq({ id: ID(1), site: "verba" }, { origin: null }), env)).status, 403); eq(await count(env), 0); });
+await t("hit with bad json, wrong types, unknown site or uppercase id returns 400", async () => {
+  const env = mkEnv();
+  for (const o of [{ raw: "{nope" }, { raw: "[]" }, { raw: JSON.stringify({ id: 5, site: "verba" }) }, { raw: JSON.stringify({ id: ID(1), site: "latin" }) }, { raw: JSON.stringify({ id: ID(1).replace(/0/g, "A").toUpperCase(), site: "verba" }) }])
+    eq((await worker.fetch(hitReq(null, o), env)).status, 400, JSON.stringify(o));
+  eq(await count(env), 0);
+});
+await t("hit body over 512 bytes returns 413", async () => { const env = mkEnv(); eq((await worker.fetch(hitReq(null, { raw: JSON.stringify({ id: ID(1), site: "verba", pad: "x".repeat(600) }) }), env)).status, 413); eq(await count(env), 0); });
+await t("hit with the wrong method returns 405", async () => eq((await worker.fetch(new Request(W + "/hit", { method: "GET", headers: { Origin: O } }), mkEnv())).status, 405));
+await t("rate-limited hit returns 204 but stores nothing", async () => {
+  const env = mkEnv({ LIMITER: { limit: async () => ({ success: false }) } });
+  eq((await worker.fetch(hitReq({ id: ID(1), site: "verba" }), env)).status, 204); eq(await count(env), 0);
+});
+await t("OPTIONS returns CORS for the allowed origin only", async () => {
+  const env = mkEnv(); const ok = await worker.fetch(hitReq(null, { method: "OPTIONS" }), env);
+  eq(ok.status, 204); eq(ok.headers.get("Access-Control-Allow-Origin"), O); eq(ok.headers.get("Access-Control-Allow-Methods"), "POST, OPTIONS");
+  eq((await worker.fetch(hitReq(null, { method: "OPTIONS", origin: "https://evil.example" }), env)).status, 403);
+});
+await t("GET /api/stats without a token or with a wrong one returns 401 with no CORS", async () => {
+  const env = mkEnv(); const a = await worker.fetch(get("/api/stats"), env), b = await worker.fetch(get("/api/stats", "nope"), env);
+  eq([a.status, b.status], [401, 401]); eq(a.headers.get("Access-Control-Allow-Origin"), null);
+});
+await t("a token in the query string is ignored", async () => eq((await worker.fetch(get("/api/stats?token=" + TOKEN), mkEnv())).status, 401));
+await t("GET /api/stats with the token returns counts for all and for a site", async () => {
+  const env = mkEnv(); await worker.fetch(hitReq({ id: ID(1), site: "verba" }), env); await worker.fetch(hitReq({ id: ID(1), site: "mots" }), env);
+  const all = await (await worker.fetch(get("/api/stats?site=all", TOKEN), env)).json(), v = await (await worker.fetch(get("/api/stats?site=verba", TOKEN), env)).json();
+  eq([all.total, all.today, v.total, v.scope], [1, 1, 1, "verba"]);
+});
+await t("GET /api/stats with an unknown site returns 400", async () => eq((await worker.fetch(get("/api/stats?site=latin", TOKEN), mkEnv())).status, 400));
+await t("GET /api/log.csv needs the token and has the header line", async () => {
+  const env = mkEnv(); eq((await worker.fetch(get("/api/log.csv"), env)).status, 401);
+  const r = await worker.fetch(get("/api/log.csv", TOKEN), env); eq(r.status, 200);
+  eq((await r.text()).split("\n")[0], "period,start,scope,people"); eq(r.headers.get("Content-Disposition").includes("language-sites-log.csv"), true);
+});
+await t("GET / serves the page with noindex and no-store, and unknown paths 404", async () => {
+  const env = mkEnv(); const r = await worker.fetch(get("/"), env);
+  eq(r.status, 200); eq(r.headers.get("X-Robots-Tag"), "noindex"); eq(r.headers.get("Cache-Control"), "no-store");
+  eq((await worker.fetch(get("/nothing"), env)).status, 404);
+});
+await t("scheduled writes yesterday's row", async () => {
+  const env = mkEnv(); const y = utcDay(new Date(Date.now() - 86400000));
+  await recordHit(env.DB, SALT, { id: ID(1), site: "verba" }, new Date(Date.now() - 86400000));
+  await worker.scheduled({}, env);
+  eq((await rows(env.DB, `SELECT people FROM log WHERE period='day' AND scope='all' AND start='${y}'`)).length, 1);
+});
+await t("a database that throws gives 500 with no id in the body", async () => {
+  const env = mkEnv({ DB: { prepare() { throw new Error("boom " + ID(7)); } } }); const r = await worker.fetch(hitReq({ id: ID(7), site: "verba" }), env);
+  eq(r.status, 500); eq((await r.text()).includes(ID(7)), false);
+});
+
 console.log(`\n${pass} passed, ${fail} failed`); process.exit(fail ? 1 : 0);
