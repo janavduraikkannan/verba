@@ -29,7 +29,9 @@ export async function recordHit(db, salt, { id, site }, now) {
 const WEEK_SQL = "date(day, '-' || ((CAST(strftime('%w', day) AS INTEGER) + 6) % 7) || ' days')";
 const logRow = (db, period, start, scope, people) =>
   db.prepare("INSERT OR IGNORE INTO log (period, start, scope, people) VALUES (?, ?, ?, ?)").bind(period, start, scope, people);
-async function writeAll(db, stmts) { for (let i = 0; i < stmts.length; i += 100) await db.batch(stmts.slice(i, i + 100)); }
+/* Batches are all-or-nothing, so each batch must hold whole days (6 statements each) or whole weeks (5 each); otherwise a failure
+   mid-backfill could leave a day with some scopes logged and others missing, and later runs would skip it. */
+async function writeAll(db, stmts, per) { const size = per * Math.floor(100 / per); for (let i = 0; i < stmts.length; i += size) await db.batch(stmts.slice(i, i + size)); }
 
 /* Writes every missing finished day and week to the permanent log. Safe to run any number of times. */
 export async function rollup(db, now) {
@@ -37,7 +39,7 @@ export async function rollup(db, now) {
   if (!first) return { days: 0, weeks: 0 };
   const lastDay = addDays(utcDay(now), -1);
   const have = async period => new Set((await db.prepare("SELECT start FROM log WHERE period = ? AND scope = 'all'").bind(period).all()).results.map(r => r.start));
-  const stmts = []; let days = 0, weeks = 0;
+  const dayStmts = [], weekStmts = []; let days = 0, weeks = 0;
 
   const haveDays = await have("day");
   if (first <= lastDay) {
@@ -50,8 +52,8 @@ export async function rollup(db, now) {
     for (let d = first; d <= lastDay; d = addDays(d, 1)) {
       running += fresh[d] || 0;
       if (haveDays.has(d)) continue;
-      stmts.push(logRow(db, "day", d, "all", all[d] || 0), logRow(db, "total", d, "all", running));
-      SITES.forEach(s => stmts.push(logRow(db, "day", d, s, site[d + "|" + s] || 0)));
+      dayStmts.push(logRow(db, "day", d, "all", all[d] || 0), logRow(db, "total", d, "all", running));
+      SITES.forEach(s => dayStmts.push(logRow(db, "day", d, s, site[d + "|" + s] || 0)));
       days++;
     }
   }
@@ -63,11 +65,11 @@ export async function rollup(db, now) {
   wk.forEach(r => { wkAll[r.wk] = r.n; }); wkS.forEach(r => { wkSite[r.wk + "|" + r.site] = r.n; });
   for (let m = weekStart(first); addDays(m, 6) <= lastDay; m = addDays(m, 7)) {
     if (haveWeeks.has(m)) continue;
-    stmts.push(logRow(db, "week", m, "all", wkAll[m] || 0));
-    SITES.forEach(s => stmts.push(logRow(db, "week", m, s, wkSite[m + "|" + s] || 0)));
+    weekStmts.push(logRow(db, "week", m, "all", wkAll[m] || 0));
+    SITES.forEach(s => weekStmts.push(logRow(db, "week", m, s, wkSite[m + "|" + s] || 0)));
     weeks++;
   }
-  await writeAll(db, stmts);
+  await writeAll(db, dayStmts, 6); await writeAll(db, weekStmts, 5);
   return { days, weeks };
 }
 

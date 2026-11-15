@@ -97,6 +97,26 @@ await t("logCsv has the header and one row per log row", async () => {
 });
 
 
+/* ---------- Backfill must never leave half a day ---------- */
+await t("a failed batch during a long backfill leaves no half-logged day after the rerun", async () => {
+  const db = makeDb(); await hit(db, 1, "verba", "2026-11-01"); await hit(db, 2, "mots", "2026-11-20");
+  const now = D("2026-11-25T10:00:00Z"); let calls = 0;
+  const flaky = { ...db, batch: async list => { calls++; if (calls === 2) throw new Error("boom"); return db.batch(list); } };
+  let threw = false; try { await rollup(flaky, now); } catch (e) { threw = true; }
+  eq(threw, true, "second batch should have failed"); await rollup(db, now);
+  const per = await rows(db, "SELECT start, COUNT(*) n FROM log WHERE period='day' GROUP BY start");
+  eq(per.length, 24, "days 11-01..11-24"); eq(per.filter(r => r.n !== 5).map(r => r.start), [], "every logged day has all 5 scopes");
+  eq((await rows(db, "SELECT COUNT(*) n FROM log WHERE period='total'"))[0].n, 24, "a total row per day");
+});
+await t("cross-site dedupe holds in the day, week and total log rows", async () => {
+  const db = makeDb(); await hit(db, 1, "verba", "2026-11-09"); await hit(db, 1, "mots", "2026-11-09"); await hit(db, 2, "verba", "2026-11-10");
+  await rollup(db, D("2026-11-17T10:00:00Z"));
+  const g = async (period, start, scope) => (await rows(db, `SELECT people FROM log WHERE period='${period}' AND start='${start}' AND scope='${scope}'`))[0].people;
+  eq([await g("day", "2026-11-09", "all"), await g("day", "2026-11-09", "verba"), await g("day", "2026-11-09", "mots")], [1, 1, 1]);
+  eq([await g("week", "2026-11-09", "all"), await g("week", "2026-11-09", "verba"), await g("week", "2026-11-09", "mots")], [2, 2, 1]);
+  eq(await g("total", "2026-11-10", "all"), 2);
+});
+
 /* ---------- Worker routes ---------- */
 const worker = (await import("./worker.js")).default;
 const O = "https://janavduraikkannan.github.io", W = "https://stats.example.workers.dev", TOKEN = "tok-123";
@@ -122,9 +142,10 @@ await t("hit with bad json, wrong types, unknown site or uppercase id returns 40
 });
 await t("hit body over 512 bytes returns 413", async () => { const env = mkEnv(); eq((await worker.fetch(hitReq(null, { raw: JSON.stringify({ id: ID(1), site: "verba", pad: "x".repeat(600) }) }), env)).status, 413); eq(await count(env), 0); });
 await t("hit with the wrong method returns 405", async () => eq((await worker.fetch(new Request(W + "/hit", { method: "GET", headers: { Origin: O } }), mkEnv())).status, 405));
-await t("rate-limited hit returns 204 but stores nothing", async () => {
+await t("rate-limited hit returns 429 without CORS (so the browser retries next load) and stores nothing", async () => {
   const env = mkEnv({ LIMITER: { limit: async () => ({ success: false }) } });
-  eq((await worker.fetch(hitReq({ id: ID(1), site: "verba" }), env)).status, 204); eq(await count(env), 0);
+  const r = await worker.fetch(hitReq({ id: ID(1), site: "verba" }), env);
+  eq(r.status, 429); eq(r.headers.get("Access-Control-Allow-Origin"), null); eq(await count(env), 0);
 });
 await t("OPTIONS returns CORS for the allowed origin only", async () => {
   const env = mkEnv(); const ok = await worker.fetch(hitReq(null, { method: "OPTIONS" }), env);

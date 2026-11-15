@@ -38,9 +38,9 @@ async function handleHit(request, env) {
   let body; try { body = JSON.parse(text); } catch (e) { return plain(400); }
   const hit = validHit(body);
   if (!hit) return plain(400);
-  if (env.LIMITER) { // answer the same either way, so a flood learns nothing
+  if (env.LIMITER) { // 429 (not 204): the browser then does not mark today as counted and tries again on its next page load
     const r = await env.LIMITER.limit({ key: request.headers.get("CF-Connecting-IP") || "unknown" });
-    if (!r.success) return new Response(null, { status: 204, headers: CORS });
+    if (!r.success) return plain(429);
   }
   await recordHit(env.DB, env.SALT, hit, new Date());
   return new Response(null, { status: 204, headers: CORS });

@@ -9,7 +9,7 @@ Only `(UTC day, site, hash)` in the D1 table `hits`. The hash is `HMAC-SHA256(SA
 ## How it works
 
 - `js/stats.js` (shared by all four sites) sends `POST /hit {id, site}` at most once per site per day. The four sites share one browser storage area (`janavduraikkannan.github.io`), so one random ID (`lang-vid`) is the same on all of them, which is what lets "all sites" count a person once.
-- `POST /hit` accepts only the `https://janavduraikkannan.github.io` origin, validates the body, and is rate limited (30 per minute per IP; the IP is not stored).
+- `POST /hit` accepts only the `https://janavduraikkannan.github.io` origin, validates the body, and is rate limited (300 per minute per IP, so a whole school behind one address still counts; a limited visitor gets 429 and is retried on their next page load; the IP is not stored).
 - A daily cron (00:05 UTC) writes the finished day and week to `log`. Opening the dashboard also fills any gap, and running either twice changes nothing.
 - `GET /api/stats?site=all|verba|mots|palabras|woerter` and `GET /api/log.csv` need `Authorization: Bearer <DASH_TOKEN>`.
 
