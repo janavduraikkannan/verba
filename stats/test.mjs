@@ -163,4 +163,30 @@ await t("a database that throws gives 500 with no id in the body", async () => {
   eq(r.status, 500); eq((await r.text()).includes(ID(7)), false);
 });
 
+
+/* ---------- Dashboard page ---------- */
+const { PAGE } = await import("./page.js");
+const vm = await import("node:vm");
+const pageScript = () => { const m = /<script>([\s\S]*?)<\/script>/.exec(PAGE); if (!m) throw new Error("no inline script"); return m[1]; };
+const pageFn = () => { const w = {}; vm.runInNewContext(pageScript(), { window: w }); return w.__summaryText; };
+await t("PAGE is self-contained: no external src, href, link or import", () => {
+  for (const bad of ['src="http', "src='http", 'href="http', "<link", "@import", "//cdn"]) if (PAGE.includes(bad)) throw new Error("found " + bad);
+});
+await t("PAGE asks search engines not to index it and sets a viewport", () => {
+  if (!/<meta name="robots" content="noindex/.test(PAGE)) throw new Error("no noindex meta"); if (!/name="viewport"/.test(PAGE)) throw new Error("no viewport");
+});
+await t("summaryText on empty stats says no visits and has no NaN", () => {
+  const f = pageFn(); const txt = f({ scope: "all", total: 0, daily: [], weekly: [], dailyMax: null, weeklyMax: null });
+  if (!txt.includes("No visits")) throw new Error(txt); if (/NaN|undefined|null/.test(txt)) throw new Error(txt);
+});
+await t("summaryText reports total, highest day date and says the figures are estimates", () => {
+  const f = pageFn(); const txt = f({ scope: "verba", asOf: "2026-11-15T10:00:00.000Z", total: 1234, today: 5, last7: 80, firstDay: "2026-10-01", dailyAvg: 12.5, dailyMax: { start: "2026-11-02", people: 40 }, weeklyAvg: 60, weeklyMax: { start: "2026-10-26", people: 150 }, daily: [], weekly: [] });
+  for (const need of ["1,234", "2026-11-02", "40", "2026-10-26", "Verba", "estimate"]) if (!txt.includes(need)) throw new Error("missing " + need + " in: " + txt);
+  if (/NaN|undefined|null/.test(txt)) throw new Error(txt);
+});
+await t("summaryText copes with no finished days yet (max is null)", () => {
+  const f = pageFn(); const txt = f({ scope: "all", asOf: "2026-11-15T10:00:00.000Z", total: 3, today: 3, last7: 3, firstDay: "2026-11-15", dailyAvg: 0, dailyMax: null, weeklyAvg: 0, weeklyMax: null, daily: [], weekly: [] });
+  if (/NaN|undefined|null/.test(txt)) throw new Error(txt); if (!txt.includes("3")) throw new Error(txt);
+});
+
 console.log(`\n${pass} passed, ${fail} failed`); process.exit(fail ? 1 : 0);
