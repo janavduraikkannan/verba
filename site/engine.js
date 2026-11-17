@@ -137,6 +137,9 @@ corpus,corporis,corpor,3n,n,body,bodies,o,T
 tempus,temporis,tempor,3n,n,time,times,x,T
 flūmen,flūminis,flūmin,3n,n,river,rivers,l
 mare,maris,mar,3ni,n,sea,seas,l
+homō,hominis,homin,3,m,person,people,p
+prīnceps,prīncipis,prīncip,3,m,chief,chiefs,p
+iter,itineris,itiner,3n,n,journey,journeys,o
 manus,-ūs,man,4,f,hand,hands,o,T
 exercitus,-ūs,exercit,4,m,army,armies,g
 portus,-ūs,port,4,m,harbor,harbors,c
@@ -524,10 +527,14 @@ function gAdj(types,cid,tricky){
 const artE=w=>(/^[aeiou]/i.test(w)?'an ':'a ')+w;
 const ADAB={ad:['adsum ades adest adsumus adestis adsunt','aderam aderās aderat aderāmus aderātis aderant','aderō aderis aderit aderimus aderitis aderunt'],ab:['absum abes abest absumus abestis absunt','aberam aberās aberat aberāmus aberātis aberant','aberō aberis aberit aberimus aberitis aberunt']};
 function gEsse(){
-  const t=R(['pres','pres','impf','fut']),m=R(['pn','pn','pa','pa','there','adab','is','is','act']);
+  const t=R(['pres','pres','impf','fut']),m=R(['pn','pn','pa','pa','there','adab','is','is','act','cmd']);
   if(m==='act'){const q=gTrans({t:'pres',pron:1}),g=ALT.find(a=>q.en.includes(a[0])&&a.some(x=>/^(am|is|are) \S+ing\b/.test(x)));
     if(g){const prog=g.find(x=>/^(am|is|are) \S+ing\b/.test(x));q.enAlt=(q.enAlt||[]).concat([q.en]);q.en=q.en.replace(g[0],prog)}
     q.extraVocab=['English "is …-ing" is just the present tense: no esse'];return q}
+  if(m==='cmd'){ /* es and este: be! The adjective agrees with the person spoken to */
+    const n=R(PEOPLE.filter(x=>!x.sgOnly)),k=num(n),a=adjFor(n,['12']),voc=N(n,5,k,'voc');voc.post=',';
+    const adj=A(a,0,k,n.g,['adj12']),be={la:k?'este':'es',lemma:'esse',cids:['sum'],concept:'imperative of esse, '+NUM[k],forms:[],vocab:'esse, sum : to be; es, este : be!'};
+    const q=S([voc,adj,be],`${k?n.ep:n.e}, be ${a.e}`,'!');q.altTokens=[[voc,be,adj]];return q}
   const pron=m!=='there'&&m!=='is'&&chance(.3);let s=null,k,p,g,subj=[],sE;
   if(pron){p=R([0,1,3,4,5]);k=p>2?1:0;g=chance(.5)?'m':'f';sE=PRON[p]}else{s=R(PEOPLE);k=num(s);p=k?5:2;g=s.g;subj=[N(s,0,k,'nom')];sE=np(s,k)}
   if(m==='pn'){const pr=R(PEOPLE.filter(x=>x!==s&&!x.sgOnly&&(!s||x.e!==s.e)));return S([...subj,N(pr,0,k,'pred'),SUMT(t,p)],`${sE} ${be(t,p)} ${k?pr.ep:artE(pr.e)}`)}
@@ -1043,13 +1050,18 @@ const FRAMEGEN={
   imp(set){
     const used=[],vo=set.has('voc')||chance(.6)?mkVoc(used):null,pl=vo?vo.p===4:chance(.5),p=pl?4:1;
     const c=bClause(set,{used,noSubj:true,p,t:'pres'});if(!c||c.missing.length)return null;
-    const v=c.v,pas=c.vc==='pass',neg=chance(.25);
+    const v=c.v,pas=c.vc==='pass',nolo=set.has('neg'),neg=nolo||chance(.25);
     if(pas&&!v.obj.includes('p'))return null;
     const la=pas?(pl?vf(v,'pres','pass',4):v.inf):pl?v.stem+{'1d':'ate',1:'āte',2:'ēte',3:'ite','3i':'ite',4:'īte'}[v.cj]:['dūcere','dīcere'].includes(v.inf)?v.inf.slice(0,-3):v.stem+{'1d':'ā',1:'ā',2:'ē',3:'e','3i':'e',4:'ī'}[v.cj];
     const it={la,lemma:dispInf(v),cids:['imp'],concept:`${pas?'passive':'active'} imperative, ${pl?'plural':'singular'}`,forms:[],vocab:verbV(v)};
     const vp=(neg?"don't ":'')+(pas?'be '+v.pp:v.e),who=vo?'':` (to ${pl?'more than one person':'one person'})`;
     const ens=withAdv(c,'',vp).map(e=>(vo?vo.en+' ':'')+e+who);
     const nt=W('nē','nē (+imperative) : don’t (in poetry)'),head=vo?[vo.tok]:[];
+    /* the negative-commands topic: nōlī or nōlīte + an infinitive is the main answer, and nē + the imperative (poetry) is also accepted */
+    if(nolo){
+      const nl={la:pl?'nōlīte':'nōlī',lemma:'nōlle',cids:['neg','imp'],concept:'negative command, '+NUM[pl?1:0]+' (imperative of nōlle)',forms:[],vocab:'nōlle, nōlō : to be unwilling; nōlī, nōlīte (+infinitive) : don’t …'};
+      const inf=Object.assign(INF(v,pas?'pp':'pa','m',0,'neg'),{lemma:dispInf(v)});
+      return{tokens:[...head,nl,...lat(c),inf],ens,end:'!',altTokens:[[...head,nt,...lat(c),it]]};}
     const tokens=[...head,...(neg?[nt]:[]),...lat(c),it];
     const altTokens=neg?[[...head,...lat(c),W(pl?'nōlīte':'nōlī'),W(pas?passInf(v):v.inf)]]:undefined;
     return{tokens,ens,end:'!',altTokens};},
@@ -1175,7 +1187,7 @@ const TOPICS=[
 ['ipas','I','Verbs','Continuous past (imperfect) passive',()=>gPass({t:'impf',pron:1})],
 ['inf','I','Verbs','Complementary infinitive',()=>B('ci',[])],
 ['pinf','I','Verbs','Passive infinitive',()=>B('ci',['pass'])],
-['esse','I','Verbs','esse: to be (= sentences, there is, adesse and abesse)',gEsse],
+['esse','I','Verbs','esse: to be (= sentences, there is, es and este, adesse and abesse)',gEsse],
 ['sum','I','Verbs','sum and possum',gSum],
 ['ques','I','Sentence types','Questions: -ne and quis',()=>B(R(['ne','quis']),[])],
 ['conj','I','Sentence types','And: et and -que',()=>B('stmt',['que'])],
@@ -1187,6 +1199,7 @@ const TOPICS=[
 ['fcond','I','Sentence types','Open conditions: future',()=>B('condF',[])],
 ['perf','I','Verbs','Perfect active',()=>gAct('perf')],
 ['imp','I','Verbs','Commands: the imperative (active and passive)',()=>B('imp',chance(.3)?['pass']:[])],
+['neg','I','Verbs','Negative commands: nōlī and nōlīte + infinitive',()=>B('imp',chance(.4)?['neg','pass']:['neg'])],
 ['plup','II','Verbs','Pluperfect and future perfect active',()=>gAct(R(['plup','plup','futp']))],
 ['perfpas','II','Verbs','Perfect, pluperfect, future perfect passive',()=>gPass({t:R(['perf','perf','plup','futp'])})],
 ['dep','II','Verbs','Deponent verbs',()=>gTrans({v:R(DEPS),t:R(['pres','impf','fut','perf']),pron:1})],
@@ -1226,7 +1239,7 @@ const TOPICS=[
 /* how each topic maps onto the sentence builder, so a focus topic can be mixed with other selected topics */
 const TOPIC_PLAN={placeTo:{ing:['placeTo']},dat:{ing:['dat']},datref:{ing:['datref']},placeFrom:{ing:['placeFrom']},sep:{ing:['sep']},means:{ing:['means']},accomp:{ing:['accomp']},manner:{ing:['manner']},placeWhere:{ing:['placeWhere']},agent:{ing:['agent']},town:{ing:['town']},voc:{ing:['voc']},appos:{ing:['appos']},cause:{ing:['cause']},
  gen:{ing:['genposs']},gendat:{ing:['genposs','gdat']},genpart:{ing:['genpart']},genso:{ing:['genso']},genmat:{ing:['genmat']},adj12:{ing:['adj']},tricky:{ing:['tricky']},adv:{ing:['adv']},conj:{ing:['que']},fut:{ing:['fut']},ppas:{ing:['pass']},fpas:{ing:['pass','fut']},
- inf:{frame:'ci'},pinf:{frame:'ci',ing:['pass']},ques:{frame:'ne|quis'},gap:{frame:'gap'},indst:{frame:'is'},poss:{ing:['poss']},d2er:{ing:['er']},imp:{frame:'imp'},medsum:{ing:['medsum']},indst2:{frame:'is',ing:['impf']},impf:{ing:['impf']},ipas:{ing:['pass','impf']},pcond:{frame:'condP'},fcond:{frame:'condF'}};
+ inf:{frame:'ci'},pinf:{frame:'ci',ing:['pass']},ques:{frame:'ne|quis'},gap:{frame:'gap'},indst:{frame:'is'},poss:{ing:['poss']},d2er:{ing:['er']},imp:{frame:'imp'},neg:{frame:'imp'},medsum:{ing:['medsum']},indst2:{frame:'is',ing:['impf']},impf:{ing:['impf']},ipas:{ing:['pass','impf']},pcond:{frame:'condP'},fcond:{frame:'condF'}};
 /* every sentence is about one focus topic; other selected topics may join in */
 function makeFocused0(selected,focus){
   const foc=[...focus].filter(x=>selected.has(x));if(!foc.length)return makeQuestion(selected,false);

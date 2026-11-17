@@ -1,4 +1,4 @@
-const {tr,mc,ty,spot,enQs,laQs,parseQs,nq}=require('./lib.js');
+const {tr,mc,ty,spot,enQs,laQs,parseQs}=require('./lib.js');
 const pf=['amāre','docēre','regere','iacere','custōdīre','tenēre','scrībere','vocāre','vincere','pūnīre'];
 module.exports={title:'Finishing Latin I',lessons:[
 {id:'sum',title:'esse: how to “be” in Latin',blurb:'The irregular verb “to be,” the = sign, there is, and adesse/abesse.',body:`
@@ -135,40 +135,6 @@ tr('Indirect statement with esse',[
 ['Fēmina putābat fīliam suam aegram esse.','The woman [was thinking|thought] that her daughter was sick.'],
 ['Magistra putābat discipulās nōn parātās esse.','The teacher [was thinking|thought] that the students were not ready.'],
 ['Rōmānī crēdēbant deōs īrātōs esse.','The Romans [believed|were believing] that the gods were angry.']],'In indirect statement the subject and whatever it equals are both accusative; a place phrase keeps its own case.',{alt:{1:['Puella putat puerum esse laetum.'],3:['Nautae clāmant īnsulam esse magnam.'],5:['Nūntius nūntiat oppidum esse in perīculō.'],7:['Fēmina putābat fīliam suam esse aegram.'],9:['Rōmānī crēdēbant deōs esse īrātōs.']}})]},
-{id:'possum',title:'possum: to be able',blurb:'esse with a prefix, and a verb that needs an infinitive.',body:`
-*Possum* means *I am able* or *I can*. It is *pot-* plus *esse*. The *t* becomes *s* before another *s*.
-
-|~ posse, to be able
-|Person|Present|Imperfect|Future|
-|I|possum|poteram|poterō|
-|you|potes|poterās|poteris|
-|he/she/it|potest|poterat|poterit|
-|we|possumus|poterāmus|poterimus|
-|you all|potestis|poterātis|poteritis|
-|they|possunt|poterant|poterunt|
-
-*Possum* takes a complementary infinitive.
-
-: Nāvigāre possumus. = We can sail.
-: Vidēre poterat. = She could see.
-: Venīre poterunt. = They will be able to come.
-
-?1
-
-?2
-`,q:[mc('Choose the sentence with the right form of possum',[
-['Choose "We can walk."','*Ambulāre possumus.*',['*Ambulāre potumus.*','*Ambulāre possimus.*','*Ambulāre poteramus.*'],'The *t* of *pot-* becomes *s* before *s*.'],
-['Choose "They can run."','*Currere possunt.*',['*Currere potunt.*','*Currere poterunt.*','*Currere potest.*'],'The *t* of *pot-* becomes *s* before *s*.'],
-['Choose "She can write."','*Scrībere potest.*',['*Scrībere possit.*','*Scrībere possunt.*','*Scrībere potes.*'],'*pot-* + *est*.'],
-['Choose "You (one person) can stay."','*Manēre potes.*',['*Manēre posses.*','*Manēre potest.*','*Manēre possum.*'],'*pot-* + *es*.'],
-['Choose "I could read."','*Legere poteram.*',['*Legere possum.*','*Legere poterō.*','*Legere potuit.*'],'*pot-* + *eram*.'],
-['Choose "They will be able to work."','*Labōrāre poterunt.*',['*Labōrāre poterant.*','*Labōrāre possunt.*','*Labōrāre potērunt.*'],'*pot-* + *erunt*.'],
-['Choose "You all can fight."','*Pugnāre potestis.*',['*Pugnāre possetis.*','*Pugnāre potes.*','*Pugnāre possumus.*'],'*pot-* + *estis*.'],
-['Choose "I can sail."','*Nāvigāre possum.*',['*Nāvigāre potum.*','*Nāvigāre potes.*','*Nāvigāre poterō.*'],'The *t* of *pot-* becomes *s* before *s*.'],
-['In *Puella legere potest*, what does *legere* do?','It completes the main verb',['It is the subject','It is a direct object','It names a place'],'A form of *possum* takes a complementary infinitive.'],
-['Choose "We could sleep."','*Dormīre poterāmus.*',['*Dormīre possumus.*','*Dormīre poterimus.*','*Dormīre poteramur.*'],'*pot-* + *erāmus*.']]),
-tr('Translate a sentence with possum',[
-['Currere possumus.','We [can run|are able to run].'],['Audīre poterat.','[He|She] [could hear|was able to hear].'],['Manēre poterunt.','They will be able to stay.'],['Puella scrībere potest.','The girl [can write|is able to write].'],['Nautae pugnāre possunt.','The sailors [can fight|are able to fight].'],['Currere nōn possum.','I [cannot|can not|am not able to] run.'],['Legere potes.','You [can read|are able to read].'],['Agricola labōrāre poterat.','The farmer [could work|was able to work].'],['Dormīre poterimus.','We will be able to sleep.'],['Puerī audīre possunt.','The boys [can hear|are able to hear].']],'possum is translated can or be able, with an infinitive.')]},
 {id:'perfect',title:'The perfect active',blurb:'What happened and is finished.',body:`
 The **perfect** tells about a completed action. It has its own stem, so dictionaries give it as the third principal part.
 
@@ -196,30 +162,6 @@ Perfect stems often can't be guessed, so learn them with each verb. *Videō, vid
 
 ?3
 `,q:[spot('Identify the person and number of a perfect active verb',parseQs(pf,'perf','act')),spot('Translate a perfect active verb into English',enQs(pf,'perf','act')),spot('Write a perfect active verb in Latin',laQs(pf,'perf','act'))]},
-{id:'decl3',title:'The 3rd declension',blurb:'A new noun group with a stem you find in the genitive.',body:`
-The **3rd declension** has masculine, feminine and neuter nouns. You can't predict the stem from the nominative, so always use the genitive: drop *-is* to find the stem.
-
-: rēx, rēgis, m. = king (stem rēg-)
-: mīles, mīlitis, m. = soldier (stem mīlit-)
-: māter, mātris, f. = mother (stem mātr-)
-: corpus, corporis, n. = body (stem corpor-)
-
-|~ 3rd declension endings
-|Case|M/F sg.|M/F pl.|Neuter sg.|Neuter pl.|
-|Nominative|(varies)|-ēs|(varies)|-a|
-|Accusative|-em|-ēs|same as nom.|-a|
-|Dative|-ī|-ibus|-ī|-ibus|
-|Ablative|-e|-ibus|-e|-ibus|
-|Genitive|-is|-um|-is|-um|
-
-Some nouns, called **i-stems**, have *-ium* in the genitive plural, such as *hostium* (of the enemies), *cīvium* (of the citizens) and *urbium* (of the cities). Neuters such as *mare* use *-ia*: *maria*, seas.
-
-?1
-
-?2
-`,q:[nq('Write a named case and number of a 3rd declension noun',[['rēx',3,0],['mīles',0,1],['pater',2,0],['māter',4,0],['frāter',3,1],['corpus',0,1],['dux',1,0],['soror',2,1],['flūmen',3,1],['rēx',1,1]]),
-tr('Translate a sentence with 3rd declension nouns',[
-['Rēx mīlitēs laudat.','The king <praise> the soldiers.'],['Māter fīliam vocat.','The mother <call> the daughter.'],['Pater fīliō librum dat.','The father <give> [the son a book|a book to the son].'],['Mīlitēs ducem audiunt.','The soldiers <hear:p> the leader.'],['Soror frātrem videt.','The sister <see> the brother.'],['Rēgēs oppidum dēfendunt.','The kings <defend:p> the town.'],['Dux cum mīlitibus venit.','The leader <come> with the soldiers.'],['Frāter sorōrī rosam dat.','The brother <give> [the sister a rose|a rose to the sister].'],['Corpus virī portant.','They <carry:p> the body of the man.'],['Mātrēs fīliīs labōrant.','The mothers <work:p> for the sons.']],'Find the stem from the genitive, then read the ending for the case.')]},
 {id:'pronouns',title:'Personal pronouns and possessive adjectives',blurb:'I, you, we and you all in every case; my, your, his, her, our and their.',body:`
 Personal pronouns stand in for people. Latin only uses them in the nominative for emphasis, since the verb ending already shows the subject.
 

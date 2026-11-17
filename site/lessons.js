@@ -2146,53 +2146,6 @@ The last sentence starts with a house we already know about and tells us where i
      {"k":"la","p":"Translate into Latin: The Romans believed that the gods were angry.","a":["Rōmānī crēdēbant deōs īrātōs esse.","Rōmānī crēdēbant deōs esse īrātōs."],"w":"In indirect statement the subject and whatever it equals are both accusative; a place phrase keeps its own case.","g":[["Rōmānus, -ī, m.","Roman"],["crēdere, -ō","to believe"],["deus, -ī, m.","god"],["īrātus -a -um","angry"],["esse, sum","to be"]]},
     ]},
    ]},
-  {id:"possum",title:"possum: to be able",blurb:"esse with a prefix, and a verb that needs an infinitive.",t:["sum"],
-   body:`*Possum* means *I am able* or *I can*. It is *pot-* plus *esse*. The *t* becomes *s* before another *s*.
-
-|~ posse, to be able
-|Person|Present|Imperfect|Future|
-|I|possum|poteram|poterō|
-|you|potes|poterās|poteris|
-|he/she/it|potest|poterat|poterit|
-|we|possumus|poterāmus|poterimus|
-|you all|potestis|poterātis|poteritis|
-|they|possunt|poterant|poterunt|
-
-*Possum* takes a complementary infinitive.
-
-: Nāvigāre possumus. = We can sail.
-: Vidēre poterat. = She could see.
-: Venīre poterunt. = They will be able to come.
-
-?1
-
-?2`,
-   q:[
-    {s:"Choose the sentence with the right form of possum",b:[
-     {"k":"mc","p":"Choose \"We can walk.\"","o":["*Ambulāre possumus.*","*Ambulāre potumus.*","*Ambulāre possimus.*","*Ambulāre poteramus.*"],"a":0,"w":"The *t* of *pot-* becomes *s* before *s*.","g":[["ambulāre, -ō","to walk"],["posse, possum","to be able, can"]]},
-     {"k":"mc","p":"Choose \"They can run.\"","o":["*Currere possunt.*","*Currere potunt.*","*Currere poterunt.*","*Currere potest.*"],"a":0,"w":"The *t* of *pot-* becomes *s* before *s*.","g":[["currere, -ō","to run"],["posse, possum","to be able, can"]]},
-     {"k":"mc","p":"Choose \"She can write.\"","o":["*Scrībere potest.*","*Scrībere possit.*","*Scrībere possunt.*","*Scrībere potes.*"],"a":0,"w":"*pot-* + *est*.","g":[["scrībere, -ō","to write"],["posse, possum","to be able, can"]]},
-     {"k":"mc","p":"Choose \"You (one person) can stay.\"","o":["*Manēre potes.*","*Manēre posses.*","*Manēre potest.*","*Manēre possum.*"],"a":0,"w":"*pot-* + *es*.","g":[["manēre, -eō","to stay"],["posse, possum","to be able, can"]]},
-     {"k":"mc","p":"Choose \"I could read.\"","o":["*Legere poteram.*","*Legere possum.*","*Legere poterō.*","*Legere potuit.*"],"a":0,"w":"*pot-* + *eram*.","g":[["legere, -ō","to read"],["posse, possum","to be able, can"]]},
-     {"k":"mc","p":"Choose \"They will be able to work.\"","o":["*Labōrāre poterunt.*","*Labōrāre poterant.*","*Labōrāre possunt.*","*Labōrāre potērunt.*"],"a":0,"w":"*pot-* + *erunt*.","g":[["labōrāre, -ō","to work"],["posse, possum","to be able, can"]]},
-     {"k":"mc","p":"Choose \"You all can fight.\"","o":["*Pugnāre potestis.*","*Pugnāre possetis.*","*Pugnāre potes.*","*Pugnāre possumus.*"],"a":0,"w":"*pot-* + *estis*.","g":[["pugnāre, -ō","to fight"],["posse, possum","to be able, can"]]},
-     {"k":"mc","p":"Choose \"I can sail.\"","o":["*Nāvigāre possum.*","*Nāvigāre potum.*","*Nāvigāre potes.*","*Nāvigāre poterō.*"],"a":0,"w":"The *t* of *pot-* becomes *s* before *s*.","g":[["nāvigāre, -ō","to sail"],["posse, possum","to be able, can"]]},
-     {"k":"mc","p":"In *Puella legere potest*, what does *legere* do?","o":["It completes the main verb","It is the subject","It is a direct object","It names a place"],"a":0,"w":"A form of *possum* takes a complementary infinitive.","g":[["puella, -ae, f.","girl"],["legere, -ō","to read"],["posse, possum","to be able, can"]]},
-     {"k":"mc","p":"Choose \"We could sleep.\"","o":["*Dormīre poterāmus.*","*Dormīre possumus.*","*Dormīre poterimus.*","*Dormīre poteramur.*"],"a":0,"w":"*pot-* + *erāmus*.","g":[["dormīre, -iō","to sleep"],["posse, possum","to be able, can"]]},
-    ]},
-    {s:"Translate a sentence with possum",b:[
-     {"k":"en","p":"Translate into English: *Currere possumus.*","a":["We can run.","We are able to run."],"w":"possum is translated can or be able, with an infinitive.","g":[["currere, -ō","to run"],["posse, possum","to be able, can"]]},
-     {"k":"la","p":"Translate into Latin: He could hear.","a":["Audīre poterat."],"w":"possum is translated can or be able, with an infinitive.","g":[["audīre, -iō","to hear"],["posse, possum","to be able, can"]]},
-     {"k":"en","p":"Translate into English: *Manēre poterunt.*","a":["They will be able to stay."],"w":"possum is translated can or be able, with an infinitive.","g":[["manēre, -eō","to stay"],["posse, possum","to be able, can"]]},
-     {"k":"la","p":"Translate into Latin: The girl can write.","a":["Puella scrībere potest."],"w":"possum is translated can or be able, with an infinitive.","g":[["puella, -ae, f.","girl"],["scrībere, -ō","to write"],["posse, possum","to be able, can"]]},
-     {"k":"en","p":"Translate into English: *Nautae pugnāre possunt.*","a":["The sailors can fight.","The sailors are able to fight."],"w":"possum is translated can or be able, with an infinitive.","g":[["nauta, -ae, m.","sailor"],["pugnāre, -ō","to fight"],["posse, possum","to be able, can"]]},
-     {"k":"la","p":"Translate into Latin: I cannot run.","a":["Currere nōn possum."],"w":"possum is translated can or be able, with an infinitive.","g":[["currere, -ō","to run"],["nōn","not"],["posse, possum","to be able, can"]]},
-     {"k":"en","p":"Translate into English: *Legere potes.*","a":["You can read.","You are able to read."],"w":"possum is translated can or be able, with an infinitive.","g":[["legere, -ō","to read"],["posse, possum","to be able, can"]]},
-     {"k":"la","p":"Translate into Latin: The farmer could work.","a":["Agricola labōrāre poterat."],"w":"possum is translated can or be able, with an infinitive.","g":[["agricola, -ae, m.","farmer"],["labōrāre, -ō","to work"],["posse, possum","to be able, can"]]},
-     {"k":"en","p":"Translate into English: *Dormīre poterimus.*","a":["We will be able to sleep."],"w":"possum is translated can or be able, with an infinitive.","g":[["dormīre, -iō","to sleep"],["posse, possum","to be able, can"]]},
-     {"k":"la","p":"Translate into Latin: The boys can hear.","a":["Puerī audīre possunt."],"w":"possum is translated can or be able, with an infinitive.","g":[["puer, -ī, m.","boy"],["audīre, -iō","to hear"],["posse, possum","to be able, can"]]},
-    ]},
-   ]},
   {id:"perfect",title:"The perfect active",blurb:"What happened and is finished.",t:["perf"],
    body:`The **perfect** tells about a completed action. It has its own stem, so dictionaries give it as the third principal part.
 
@@ -2255,53 +2208,6 @@ Perfect stems often can't be guessed, so learn them with each verb. *Videō, vid
      {"k":"la","p":"Write in Latin: they called","a":["vocāvērunt"],"w":"The 3rd person plural form is *vocāvērunt*.","g":[["vocāre, -ō","to call"]]},
      {"k":"la","p":"Write in Latin: he conquered","a":["vīcit"],"w":"The 3rd person singular form is *vīcit*.","g":[["vincere, -ō","to conquer"]]},
      {"k":"la","p":"Write in Latin: we punished","a":["pūnīvimus"],"w":"The 1st person plural form is *pūnīvimus*.","g":[["pūnīre, -iō","to punish"]]},
-    ]},
-   ]},
-  {id:"decl3",title:"The 3rd declension",blurb:"A new noun group with a stem you find in the genitive.",t:["d3"],
-   body:`The **3rd declension** has masculine, feminine and neuter nouns. You can't predict the stem from the nominative, so always use the genitive: drop *-is* to find the stem.
-
-: rēx, rēgis, m. = king (stem rēg-)
-: mīles, mīlitis, m. = soldier (stem mīlit-)
-: māter, mātris, f. = mother (stem mātr-)
-: corpus, corporis, n. = body (stem corpor-)
-
-|~ 3rd declension endings
-|Case|M/F sg.|M/F pl.|Neuter sg.|Neuter pl.|
-|Nominative|(varies)|-ēs|(varies)|-a|
-|Accusative|-em|-ēs|same as nom.|-a|
-|Dative|-ī|-ibus|-ī|-ibus|
-|Ablative|-e|-ibus|-e|-ibus|
-|Genitive|-is|-um|-is|-um|
-
-Some nouns, called **i-stems**, have *-ium* in the genitive plural, such as *hostium* (of the enemies), *cīvium* (of the citizens) and *urbium* (of the cities). Neuters such as *mare* use *-ia*: *maria*, seas.
-
-?1
-
-?2`,
-   q:[
-    {s:"Write a named case and number of a 3rd declension noun",b:[
-     {"k":"la","p":"Write the accusative singular of *rēx*.","a":["rēgem"],"w":"The accusative singular of *rēx* is *rēgem*.","g":[["rēx, rēgis, m.","king"]]},
-     {"k":"la","p":"Write the nominative plural of *mīles*.","a":["mīlitēs"],"w":"The nominative plural of *mīles* is *mīlitēs*.","g":[["mīles, mīlitis, m.","soldier"]]},
-     {"k":"la","p":"Write the dative singular of *pater*.","a":["patrī"],"w":"The dative singular of *pater* is *patrī*.","g":[["pater, patris, m.","father"]]},
-     {"k":"la","p":"Write the ablative singular of *māter*.","a":["mātre"],"w":"The ablative singular of *māter* is *mātre*.","g":[["māter, mātris, f.","mother"]]},
-     {"k":"la","p":"Write the accusative plural of *frāter*.","a":["frātrēs"],"w":"The accusative plural of *frāter* is *frātrēs*.","g":[["frāter, frātris, m.","brother"]]},
-     {"k":"la","p":"Write the nominative plural of *corpus*.","a":["corpora"],"w":"The nominative plural of *corpus* is *corpora*.","g":[["corpus, corporis, n.","body"]]},
-     {"k":"la","p":"Write the genitive singular of *dux*.","a":["ducis"],"w":"The genitive singular of *dux* is *ducis*.","g":[["dux, ducis, m.","leader"]]},
-     {"k":"la","p":"Write the dative plural of *soror*.","a":["sorōribus"],"w":"The dative plural of *soror* is *sorōribus*.","g":[["soror, sorōris, f.","sister"]]},
-     {"k":"la","p":"Write the accusative plural of *flūmen*.","a":["flūmina"],"w":"The accusative plural of *flūmen* is *flūmina*.","g":[["flūmen, flūminis, n.","river"]]},
-     {"k":"la","p":"Write the genitive plural of *rēx*.","a":["rēgum"],"w":"The genitive plural of *rēx* is *rēgum*.","g":[["rēx, rēgis, m.","king"]]},
-    ]},
-    {s:"Translate a sentence with 3rd declension nouns",b:[
-     {"k":"en","p":"Translate into English: *Rēx mīlitēs laudat.*","a":["The king praises the soldiers.","The king is praising the soldiers.","The king does praise the soldiers."],"w":"Find the stem from the genitive, then read the ending for the case.","g":[["rēx, rēgis, m.","king"],["mīles, mīlitis, m.","soldier"],["laudāre, -ō","to praise"]]},
-     {"k":"la","p":"Translate into Latin: The mother calls the daughter.","a":["Māter fīliam vocat."],"w":"Find the stem from the genitive, then read the ending for the case.","g":[["māter, mātris, f.","mother"],["fīlia, -ae, f.","daughter"],["vocāre, -ō","to call"]]},
-     {"k":"en","p":"Translate into English: *Pater fīliō librum dat.*","a":["The father gives the son a book.","The father gives a book to the son.","The father is giving the son a book.","The father is giving a book to the son.","The father does give the son a book.","The father does give a book to the son."],"w":"Find the stem from the genitive, then read the ending for the case.","g":[["pater, patris, m.","father"],["fīlius, -ī, m.","son"],["liber, librī, m.","book"],["dare, dō","to give"]]},
-     {"k":"la","p":"Translate into Latin: The soldiers hear the leader.","a":["Mīlitēs ducem audiunt."],"w":"Find the stem from the genitive, then read the ending for the case.","g":[["mīles, mīlitis, m.","soldier"],["dux, ducis, m.","leader"],["audīre, -iō","to hear"]]},
-     {"k":"en","p":"Translate into English: *Soror frātrem videt.*","a":["The sister sees the brother.","The sister is seeing the brother.","The sister does see the brother."],"w":"Find the stem from the genitive, then read the ending for the case.","g":[["soror, sorōris, f.","sister"],["frāter, frātris, m.","brother"],["vidēre, -eō","to see"]]},
-     {"k":"la","p":"Translate into Latin: The kings defend the town.","a":["Rēgēs oppidum dēfendunt."],"w":"Find the stem from the genitive, then read the ending for the case.","g":[["rēx, rēgis, m.","king"],["oppidum, -ī, n.","town"],["dēfendere, -ō","to defend"]]},
-     {"k":"en","p":"Translate into English: *Dux cum mīlitibus venit.*","a":["The leader comes with the soldiers.","The leader is coming with the soldiers.","The leader does come with the soldiers."],"w":"Find the stem from the genitive, then read the ending for the case.","g":[["dux, ducis, m.","leader"],["cum (+abl)","with"],["mīles, mīlitis, m.","soldier"],["venīre, -iō","to come"]]},
-     {"k":"la","p":"Translate into Latin: The brother gives the sister a rose.","a":["Frāter sorōrī rosam dat."],"w":"Find the stem from the genitive, then read the ending for the case.","g":[["frāter, frātris, m.","brother"],["soror, sorōris, f.","sister"],["rosa, -ae, f.","rose"],["dare, dō","to give"]]},
-     {"k":"en","p":"Translate into English: *Corpus virī portant.*","a":["They carry the body of the man.","They are carrying the body of the man.","They do carry the body of the man."],"w":"Find the stem from the genitive, then read the ending for the case.","g":[["corpus, corporis, n.","body"],["vir, -ī, m.","man"],["portāre, -ō","to carry"]]},
-     {"k":"la","p":"Translate into Latin: The mothers work for the sons.","a":["Mātrēs fīliīs labōrant."],"w":"Find the stem from the genitive, then read the ending for the case.","g":[["māter, mātris, f.","mother"],["fīlius, -ī, m.","son"],["labōrāre, -ō","to work"]]},
     ]},
    ]},
   {id:"pronouns",title:"Personal pronouns and possessive adjectives",blurb:"I, you, we and you all in every case; my, your, his, her, our and their.",t:["pron","poss"],
@@ -2419,6 +2325,498 @@ Latin often leaves the possessive out when the owner is clear, and English suppl
      {"k":"la","p":"Translate into Latin: They give money to their daughter.","a":["Pecūniam fīliae suae dant."],"w":"The stem tells you the owner; the ending agrees with the thing owned.","g":[["pecūnia, -ae, f.","money"],["fīlia, -ae, f.","daughter"],["suus -a -um","his, her, its, their (own)"],["dare, dō","to give"]]},
      {"k":"en","p":"Translate into English: *Vestram victōriam videt.*","a":["He sees your victory.","She sees your victory."],"w":"The stem tells you the owner; the ending agrees with the thing owned.","g":[["vester vestra vestrum","your (more than one person)"],["victōria, -ae, f.","victory"],["vidēre, -eō","to see"]]},
      {"k":"la","p":"Translate into Latin: The farmers praise our gardens.","a":["Agricolae hortōs nostrōs laudant."],"w":"The stem tells you the owner; the ending agrees with the thing owned.","g":[["agricola, -ae, m.","farmer"],["hortus, -ī, m.","garden"],["noster nostra nostrum","our"],["laudāre, -ō","to praise"]]},
+    ]},
+   ]},
+ ]},
+ {title:"Lesson 10",lessons:[
+  {id:"sum2",title:"esse II: there is, and es / este",blurb:"Putting est first to say there is, and giving commands with esse.",t:["esse"],
+   body:`You already know *esse* as an equals sign. It has two more jobs.
+
+# There is, there are
+
+Latin can use *esse* to say that something **exists or is present**:
+
+: Est casa prope silvam. = There is a house near the forest.
+: Sunt casae prope silvam. = There are houses near the forest.
+
+Compare the same words in a different order:
+
+: Casa est prope silvam. = The house is near the forest.
+: Casae sunt prope silvam. = The houses are near the forest.
+
+Notice what each sentence is doing.
+
+- *Casa est…* starts with a house we are already talking about, and tells us something about it.
+- *Est casa…* introduces a house into the scene: **there is a house…**
+
+In this use Latin often places *est* or *sunt* **before** the noun being introduced. English says the same thing with *there is* or *there are*. The other tenses work the same way: *Erat casa prope silvam* means *there was a house near the forest*.
+
+?1
+
+# Saying "Be!": es and este
+
+*Esse* has its own forms for giving a command, and they do not follow the "drop -re" rule you learned for other verbs.
+
+|~ The imperative of esse
+|Form|Spoken to|Meaning|
+|*es*|one person|be!|
+|*este*|more than one person|be!|
+
+: Es laeta! = Be happy!
+
+The adjective agrees with the person (or people) spoken to, and the verb tells you whether it is one or more than one.
+
+: Es laetus! = Be happy! (said to a boy)
+: Es laeta! = Be happy! (said to a girl)
+: Este laetī! = Be happy! (said to several people)
+
+Don't mix up *es* and *est*. *Es* is a command to one person, while *est* says that someone else *is*.
+
+?2
+
+# Putting it together
+
+?3`,
+   q:[
+    {s:"Tell a sentence that introduces something (there is) from one that describes something we know",b:[
+     {"k":"mc","p":"Choose the Latin for \"There is a temple near the town.\"","o":["*Est templum prope oppidum.*","*Templum est prope oppidum.*","*Sunt templa prope oppidum.*","*Est oppidum prope templum.*"],"a":0,"w":"A new temple is introduced into the scene, so *est* comes first.","g":[["esse, sum","to be"],["templum, -ī, n.","temple"],["prope (+acc)","near"],["oppidum, -ī, n.","town"]]},
+     {"k":"mc","p":"Choose the Latin for \"There are horses in the field.\"","o":["*Sunt equī in agrō.*","*Equī sunt in agrō.*","*Est equus in agrō.*","*Sunt equus in agrō.*"],"a":0,"w":"The horses are new to the scene and there is more than one, so *sunt* comes first.","g":[["esse, sum","to be"],["equus, -ī, m.","horse"],["in","in, on (+abl); into (+acc)"],["ager, agrī, m.","field"]]},
+     {"k":"mc","p":"Choose the Latin for \"The sailors are in the forest.\"","o":["*Nautae sunt in silvā.*","*Sunt nautae in silvā.*","*Nautae est in silvā.*","*Nauta sunt in silvā.*"],"a":0,"w":"We already know about the sailors, so the sentence starts with them. *Sunt nautae…* would mean there are sailors.","g":[["nauta, -ae, m.","sailor"],["esse, sum","to be"],["in","in, on (+abl); into (+acc)"],["silva, -ae, f.","forest"]]},
+     {"k":"mc","p":"What does *Est vīlla prope viam* mean?","o":["There is a farmhouse near the road.","There are farmhouses near the road.","The farmhouse is near the road.","The road is near the farmhouse."],"a":0,"w":"*Est* comes first and the farmhouse is singular: there is a farmhouse.","g":[["esse, sum","to be"],["vīlla, -ae, f.","farmhouse"],["prope (+acc)","near"],["via, -ae, f.","road"]]},
+     {"k":"mc","p":"What does *Sunt incolae in oppidō* mean?","o":["There are inhabitants in the town.","The inhabitants are in the town.","There is an inhabitant in the town.","The inhabitants are near the town."],"a":0,"w":"*Sunt* comes first and *incolae* is plural: there are inhabitants.","g":[["esse, sum","to be"],["incola, -ae, m.","inhabitant"],["in","in, on (+abl); into (+acc)"],["oppidum, -ī, n.","town"]]},
+     {"k":"mc","p":"What does *Fēmina est in hortō* mean?","o":["The woman is in the garden.","There is a woman in the garden.","There are women in the garden.","The woman is near the garden."],"a":0,"w":"The sentence starts with the woman, so it tells us about someone we already know.","g":[["fēmina, -ae, f.","woman"],["esse, sum","to be"],["in","in, on (+abl); into (+acc)"],["hortus, -ī, m.","garden"]]},
+     {"k":"mc","p":"Which sentence introduces new water into the scene?","o":["*Est aqua in viā.*","*Aqua est in viā.*","*Aqua in viā est.*","*In viā aqua est.*"],"a":0,"w":"*Est* first means there is. With the noun first, the sentence describes something we already know.","g":[["esse, sum","to be"],["aqua, -ae, f.","water"],["in","in, on (+abl); into (+acc)"],["via, -ae, f.","road"]]},
+     {"k":"mc","p":"Why is *sunt* used in *Sunt casae in silvā*?","o":["The thing being introduced is plural","The thing being introduced is feminine","The sentence is a question","The verb is in the future"],"a":0,"w":"*Casae* is plural, so the verb is *sunt*.","g":[["esse, sum","to be"],["casa, -ae, f.","house"],["in","in, on (+abl); into (+acc)"],["silva, -ae, f.","forest"]]},
+     {"k":"mc","p":"Choose the Latin for \"There was a wolf in the forest.\"","o":["*Erat lupus in silvā.*","*Est lupus in silvā.*","*Erant lupī in silvā.*","*Lupus erat in silvā.*"],"a":0,"w":"It is past and singular, and the wolf is new to the scene: *Erat lupus…*","g":[["esse, sum","to be"],["lupus, -ī, m.","wolf"],["in","in, on (+abl); into (+acc)"],["silva, -ae, f.","forest"]]},
+     {"k":"mc","p":"Choose the Latin for \"There will be water in the field.\"","o":["*Erit aqua in agrō.*","*Erat aqua in agrō.*","*Aqua erit in agrō.*","*Erunt aquae in agrō.*"],"a":0,"w":"It is future and singular, and the water is new to the scene: *Erit aqua…*","g":[["esse, sum","to be"],["aqua, -ae, f.","water"],["in","in, on (+abl); into (+acc)"],["ager, agrī, m.","field"]]},
+    ]},
+    {s:"Give a command with es or este",b:[
+     {"k":"mc","p":"Choose the Latin for \"Girl, be happy!\"","o":["*Puella, es laeta!*","*Puella, este laeta!*","*Puella, est laeta!*","*Puella, es laetus!*"],"a":0,"w":"One person, so *es*. *Laeta* agrees with the girl.","g":[["puella, -ae, f.","girl"],["esse, sum","to be"],["laetus -a -um","happy"],["esse, este","be! (more than one person)"]]},
+     {"k":"mc","p":"Choose the Latin for \"Boys, be good!\"","o":["*Puerī, este bonī!*","*Puerī, es bonī!*","*Puerī, este bonus!*","*Puerī, sunt bonī!*"],"a":0,"w":"More than one person, so *este*. *Bonī* agrees with *puerī*.","g":[["puer, -ī, m.","boy"],["esse, este","be! (more than one person)"],["bonus -a -um","good"],["esse, sum","to be"]]},
+     {"k":"mc","p":"Choose the Latin for \"Sailor, be good!\"","o":["*Nauta, es bonus!*","*Nauta, este bonus!*","*Nauta, est bonus!*","*Nauta, es bona!*"],"a":0,"w":"One person, so *es*. *Nauta* is masculine, so the adjective is *bonus*.","g":[["nauta, -ae, m.","sailor"],["esse, sum","to be"],["bonus -a -um","good"],["esse, este","be! (more than one person)"]]},
+     {"k":"mc","p":"What does *Fēminae, este laetae!* mean?","o":["Women, be happy!","Woman, be happy!","The women are happy.","Women, you are happy."],"a":0,"w":"*Este* is a command to more than one person.","g":[["fēmina, -ae, f.","woman"],["esse, este","be! (more than one person)"],["laetus -a -um","happy"]]},
+     {"k":"mc","p":"What does *Amīce, es laetus!* mean?","o":["Friend, be happy!","Friends, be happy!","Friend, you are happy.","Friend, he is happy."],"a":0,"w":"*Es* is a command to one person.","g":[["amīcus, -ī, m.","friend"],["esse, sum","to be"],["laetus -a -um","happy"]]},
+     {"k":"mc","p":"In *Discipulī, este bonī!*, how many people are spoken to?","o":["More than one","One","Exactly two","It cannot be told"],"a":0,"w":"*Este* is the command for more than one person.","g":[["discipulus, -ī, m.","student"],["esse, este","be! (more than one person)"],["bonus -a -um","good"]]},
+     {"k":"mc","p":"What is the difference between *es* and *est*?","o":["es tells one person to be; est says that someone is","es is plural and est is singular","es is past and est is present","There is no difference"],"a":0,"w":"*Es* is a command. *Est* is a statement about he, she or it.","g":[["esse, sum","to be"]]},
+     {"k":"mc","p":"Choose the Latin for \"Girls, be good!\"","o":["*Puellae, este bonae!*","*Puellae, es bonae!*","*Puellae, este bonī!*","*Puellae, estis bonae!*"],"a":0,"w":"More than one person, so *este*. *Bonae* is feminine plural.","g":[["puella, -ae, f.","girl"],["esse, este","be! (more than one person)"],["bonus -a -um","good"],["esse, sum","to be"]]},
+     {"k":"mc","p":"Why is the adjective *laetī* masculine plural in *Amīcī, este laetī!*?","o":["It agrees with the people spoken to","It agrees with the verb","It is always masculine","It is the direct object"],"a":0,"w":"The adjective agrees with *amīcī*, the people being told to be happy.","g":[["laetus -a -um","happy"],["amīcus, -ī, m.","friend"],["esse, este","be! (more than one person)"]]},
+     {"k":"mc","p":"Choose the Latin for \"Farmer, be famous!\"","o":["*Agricola, es clārus!*","*Agricola, este clārus!*","*Agricola, est clārus!*","*Agricola, es clāra!*"],"a":0,"w":"One person, so *es*. *Agricola* is masculine, so the adjective is *clārus*.","g":[["agricola, -ae, m.","farmer"],["esse, sum","to be"],["clārus -a -um","famous"],["esse, este","be! (more than one person)"]]},
+    ]},
+    {s:"Translate sentences with there is and es or este",b:[
+     {"k":"en","p":"Translate into English: *Est templum in oppidō.*","a":["There is a temple in the town."],"w":"Est or sunt first means there is or there are. Es is a command to one person and este to more than one.","g":[["esse, sum","to be"],["templum, -ī, n.","temple"],["in","in, on (+abl); into (+acc)"],["oppidum, -ī, n.","town"]]},
+     {"k":"la","p":"Translate into Latin: There are girls in the garden.","a":["Sunt puellae in hortō."],"w":"Est or sunt first means there is or there are. Es is a command to one person and este to more than one.","g":[["esse, sum","to be"],["puella, -ae, f.","girl"],["in","in, on (+abl); into (+acc)"],["hortus, -ī, m.","garden"]]},
+     {"k":"en","p":"Translate into English: *Nauta, es bonus!*","a":["Sailor, be good!"],"w":"Est or sunt first means there is or there are. Es is a command to one person and este to more than one.","g":[["nauta, -ae, m.","sailor"],["esse, sum","to be"],["bonus -a -um","good"]]},
+     {"k":"la","p":"Translate into Latin: Poets, be happy!","a":["Poētae, este laetī!"],"w":"Est or sunt first means there is or there are. Es is a command to one person and este to more than one.","g":[["poēta, -ae, m.","poet"],["esse, este","be! (more than one person)"],["laetus -a -um","happy"]]},
+     {"k":"en","p":"Translate into English: *Erat lupus in silvā.*","a":["There was a wolf in the forest."],"w":"Est or sunt first means there is or there are. Es is a command to one person and este to more than one.","g":[["esse, sum","to be"],["lupus, -ī, m.","wolf"],["in","in, on (+abl); into (+acc)"],["silva, -ae, f.","forest"]]},
+     {"k":"la","p":"Translate into Latin: There will be farmers in the field.","a":["Erunt agricolae in agrō."],"w":"Est or sunt first means there is or there are. Es is a command to one person and este to more than one.","g":[["esse, sum","to be"],["agricola, -ae, m.","farmer"],["in","in, on (+abl); into (+acc)"],["ager, agrī, m.","field"]]},
+     {"k":"en","p":"Translate into English: *Amīca, es laeta!*","a":["Friend, be happy!"],"w":"Est or sunt first means there is or there are. Es is a command to one person and este to more than one.","g":[["amīca, -ae, f.","friend"],["esse, sum","to be"],["laetus -a -um","happy"]]},
+     {"k":"la","p":"Translate into Latin: The goddess is in the temple.","a":["Dea est in templō."],"w":"Est or sunt first means there is or there are. Es is a command to one person and este to more than one.","g":[["dea, -ae, f.","goddess"],["esse, sum","to be"],["in","in, on (+abl); into (+acc)"],["templum, -ī, n.","temple"]]},
+     {"k":"en","p":"Translate into English: *Est aqua in viā.*","a":["There is water in the road."],"w":"Est or sunt first means there is or there are. Es is a command to one person and este to more than one.","g":[["esse, sum","to be"],["aqua, -ae, f.","water"],["in","in, on (+abl); into (+acc)"],["via, -ae, f.","road"]]},
+     {"k":"la","p":"Translate into Latin: Students, be good!","a":["Discipulī, este bonī!"],"w":"Est or sunt first means there is or there are. Es is a command to one person and este to more than one.","g":[["discipulus, -ī, m.","student"],["esse, este","be! (more than one person)"],["bonus -a -um","good"]]},
+    ]},
+   ]},
+  {id:"possum",title:"From “to be” to “to be able”: esse → posse",blurb:"possum is pot- plus esse, and the t turns into s.",t:["sum"],
+   body:`Like *adsum* and *absum*, the verb *posse* (to be able, can) is built on forms of *esse* (to be).
+
+It was originally formed by putting **pot-** before forms of *esse*. The element *pot-* comes from the adjective *potis*, meaning able or capable.
+
+|~ posse, present
+|Latin|English|
+|possum|I am able, I can|
+|potes|you are able, you can|
+|potest|he, she or it is able, can|
+|possumus|we are able, we can|
+|potestis|you (all) are able, can|
+|possunt|they are able, they can|
+
+# Assimilation
+
+When the form of *esse* begins with **s**, the **t** of *pot-* changes to **s** to match the following sound:
+
+|~ pot- + a form of esse
+|Pieces|Joined|After the change|
+|pot + sum|potsum|possum|
+|pot + sunt|potsunt|possunt|
+
+This is called **assimilation**: one sound becomes more like a neighboring sound.
+
+The infinitive *posse* developed in the same way: pot + esse → posse.
+
+?1
+
+# Past and future
+
+Once the form of *esse* begins with a vowel rather than **s**, the original **pot-** is visible again.
+
+|~ posse: present, continuous past and future
+|Person|Present|Continuous past|Future|
+|I|possum|poteram|poterō|
+|you|potes|poterās|poteris|
+|he/she/it|potest|poterat|poterit|
+|we|possumus|poterāmus|poterimus|
+|you all|potestis|poterātis|poteritis|
+|they|possunt|poterant|poterunt|
+
+Notice that the *pot-* seen in *potes* and *potest* appears throughout the continuous past and the future. Compare the forms of *esse* that you already know:
+
+|~ esse and posse
+|esse|posse|
+|eram|poteram|
+|erās|poterās|
+|erat|poterat|
+|erō|poterō|
+|eris|poteris|
+|erit|poterit|
+
+?2
+
+# possum with an infinitive
+
+*Possum* takes a complementary infinitive.
+
+: Nāvigāre possumus. = We can sail.
+: Vidēre poterat. = She could see.
+: Venīre poterunt. = They will be able to come.
+
+?3
+
+?4`,
+   q:[
+    {s:"Explain how possum is built from pot- and esse",b:[
+     {"k":"mc","p":"Why does *possum* have a double *s* instead of *ts*?","o":["The t of pot- became s before the s of sum","The t of pot- was dropped by accident","Possum comes from a different verb","The ending is always doubled"],"a":0,"w":"*pot* + *sum* → *potsum* → *possum*. This is assimilation.","g":[["posse, possum","to be able, can"]]},
+     {"k":"mc","p":"What is the name for one sound becoming more like its neighbor, as in pot + sum → possum?","o":["assimilation","conjugation","declension","agreement"],"a":0,"w":"Assimilation: the *t* becomes an *s* to match the *s* after it."},
+     {"k":"mc","p":"Which two pieces make up *possunt*, and which one is *pot-*?","o":["pot + sunt","pos + unt","pot + unt","posse + nt"],"a":0,"w":"*pot* + *sunt* → *potsunt* → *possunt*.","g":[["posse, possum","to be able, can"]]},
+     {"k":"mc","p":"*Possum* is made from *pot-* and which form of *esse*?","o":["sum","sim","est","esse"],"a":0,"w":"*pot* + *sum*.","g":[["posse, possum","to be able, can"],["esse, sum","to be"]]},
+     {"k":"mc","p":"Which sentence has a form of *possum* in which the *t* of *pot-* has become *s*?","o":["*Currere possunt.*","*Currere poterant.*","*Currere poterit.*","*Currere potest.*"],"a":0,"w":"*Possunt* is *pot* + *sunt*, and the *t* has become *s*.","g":[["posse, possum","to be able, can"],["currere, -ō","to run"]]},
+     {"k":"mc","p":"Which sentence has a form of *possum* in which the *t* of *pot-* does not change?","o":["*Dormīre potestis.*","*Dormīre possumus.*","*Dormīre possum.*","*Dormīre possunt.*"],"a":0,"w":"*Potestis* is *pot* + *estis*. The next sound is *e*, not *s*, so the *t* stays.","g":[["posse, possum","to be able, can"],["dormīre, -iō","to sleep"]]},
+     {"k":"mc","p":"The infinitive *posse* is built from *pot-* and which verb form?","o":["esse","sum","est","ere"],"a":0,"w":"*pot* + *esse* → *posse*.","g":[["posse, possum","to be able, can"]]},
+     {"k":"mc","p":"Why does *potest* keep the *t* of *pot-*?","o":["The next sound is e, not s","It is the past tense","It is plural","It has no ending"],"a":0,"w":"Only a following *s* changes the *t*. *Potest* is *pot* + *est*.","g":[["posse, possum","to be able, can"]]},
+     {"k":"mc","p":"What does the element pot- come from?","o":["The adjective potis, meaning able","The verb ponere, meaning put","The preposition prō, meaning for","The adverb post, meaning after"],"a":0,"w":"*Potis* means able or capable."},
+     {"k":"mc","p":"Which verb is also built on forms of esse?","o":["adsum","amō","videō","mittō"],"a":0,"w":"*Adsum*, *absum* and *possum* are all *esse* with something in front."},
+    ]},
+    {s:"Read the person, number and tense of a form of possum",b:[
+     {"k":"mc","p":"What does *Venīre poterō.* mean?","o":["I will be able to come.","I am able to come.","I was able to come.","You will be able to come."],"a":0,"w":"*Poterō* is *pot* + *erō*, future, I.","g":[["venīre, -iō","to come"],["posse, possum","to be able, can"]]},
+     {"k":"mc","p":"What does *Dormīre poterātis.* mean?","o":["You (all) were able to sleep.","You (all) are able to sleep.","You (all) will be able to sleep.","They were able to sleep."],"a":0,"w":"*Poterātis* is *pot* + *erātis*, the continuous past, you all.","g":[["dormīre, -iō","to sleep"],["posse, possum","to be able, can"]]},
+     {"k":"mc","p":"What does *Manēre potestis.* mean?","o":["You (all) can stay.","You (all) could stay.","You (all) will be able to stay.","We can stay."],"a":0,"w":"*Potestis* is the present, you all.","g":[["manēre, -eō","to stay"],["posse, possum","to be able, can"]]},
+     {"k":"mc","p":"What does *Scrībere poterunt.* mean?","o":["They will be able to write.","They were able to write.","They are able to write.","We will be able to write."],"a":0,"w":"*Poterunt* is *pot* + *erunt*, future, they.","g":[["scrībere, -ō","to write"],["posse, possum","to be able, can"]]},
+     {"k":"mc","p":"What does *Legere poteris.* mean?","o":["You (one person) will be able to read.","You (one person) were able to read.","You (one person) can read.","He will be able to read."],"a":0,"w":"*Poteris* is *pot* + *eris*, future, you.","g":[["legere, -ō","to read"],["posse, possum","to be able, can"]]},
+     {"k":"mc","p":"What does *Pugnāre poterant.* mean?","o":["They were able to fight.","They will be able to fight.","They are able to fight.","We were able to fight."],"a":0,"w":"*Poterant* is *pot* + *erant*, the continuous past, they.","g":[["pugnāre, -ō","to fight"],["posse, possum","to be able, can"]]},
+     {"k":"mc","p":"What does *Nāvigāre poterimus.* mean?","o":["We will be able to sail.","We were able to sail.","We can sail.","They will be able to sail."],"a":0,"w":"*Poterimus* is *pot* + *erimus*, future, we.","g":[["nāvigāre, -ō","to sail"],["posse, possum","to be able, can"]]},
+     {"k":"mc","p":"What does *Currere poterās.* mean?","o":["You (one person) were able to run.","You (one person) will be able to run.","You (one person) can run.","I was able to run."],"a":0,"w":"*Poterās* is *pot* + *erās*, the continuous past, you.","g":[["currere, -ō","to run"],["posse, possum","to be able, can"]]},
+     {"k":"mc","p":"What does *Vidēre poterit.* mean?","o":["He or she will be able to see.","He or she was able to see.","He or she can see.","They will be able to see."],"a":0,"w":"*Poterit* is *pot* + *erit*, future, he or she.","g":[["vidēre, -eō","to see"],["posse, possum","to be able, can"]]},
+     {"k":"mc","p":"What does *Audīre poteram.* mean?","o":["I was able to hear.","I am able to hear.","I will be able to hear.","We were able to hear."],"a":0,"w":"*Poteram* is *pot* + *eram*, the continuous past, I.","g":[["audīre, -iō","to hear"],["posse, possum","to be able, can"]]},
+    ]},
+    {s:"Choose the sentence with the right form of possum",b:[
+     {"k":"mc","p":"Choose \"We can walk.\"","o":["*Ambulāre possumus.*","*Ambulāre potumus.*","*Ambulāre possimus.*","*Ambulāre poteramus.*"],"a":0,"w":"The *t* of *pot-* becomes *s* before *s*.","g":[["ambulāre, -ō","to walk"],["posse, possum","to be able, can"]]},
+     {"k":"mc","p":"Choose \"They can run.\"","o":["*Currere possunt.*","*Currere potunt.*","*Currere poterunt.*","*Currere potest.*"],"a":0,"w":"The *t* of *pot-* becomes *s* before *s*.","g":[["currere, -ō","to run"],["posse, possum","to be able, can"]]},
+     {"k":"mc","p":"Choose \"She can write.\"","o":["*Scrībere potest.*","*Scrībere possit.*","*Scrībere possunt.*","*Scrībere potes.*"],"a":0,"w":"*pot-* + *est*.","g":[["scrībere, -ō","to write"],["posse, possum","to be able, can"]]},
+     {"k":"mc","p":"Choose \"You (one person) can stay.\"","o":["*Manēre potes.*","*Manēre posses.*","*Manēre potest.*","*Manēre possum.*"],"a":0,"w":"*pot-* + *es*.","g":[["manēre, -eō","to stay"],["posse, possum","to be able, can"]]},
+     {"k":"mc","p":"Choose \"I could read.\"","o":["*Legere poteram.*","*Legere possum.*","*Legere poterō.*","*Legere potuit.*"],"a":0,"w":"*pot-* + *eram*.","g":[["legere, -ō","to read"],["posse, possum","to be able, can"]]},
+     {"k":"mc","p":"Choose \"They will be able to work.\"","o":["*Labōrāre poterunt.*","*Labōrāre poterant.*","*Labōrāre possunt.*","*Labōrāre potērunt.*"],"a":0,"w":"*pot-* + *erunt*.","g":[["labōrāre, -ō","to work"],["posse, possum","to be able, can"]]},
+     {"k":"mc","p":"Choose \"You all can fight.\"","o":["*Pugnāre potestis.*","*Pugnāre possetis.*","*Pugnāre potes.*","*Pugnāre possumus.*"],"a":0,"w":"*pot-* + *estis*.","g":[["pugnāre, -ō","to fight"],["posse, possum","to be able, can"]]},
+     {"k":"mc","p":"Choose \"I can sail.\"","o":["*Nāvigāre possum.*","*Nāvigāre potum.*","*Nāvigāre potes.*","*Nāvigāre poterō.*"],"a":0,"w":"The *t* of *pot-* becomes *s* before *s*.","g":[["nāvigāre, -ō","to sail"],["posse, possum","to be able, can"]]},
+     {"k":"mc","p":"In *Puella legere potest*, what does *legere* do?","o":["It completes the main verb","It is the subject","It is a direct object","It names a place"],"a":0,"w":"A form of *possum* takes a complementary infinitive.","g":[["puella, -ae, f.","girl"],["legere, -ō","to read"],["posse, possum","to be able, can"]]},
+     {"k":"mc","p":"Choose \"We could sleep.\"","o":["*Dormīre poterāmus.*","*Dormīre possumus.*","*Dormīre poterimus.*","*Dormīre poteramur.*"],"a":0,"w":"*pot-* + *erāmus*.","g":[["dormīre, -iō","to sleep"],["posse, possum","to be able, can"]]},
+    ]},
+    {s:"Translate a sentence with possum",b:[
+     {"k":"en","p":"Translate into English: *Currere possumus.*","a":["We can run.","We are able to run."],"w":"possum is translated can or be able, with an infinitive.","g":[["currere, -ō","to run"],["posse, possum","to be able, can"]]},
+     {"k":"la","p":"Translate into Latin: He could hear.","a":["Audīre poterat."],"w":"possum is translated can or be able, with an infinitive.","g":[["audīre, -iō","to hear"],["posse, possum","to be able, can"]]},
+     {"k":"en","p":"Translate into English: *Manēre poterunt.*","a":["They will be able to stay."],"w":"possum is translated can or be able, with an infinitive.","g":[["manēre, -eō","to stay"],["posse, possum","to be able, can"]]},
+     {"k":"la","p":"Translate into Latin: The girl can write.","a":["Puella scrībere potest."],"w":"possum is translated can or be able, with an infinitive.","g":[["puella, -ae, f.","girl"],["scrībere, -ō","to write"],["posse, possum","to be able, can"]]},
+     {"k":"en","p":"Translate into English: *Nautae pugnāre possunt.*","a":["The sailors can fight.","The sailors are able to fight."],"w":"possum is translated can or be able, with an infinitive.","g":[["nauta, -ae, m.","sailor"],["pugnāre, -ō","to fight"],["posse, possum","to be able, can"]]},
+     {"k":"la","p":"Translate into Latin: I cannot run.","a":["Currere nōn possum."],"w":"possum is translated can or be able, with an infinitive.","g":[["currere, -ō","to run"],["nōn","not"],["posse, possum","to be able, can"]]},
+     {"k":"en","p":"Translate into English: *Legere potes.*","a":["You can read.","You are able to read."],"w":"possum is translated can or be able, with an infinitive.","g":[["legere, -ō","to read"],["posse, possum","to be able, can"]]},
+     {"k":"la","p":"Translate into Latin: The farmer could work.","a":["Agricola labōrāre poterat."],"w":"possum is translated can or be able, with an infinitive.","g":[["agricola, -ae, m.","farmer"],["labōrāre, -ō","to work"],["posse, possum","to be able, can"]]},
+     {"k":"en","p":"Translate into English: *Dormīre poterimus.*","a":["We will be able to sleep."],"w":"possum is translated can or be able, with an infinitive.","g":[["dormīre, -iō","to sleep"],["posse, possum","to be able, can"]]},
+     {"k":"la","p":"Translate into Latin: The boys can hear.","a":["Puerī audīre possunt."],"w":"possum is translated can or be able, with an infinitive.","g":[["puer, -ī, m.","boy"],["audīre, -iō","to hear"],["posse, possum","to be able, can"]]},
+    ]},
+   ]},
+  {id:"negcmd",title:"Negative commands: nōlī and nōlīte",blurb:"Don’t be willing to…: how Latin says don’t.",t:["neg"],
+   body:`Latin has a special way of giving a **negative command**, telling someone **not** to do something. It uses the imperative of *nōlle* (to be unwilling, not to want) followed by an infinitive.
+
+|~ Negative commands
+|Form|Spoken to|Meaning|
+|*nōlī* + infinitive|one person|don't …!|
+|*nōlīte* + infinitive|more than one person|don't …!|
+
+Literally, the construction means **don't be willing to …** or **don't want to …**:
+
+: Nōlī audīre! = Don't listen! (literally, don't be willing to listen!)
+: Nōlīte audīre! = Don't listen! (literally, don't be willing to listen!)
+
+Because *nōlī* and *nōlīte* already carry the negative idea, no additional word for **not** is needed.
+
+! Compare a command with a negative command: *Audī!* means listen, and *Nōlī audīre!* means don't listen. The negative command is two words, a form of *nōlle* and an infinitive.
+
+?1
+
+# Negative passive commands
+
+The infinitive can also be passive:
+
+: Nōlī audīrī! = Don't be heard!
+: Nōlīte audīrī! = Don't be heard!
+
+The structure is exactly the same:
+
+|~ Active and passive
+|Pattern|Meaning|
+|*nōlī* + active infinitive|don't do …|
+|*nōlī* + passive infinitive|don't be …-ed|
+
+?2
+
+> You may also see *nē* with the imperative as a negative command in poetry, like *Nē timē* (don't be afraid). In your own Latin, use *nōlī* and *nōlīte*.
+
+?3`,
+   q:[
+    {s:"Choose the right negative command for one person or for several",b:[
+     {"k":"mc","p":"Choose the Latin for \"Don't run!\" (said to one boy).","o":["*Nōlī currere!*","*Nōlīte currere!*","*Nōn curre!*","*Nōlī currit!*"],"a":0,"w":"One person, so *nōlī*, followed by the infinitive *currere*.","g":[["nōlle, nōlī (+infinitive)","don’t … (one person)"],["currere, -ō","to run"],["nōlle, nōlīte (+infinitive)","don’t … (more than one person)"],["nōn","not"]]},
+     {"k":"mc","p":"Choose the Latin for \"Don't sleep!\" (said to several sailors).","o":["*Nōlīte dormīre!*","*Nōlī dormīre!*","*Nōn dormīte!*","*Nōlīte dormiunt!*"],"a":0,"w":"More than one person, so *nōlīte*, followed by the infinitive *dormīre*.","g":[["nōlle, nōlīte (+infinitive)","don’t … (more than one person)"],["dormīre, -iō","to sleep"],["nōlle, nōlī (+infinitive)","don’t … (one person)"],["nōn","not"]]},
+     {"k":"mc","p":"Choose the Latin for \"Don't stay!\" (said to one girl).","o":["*Nōlī manēre!*","*Nōlīte manēre!*","*Nōlī manē!*","*Nōn manēre!*"],"a":0,"w":"One person, so *nōlī*, followed by the infinitive *manēre*.","g":[["nōlle, nōlī (+infinitive)","don’t … (one person)"],["manēre, -eō","to stay"],["nōlle, nōlīte (+infinitive)","don’t … (more than one person)"],["nōn","not"]]},
+     {"k":"mc","p":"Choose the Latin for \"Boys, don't fight!\"","o":["*Puerī, nōlīte pugnāre!*","*Puerī, nōlī pugnāre!*","*Puerī, nōn pugnāte!*","*Puerī, nōlīte pugnant!*"],"a":0,"w":"The boys are more than one person, so *nōlīte* and an infinitive.","g":[["puer, -ī, m.","boy"],["nōlle, nōlīte (+infinitive)","don’t … (more than one person)"],["pugnāre, -ō","to fight"],["nōlle, nōlī (+infinitive)","don’t … (one person)"],["nōn","not"]]},
+     {"k":"mc","p":"What does *Nōlī labōrāre!* mean?","o":["Don't work!","I don't want to work.","Work!","You are not working."],"a":0,"w":"*Nōlī* plus an infinitive is a negative command.","g":[["nōlle, nōlī (+infinitive)","don’t … (one person)"]]},
+     {"k":"mc","p":"What does *Nōlīte scrībere!* mean?","o":["Don't write, all of you!","Don't write, you alone!","They don't write.","Write, all of you!"],"a":0,"w":"*Nōlīte* is the command for more than one person.","g":[["nōlle, nōlīte (+infinitive)","don’t … (more than one person)"],["scrībere, -ō","to write"]]},
+     {"k":"mc","p":"Which word already carries the idea of \"not\" in *Nōlī vidēre!*?","o":["nōlī","vidēre","There is none","nōn"],"a":0,"w":"*Nōlī* is a form of *nōlle*, to be unwilling, so no extra *nōn* is needed.","g":[["nōlle, nōlī (+infinitive)","don’t … (one person)"],["vidēre, -eō","to see"]]},
+     {"k":"mc","p":"Why is there no *nōn* in *Nōlī dūcere!*?","o":["Nōlī already carries the negative idea","Nōn is only used with nouns","Latin has no word for not","Nōn is added after the verb"],"a":0,"w":"*Nōlī* means *don't be willing*, so it is already negative.","g":[["nōn","not"],["nōlle, nōlī (+infinitive)","don’t … (one person)"],["dūcere, -ō","to lead"]]},
+     {"k":"mc","p":"The literal meaning of *Nōlī dīcere!* is...","o":["Don't be willing to say!","Be willing to say!","I am unwilling to say.","You will not say."],"a":0,"w":"*Nōlī* means *don't be willing*, and the infinitive tells you to what.","g":[["nōlle, nōlī (+infinitive)","don’t … (one person)"],["dīcere, -ō","to say"]]},
+     {"k":"mc","p":"Which form is used to tell several people not to do something?","o":["nōlīte + infinitive","nōlī + infinitive","nōn + imperative","nē + infinitive"],"a":0,"w":"*Nōlīte* is the plural command, followed by an infinitive."},
+    ]},
+    {s:"Translate a negative command",b:[
+     {"k":"en","p":"Translate into English: *Nōlī portāre rosam!*","a":["Don't carry the rose!"],"w":"Nōlī (one person) or nōlīte (more than one) plus an infinitive. A passive infinitive means don't be …-ed.","g":[["nōlle, nōlī (+infinitive)","don’t … (one person)"],["portāre, -ō","to carry"],["rosa, -ae, f.","rose"]]},
+     {"k":"la","p":"Translate into Latin: Don't watch the wolf!","a":["Nōlīte spectāre lupum!","Nōlī spectāre lupum!"],"w":"Nōlī (one person) or nōlīte (more than one) plus an infinitive. A passive infinitive means don't be …-ed.","g":[["nōlle, nōlīte (+infinitive)","don’t … (more than one person)"],["spectāre, -ō","to watch"],["lupus, -ī, m.","wolf"]]},
+     {"k":"en","p":"Translate into English: *Nōlī mittere epistulam!*","a":["Don't send the letter!"],"w":"Nōlī (one person) or nōlīte (more than one) plus an infinitive. A passive infinitive means don't be …-ed.","g":[["nōlle, nōlī (+infinitive)","don’t … (one person)"],["mittere, -ō","to send"],["epistula, -ae, f.","letter"]]},
+     {"k":"la","p":"Translate into Latin: Boy, don't call the dog!","a":["Puer, nōlī vocāre canem!"],"w":"Nōlī (one person) or nōlīte (more than one) plus an infinitive. A passive infinitive means don't be …-ed.","g":[["puer, -ī, m.","boy"],["nōlle, nōlī (+infinitive)","don’t … (one person)"],["vocāre, -ō","to call"],["canis, canis, m.","dog"]]},
+     {"k":"en","p":"Translate into English: *Nōlīte relinquere oppidum!*","a":["Don't abandon the town!"],"w":"Nōlī (one person) or nōlīte (more than one) plus an infinitive. A passive infinitive means don't be …-ed.","g":[["nōlle, nōlīte (+infinitive)","don’t … (more than one person)"],["relinquere, -ō","to abandon"],["oppidum, -ī, n.","town"]]},
+     {"k":"la","p":"Translate into Latin: Don't hold the sword!","a":["Nōlī tenēre gladium!"],"w":"Nōlī (one person) or nōlīte (more than one) plus an infinitive. A passive infinitive means don't be …-ed.","g":[["nōlle, nōlī (+infinitive)","don’t … (one person)"],["tenēre, -eō","to hold"],["gladius, -ī, m.","sword"]]},
+     {"k":"en","p":"Translate into English: *Puellae, nōlīte timēre!*","a":["Girls, don't fear!","Girls, don't be afraid!"],"w":"Nōlī (one person) or nōlīte (more than one) plus an infinitive. A passive infinitive means don't be …-ed.","g":[["puella, -ae, f.","girl"],["nōlle, nōlīte (+infinitive)","don’t … (more than one person)"],["timēre, -eō","to fear"]]},
+     {"k":"la","p":"Translate into Latin: Don't be praised!","a":["Nōlī laudārī!","Nōlīte laudārī!"],"w":"Nōlī (one person) or nōlīte (more than one) plus an infinitive. A passive infinitive means don't be …-ed.","g":[["nōlle, nōlī (+infinitive)","don’t … (one person)"],["laudāre, -ō","to praise"]]},
+     {"k":"en","p":"Translate into English: *Nōlīte pūnīrī!*","a":["Don't be punished!"],"w":"Nōlī (one person) or nōlīte (more than one) plus an infinitive. A passive infinitive means don't be …-ed.","g":[["nōlle, nōlīte (+infinitive)","don’t … (more than one person)"],["pūnīre, -iō","to punish"]]},
+     {"k":"la","p":"Translate into Latin: Don't be called!","a":["Nōlī vocārī!","Nōlīte vocārī!"],"w":"Nōlī (one person) or nōlīte (more than one) plus an infinitive. A passive infinitive means don't be …-ed.","g":[["nōlle, nōlī (+infinitive)","don’t … (one person)"],["vocāre, -ō","to call"]]},
+    ]},
+    {s:"Tell a command from a negative command, active from passive",b:[
+     {"k":"mc","p":"Choose the Latin for \"Look!\" (said to one person).","o":["*Spectā!*","*Nōlī spectāre!*","*Spectāte!*","*Nōlīte spectāre!*"],"a":0,"w":"A plain command to one person drops the *-re*: *spectā*.","g":[["spectāre, -ō","to watch"],["nōlle, nōlī (+infinitive)","don’t … (one person)"],["nōlle, nōlīte (+infinitive)","don’t … (more than one person)"]]},
+     {"k":"mc","p":"Choose the Latin for \"Don't look!\" (said to one person).","o":["*Nōlī spectāre!*","*Spectā!*","*Nōlīte spectāre!*","*Nōlī spectā!*"],"a":0,"w":"A negative command to one person is *nōlī* plus the infinitive.","g":[["nōlle, nōlī (+infinitive)","don’t … (one person)"],["spectāre, -ō","to watch"],["nōlle, nōlīte (+infinitive)","don’t … (more than one person)"]]},
+     {"k":"mc","p":"What follows *nōlī* or *nōlīte* in a negative command?","o":["An infinitive","An imperative","A genitive","The word nōn"],"a":0,"w":"*Nōlī* and *nōlīte* take an infinitive: *nōlī* + *spectāre*.","g":[["nōlle, nōlī (+infinitive)","don’t … (one person)"],["nōlle, nōlīte (+infinitive)","don’t … (more than one person)"]]},
+     {"k":"mc","p":"What does *Nōlī capī!* mean?","o":["Don't be captured!","Don't capture!","Capture!","You are not captured."],"a":0,"w":"*Capī* is the passive infinitive, so the command is don't be captured.","g":[["nōlle, nōlī (+infinitive)","don’t … (one person)"],["capere, -iō","to capture"]]},
+     {"k":"mc","p":"What does *Nōlīte capere hostēs!* mean?","o":["Don't capture the enemies!","Don't be captured by the enemies!","Capture the enemies!","They don't capture the enemies."],"a":0,"w":"*Capere* is active and *hostēs* is the direct object.","g":[["nōlle, nōlīte (+infinitive)","don’t … (more than one person)"],["capere, -iō","to capture"],["hostis, hostis, m.","enemy"]]},
+     {"k":"mc","p":"The infinitive in *Nōlīte dēfendī!* is...","o":["passive","active","future","perfect"],"a":0,"w":"*Dēfendī* ends in *-ī*, the passive infinitive of *dēfendere*.","g":[["nōlle, nōlīte (+infinitive)","don’t … (more than one person)"],["dēfendere, -ō","to defend"]]},
+     {"k":"mc","p":"How is *Nōlī monēre!* different from *Nōlī monērī!*?","o":["The first means don't warn, and the second means don't be warned","The first is to one person and the second to several","The first is past and the second is future","They mean the same thing"],"a":0,"w":"*Monēre* is active and *monērī* is passive.","g":[["nōlle, nōlī (+infinitive)","don’t … (one person)"],["monēre, -eō","to warn"]]},
+     {"k":"mc","p":"Choose the Latin for \"Don't be seen!\" (said to several people).","o":["*Nōlīte vidērī!*","*Nōlī vidērī!*","*Nōlīte vidēre!*","*Nōn vidērī!*"],"a":0,"w":"Several people, so *nōlīte*, and \"be seen\" is the passive infinitive *vidērī*.","g":[["nōlle, nōlīte (+infinitive)","don’t … (more than one person)"],["vidēre, -eō","to see"],["nōlle, nōlī (+infinitive)","don’t … (one person)"],["nōn","not"]]},
+     {"k":"mc","p":"The forms *nōlī* and *nōlīte* come from which verb?","o":["nōlle","velle","posse","esse"],"a":0,"w":"*Nōlle* means to be unwilling.","g":[["nōlle, nōlī (+infinitive)","don’t … (one person)"],["nōlle, nōlīte (+infinitive)","don’t … (more than one person)"]]},
+     {"k":"mc","p":"Choose the Latin for \"Don't be punished!\" (said to one person).","o":["*Nōlī pūnīrī!*","*Nōlīte pūnīrī!*","*Nōlī pūnīre!*","*Pūnīrī!*"],"a":0,"w":"One person, so *nōlī*, and the passive infinitive *pūnīrī*.","g":[["nōlle, nōlī (+infinitive)","don’t … (one person)"],["pūnīre, -iō","to punish"],["nōlle, nōlīte (+infinitive)","don’t … (more than one person)"]]},
+    ]},
+   ]},
+  {id:"decl3",title:"The 3rd declension: finding the hidden stem",blurb:"The nominative can disguise the stem, so use the genitive.",t:["d3"],
+   body:`Third-declension nouns can look very different from one another in the nominative singular:
+
+: urbs, urbis (f.) = city
+: prīnceps, prīncipis (m.) = chief
+: tempus, temporis (n.) = time
+: homō, hominis (m.) = person, human being
+: iter, itineris (n.) = journey
+
+At first it may not be obvious that these nouns belong to the same declension. That is because the nominative singular of a third-declension noun can undergo changes that **disguise its stem**.
+
+Fortunately you do not have to guess the stem. **The genitive singular reveals it.**
+
+# Finding the stem
+
+The genitive singular of third-declension nouns ends in *-is*. Remove this ending to find the stem:
+
+|~ Remove -is from the genitive
+|Nominative, genitive|Remove -is|Stem|
+|*urbs, urbis*|urb-is|[[urb-]]|
+|*prīnceps, prīncipis*|prīncip-is|[[prīncip-]]|
+|*tempus, temporis*|tempor-is|[[tempor-]]|
+|*homō, hominis*|homin-is|[[homin-]]|
+
+The other case endings are then added to this stem.
+
+**The nominative may disguise the stem. The genitive reveals it.**
+
+You have already done something similar with second-declension nouns ending in *-er*: *ager, agrī* has the stem *agr-*. With third-declension nouns, however, this happens much more often. Do not try to guess the stem from the nominative. Look at the genitive.
+
+# The genitive tells you the declension
+
+The genitive singular also tells you which declension a noun belongs to:
+
+|~ Genitive singular
+|Declension|Genitive|Example|
+|1st|-ae|*porta, portae*|
+|2nd|-ī|*amīcus, amīcī*|
+|3rd|-is|*urbs, urbis*|
+
+So the genitive gives you two important pieces of information at once:
+
+- **-is** → third declension
+- **remove -is** → find the stem
+
+?1
+
+?2
+
+# Third-declension endings
+
+Third-declension masculine and feminine nouns use these endings, and neuters follow the same pattern with the neuter rule you already know.
+
+|~ 3rd declension endings
+|Case|Sing. m./f.|Sing. n.|Plur. m./f.|Plur. n.|
+|Nom./Voc.|-s (varies)|(varies)|[[-ēs]]|[[-a]]|
+|Acc.|[[-em]]|same as nom.|[[-ēs]]|[[-a]]|
+|Dat.|[[-ī]]|[[-ī]]|[[-ibus]]|[[-ibus]]|
+|Abl.|[[-e]]|[[-e]]|[[-ibus]]|[[-ibus]]|
+|Gen.|[[-is]]|[[-is]]|[[-um]]|[[-um]]|
+
+The original masculine and feminine nominative singular ending was **-s**. When this *-s* came into contact with the final consonant of a stem, the combination of sounds could change over time. That is why the nominative singular now appears in such a variety of forms.
+
+For now, remember that **the nominative singular is given in the vocabulary entry**. You do not need to work it out for yourself. The other forms are much more predictable: find the stem from the genitive and add the ending.
+
+## An example: prīnceps
+
+*prīnceps, prīncipis*, m. means chief. Remove *-is* from *prīncipis* to get the stem *prīncip-*, then add the case endings.
+
+|~ prīnceps, prīncipis, m.
+|Case|Singular|Plural|
+|Nom./Voc.|prīnceps|prīncip[[ēs]]|
+|Acc.|prīncip[[em]]|prīncip[[ēs]]|
+|Dat.|prīncip[[ī]]|prīncip[[ibus]]|
+|Abl.|prīncip[[e]]|prīncip[[ibus]]|
+|Gen.|prīncip[[is]]|prīncip[[um]]|
+
+The stem *prīncip-* appears throughout the declension. The nominative singular *prīnceps* is the form in which historical sound changes have disguised it.
+
+?3
+
+## Neuter nouns
+
+Third-declension neuter nouns follow the same pattern, with the neuter rule you already know: **the accusative of a neuter noun is always the same as its nominative.** In the plural, both the nominative and the accusative end in *-a*.
+
+*iter, itineris*, n. means journey. Remove *-is* from *itineris* to get the stem *itiner-*.
+
+|~ iter, itineris, n.
+|Case|Singular|Plural|
+|Nom./Voc.|iter|itiner[[a]]|
+|Acc.|iter|itiner[[a]]|
+|Dat.|itiner[[ī]]|itiner[[ibus]]|
+|Abl.|itiner[[e]]|itiner[[ibus]]|
+|Gen.|itiner[[is]]|itiner[[um]]|
+
+The neuter accusative therefore does **not** take the masculine and feminine ending *-em*:
+
+: prīncipem = masculine accusative singular
+: iter = neuter accusative singular
+
+Again, the unusual nominative *iter* does not cause a problem. The genitive *itineris* reveals the stem *itiner-*.
+
+?4
+
+# Why does the nominative look so different?
+
+The different nominative forms are **not random**. Many masculine and feminine third-declension nouns originally formed their nominative singular by adding *-s* to the stem:
+
+**stem + -s → nominative singular**
+
+Sometimes the stem and the *-s* are still easy to see: *urb-* + *-s* → *urbs*. But when *-s* met certain consonants at the end of a stem, the sounds interacted and changed over time.
+
+|~ How -s disguised the stem
+|Stem|Joined|Nominative|
+|noct-|nocs|*nox, noctis*|
+|mont-|monts|*mōns, montis*|
+
+The nominative *-s* caused sound changes that disguised part of the stem. Sometimes the historical changes were more extensive: *homō, hominis* has the stem *homin-*, and *arbor, arboris* has the stem *arbor-*.
+
+The general process is: **stem + -s → sounds collide → sounds change → stem becomes harder to see.**
+
+These examples are only meant to show that the nominative forms are not random. For practical purposes, simply look at the genitive:
+
+|~ Always look at the genitive
+|Nominative|Genitive|Stem|
+|*nox*|noct-is|[[noct-]]|
+|*mōns*|mont-is|[[mont-]]|
+|*prīnceps*|prīncip-is|[[prīncip-]]|
+
+## Third-declension forms in English
+
+Some English words borrowed from Latin or Greek preserve changes like these: **appendix** → **appendices**, **matrix** → **matrices**, **synopsis** → **synopses**, **parenthesis** → **parentheses**. You may already be used to words whose form changes considerably when a different ending is added.
+
+?5
+
+# Practice
+
+?6`,
+   q:[
+    {s:"Find the stem of a 3rd declension noun from its genitive",b:[
+     {"k":"tx","p":"Find the stem of *rēx, rēgis*.","a":["rēg-","rēg"],"w":"Remove *-is* from the genitive *rēgis*: the stem is *rēg-*.","g":[["rēx, rēgis, m.","king"]]},
+     {"k":"tx","p":"Find the stem of *mīles, mīlitis*.","a":["mīlit-","mīlit"],"w":"Remove *-is* from the genitive *mīlitis*: the stem is *mīlit-*.","g":[["mīles, mīlitis, m.","soldier"]]},
+     {"k":"tx","p":"Find the stem of *pater, patris*.","a":["patr-","patr"],"w":"Remove *-is* from the genitive *patris*: the stem is *patr-*.","g":[["pater, patris, m.","father"]]},
+     {"k":"tx","p":"Find the stem of *māter, mātris*.","a":["mātr-","mātr"],"w":"Remove *-is* from the genitive *mātris*: the stem is *mātr-*.","g":[["māter, mātris, f.","mother"]]},
+     {"k":"tx","p":"Find the stem of *dux, ducis*.","a":["duc-","duc"],"w":"Remove *-is* from the genitive *ducis*: the stem is *duc-*.","g":[["dux, ducis, m.","leader"]]},
+     {"k":"tx","p":"Find the stem of *soror, sorōris*.","a":["sorōr-","sorōr"],"w":"Remove *-is* from the genitive *sorōris*: the stem is *sorōr-*.","g":[["soror, sorōris, f.","sister"]]},
+     {"k":"tx","p":"Find the stem of *corpus, corporis*.","a":["corpor-","corpor"],"w":"Remove *-is* from the genitive *corporis*: the stem is *corpor-*.","g":[["corpus, corporis, n.","body"]]},
+     {"k":"tx","p":"Find the stem of *flūmen, flūminis*.","a":["flūmin-","flūmin"],"w":"Remove *-is* from the genitive *flūminis*: the stem is *flūmin-*.","g":[["flūmen, flūminis, n.","river"]]},
+     {"k":"tx","p":"Find the stem of *cīvis, cīvis*.","a":["cīv-","cīv"],"w":"Remove *-is* from the genitive *cīvis*: the stem is *cīv-*.","g":[["cīvis, cīvis, m.","citizen"]]},
+     {"k":"tx","p":"Find the stem of *nāvis, nāvis*.","a":["nāv-","nāv"],"w":"Remove *-is* from the genitive *nāvis*: the stem is *nāv-*.","g":[["nāvis, nāvis, f.","ship"]]},
+    ]},
+    {s:"Tell the declension from the genitive singular",b:[
+     {"k":"mc","p":"Which declension has the genitive singular *mīlitis*?","o":["3rd declension","1st declension","2nd declension"],"a":0,"w":"A genitive ending in *-is* is third declension.","g":[["mīles, mīlitis, m.","soldier"]]},
+     {"k":"mc","p":"Which declension has the genitive singular *rēgīnae*?","o":["1st declension","2nd declension","3rd declension"],"a":0,"w":"A genitive ending in *-ae* is first declension.","g":[["rēgīna, -ae, f.","queen"]]},
+     {"k":"mc","p":"Which declension has the genitive singular *equī*?","o":["2nd declension","1st declension","3rd declension"],"a":0,"w":"A genitive ending in *-ī* is second declension.","g":[["equus, -ī, m.","horse"]]},
+     {"k":"mc","p":"Which declension has the genitive singular *patris*?","o":["3rd declension","1st declension","2nd declension"],"a":0,"w":"A genitive ending in *-is* is third declension.","g":[["pater, patris, m.","father"]]},
+     {"k":"mc","p":"Which declension has the genitive singular *oppidī*?","o":["2nd declension","1st declension","3rd declension"],"a":0,"w":"A genitive ending in *-ī* is second declension.","g":[["oppidum, -ī, n.","town"]]},
+     {"k":"mc","p":"Which declension has the genitive singular *nautae*?","o":["1st declension","2nd declension","3rd declension"],"a":0,"w":"A genitive ending in *-ae* is first declension.","g":[["nauta, -ae, m.","sailor"]]},
+     {"k":"mc","p":"Which declension has the genitive singular *corporis*?","o":["3rd declension","1st declension","2nd declension"],"a":0,"w":"A genitive ending in *-is* is third declension.","g":[["corpus, corporis, n.","body"]]},
+     {"k":"mc","p":"A vocabulary entry reads *flūmen, flūminis, n.* Which declension is the noun?","o":["3rd declension","1st declension","2nd declension"],"a":0,"w":"The genitive *flūminis* ends in *-is*.","g":[["flūmen, flūminis, n.","river"]]},
+     {"k":"mc","p":"Which declension has the genitive singular *sorōris*?","o":["3rd declension","1st declension","2nd declension"],"a":0,"w":"A genitive ending in *-is* is third declension.","g":[["soror, sorōris, f.","sister"]]},
+     {"k":"mc","p":"What does a genitive singular ending in -is tell you?","o":["The noun is 3rd declension, and removing -is gives the stem","The noun is 1st declension","The noun is plural","The noun is feminine"],"a":0,"w":"Two pieces of information at once: the declension, and (once *-is* is removed) the stem."},
+    ]},
+    {s:"Write a named case and number of a 3rd declension noun",b:[
+     {"k":"la","p":"Write the accusative singular of *homō*.","a":["hominem"],"w":"The accusative singular of *homō* is *hominem*.","g":[["homō, hominis, m.","person"]]},
+     {"k":"la","p":"Write the nominative plural of *mīles*.","a":["mīlitēs"],"w":"The nominative plural of *mīles* is *mīlitēs*.","g":[["mīles, mīlitis, m.","soldier"]]},
+     {"k":"la","p":"Write the dative singular of *pater*.","a":["patrī"],"w":"The dative singular of *pater* is *patrī*.","g":[["pater, patris, m.","father"]]},
+     {"k":"la","p":"Write the ablative singular of *māter*.","a":["mātre"],"w":"The ablative singular of *māter* is *mātre*.","g":[["māter, mātris, f.","mother"]]},
+     {"k":"la","p":"Write the accusative plural of *flūmen*.","a":["flūmina"],"w":"The accusative plural of *flūmen* is *flūmina*.","g":[["flūmen, flūminis, n.","river"]]},
+     {"k":"la","p":"Write the nominative plural of *corpus*.","a":["corpora"],"w":"The nominative plural of *corpus* is *corpora*.","g":[["corpus, corporis, n.","body"]]},
+     {"k":"la","p":"Write the genitive singular of *dux*.","a":["ducis"],"w":"The genitive singular of *dux* is *ducis*.","g":[["dux, ducis, m.","leader"]]},
+     {"k":"la","p":"Write the dative plural of *soror*.","a":["sorōribus"],"w":"The dative plural of *soror* is *sorōribus*.","g":[["soror, sorōris, f.","sister"]]},
+     {"k":"la","p":"Write the genitive plural of *rēx*.","a":["rēgum"],"w":"The genitive plural of *rēx* is *rēgum*.","g":[["rēx, rēgis, m.","king"]]},
+     {"k":"la","p":"Write the ablative plural of *tempus*.","a":["temporibus"],"w":"The ablative plural of *tempus* is *temporibus*.","g":[["tempus, temporis, n.","time"]]},
+    ]},
+    {s:"Use the neuter rule and the 3rd declension neuter endings",b:[
+     {"k":"mc","p":"What is the accusative singular of the neuter noun *flūmen*?","o":["*flūmen*","*flūminem*","*flūmina*","*flūminis*"],"a":0,"w":"The accusative of a neuter noun is the same as its nominative.","g":[["flūmen, flūminis, n.","river"]]},
+     {"k":"mc","p":"What is the nominative plural of the neuter noun *corpus*?","o":["*corpora*","*corporēs*","*corpus*","*corporibus*"],"a":0,"w":"Neuter nominative plurals end in *-a*, added to the stem *corpor-*.","g":[["corpus, corporis, n.","body"]]},
+     {"k":"mc","p":"A neuter noun's accusative singular is...","o":["the same as its nominative","the nominative plus -em","the genitive without -is","the same as its ablative"],"a":0,"w":"The neuter rule: the accusative is always the same as the nominative."},
+     {"k":"mc","p":"What ending do 3rd declension neuter nouns take in the nominative and accusative plural?","o":["-a","-ēs","-ibus","-um"],"a":0,"w":"Neuter plurals end in *-a* in both the nominative and the accusative."},
+     {"k":"mc","p":"What is the dative plural of *corpus, corporis*, n.?","o":["*corporibus*","*corporēs*","*corpora*","*corporum*"],"a":0,"w":"The dative plural ends in *-ibus*, added to the stem *corpor-*.","g":[["corpus, corporis, n.","body"]]},
+     {"k":"mc","p":"Which form could be either the nominative or the accusative singular?","o":["*flūmen*","*flūminis*","*flūminī*","*flūmine*"],"a":0,"w":"For a neuter, the two forms are the same.","g":[["flūmen, flūminis, n.","river"]]},
+     {"k":"mc","p":"What is the genitive plural of *corpus*?","o":["*corporum*","*corporis*","*corporēs*","*corporibus*"],"a":0,"w":"The genitive plural ends in *-um*, added to the stem *corpor-*.","g":[["corpus, corporis, n.","body"]]},
+     {"k":"mc","p":"What is the ablative singular of *flūmen*?","o":["*flūmine*","*flūminī*","*flūmen*","*flūminis*"],"a":0,"w":"The ablative singular ends in *-e*, added to the stem *flūmin-*.","g":[["flūmen, flūminis, n.","river"]]},
+     {"k":"mc","p":"What is the dative singular of *flūmen*?","o":["*flūminī*","*flūmine*","*flūminis*","*flūmina*"],"a":0,"w":"The dative singular ends in *-ī*, added to the stem *flūmin-*.","g":[["flūmen, flūminis, n.","river"]]},
+     {"k":"mc","p":"How does a neuter 3rd declension accusative singular differ from the masculine accusative singular?","o":["It has no -em ending","It ends in -ēs","It ends in -ibus","There is no difference"],"a":0,"w":"A neuter accusative is the same as its nominative and does not take *-em*."},
+    ]},
+    {s:"Explain why the nominative looks different from the stem",b:[
+     {"k":"mc","p":"What was the original masculine and feminine nominative singular ending of 3rd declension nouns?","o":["-s","-is","-em","-ēs"],"a":0,"w":"The nominative was formed by adding *-s* to the stem."},
+     {"k":"mc","p":"*dux, ducis*: what is the stem?","o":["*duc-*","*dux-*","*ducis-*","*du-*"],"a":0,"w":"Remove *-is* from the genitive *ducis*.","g":[["dux, ducis, m.","leader"]]},
+     {"k":"mc","p":"What is the stem of *rēx, rēgis*?","o":["*rēg-*","*rēx-*","*rēgis-*","*rēgī-*"],"a":0,"w":"Remove *-is* from the genitive *rēgis*. The nominative *rēx* is *rēg-* + *-s*, disguised.","g":[["rēx, rēgis, m.","king"]]},
+     {"k":"mc","p":"Where should you look to find the stem of a 3rd declension noun?","o":["The genitive singular","The nominative singular","The accusative plural","The vocative singular"],"a":0,"w":"The nominative may disguise the stem. The genitive reveals it."},
+     {"k":"mc","p":"Why is the nominative singular given in the vocabulary entry?","o":["You cannot always work it out from the stem","It is the only form with an ending","It is always the same as the genitive","It is the stem"],"a":0,"w":"Sound changes disguise the stem, so the nominative is listed for you."},
+     {"k":"mc","p":"Which description fits how the nominative singular can disguise a 3rd declension stem?","o":["The nominative -s met the end of the stem, and the sounds changed","The stem was lost when -is was added","3rd declension nouns have two stems","The accusative changes the stem"],"a":0,"w":"Stem + -s → sounds collide → sounds change → the stem is harder to see."},
+     {"k":"mc","p":"Which English plural keeps a Latin-style change in the word?","o":["matrix → matrices","dog → dogs","book → books","table → tables"],"a":0,"w":"The English plural of *matrix* keeps its Latin form, and the ending changes the word, as in the 3rd declension."},
+     {"k":"mc","p":"What is the plural of the English word parenthesis?","o":["parentheses","parenthesises","parenthesis","parenthesies"],"a":0,"w":"Like Latin and Greek words, it changes its ending to form the plural."},
+     {"k":"mc","p":"Do you need to work out the nominative singular for yourself?","o":["No, it is given in the vocabulary entry","Yes, from the stem","Yes, by adding -s to the genitive","Only for neuter nouns"],"a":0,"w":"The nominative is in the vocabulary entry. The other forms come from the stem."},
+     {"k":"mc","p":"Which is correct? The stem of a 3rd declension noun is found by...","o":["removing -is from the genitive","removing -s from the nominative","removing -em from the accusative","removing -ēs from the plural"],"a":0,"w":"The genitive singular ends in *-is*, and removing it gives the stem."},
+    ]},
+    {s:"Translate a sentence with 3rd declension nouns",b:[
+     {"k":"en","p":"Translate into English: *Rēx mīlitēs laudat.*","a":["The king praises the soldiers.","The king is praising the soldiers.","The king does praise the soldiers."],"w":"Find the stem from the genitive, then read the ending for the case.","g":[["rēx, rēgis, m.","king"],["mīles, mīlitis, m.","soldier"],["laudāre, -ō","to praise"]]},
+     {"k":"la","p":"Translate into Latin: The mother calls the daughter.","a":["Māter fīliam vocat."],"w":"Find the stem from the genitive, then read the ending for the case.","g":[["māter, mātris, f.","mother"],["fīlia, -ae, f.","daughter"],["vocāre, -ō","to call"]]},
+     {"k":"en","p":"Translate into English: *Pater fīliō librum dat.*","a":["The father gives the son a book.","The father gives a book to the son.","The father is giving the son a book.","The father is giving a book to the son.","The father does give the son a book.","The father does give a book to the son."],"w":"Find the stem from the genitive, then read the ending for the case.","g":[["pater, patris, m.","father"],["fīlius, -ī, m.","son"],["liber, librī, m.","book"],["dare, dō","to give"]]},
+     {"k":"la","p":"Translate into Latin: The soldiers hear the leader.","a":["Mīlitēs ducem audiunt."],"w":"Find the stem from the genitive, then read the ending for the case.","g":[["mīles, mīlitis, m.","soldier"],["dux, ducis, m.","leader"],["audīre, -iō","to hear"]]},
+     {"k":"en","p":"Translate into English: *Soror frātrem videt.*","a":["The sister sees the brother.","The sister is seeing the brother.","The sister does see the brother."],"w":"Find the stem from the genitive, then read the ending for the case.","g":[["soror, sorōris, f.","sister"],["frāter, frātris, m.","brother"],["vidēre, -eō","to see"]]},
+     {"k":"la","p":"Translate into Latin: The chief calls the people.","a":["Prīnceps hominēs vocat."],"w":"Find the stem from the genitive, then read the ending for the case.","g":[["prīnceps, prīncipis, m.","chief"],["homō, hominis, m.","person"],["vocāre, -ō","to call"]]},
+     {"k":"en","p":"Translate into English: *Dux cum mīlitibus venit.*","a":["The leader comes with the soldiers.","The leader is coming with the soldiers.","The leader does come with the soldiers."],"w":"Find the stem from the genitive, then read the ending for the case.","g":[["dux, ducis, m.","leader"],["cum (+abl)","with"],["mīles, mīlitis, m.","soldier"],["venīre, -iō","to come"]]},
+     {"k":"la","p":"Translate into Latin: The person watches the journeys.","a":["Homō itinera spectat."],"w":"Find the stem from the genitive, then read the ending for the case.","g":[["homō, hominis, m.","person"],["iter, itineris, n.","journey"],["spectāre, -ō","to watch"]]},
+     {"k":"en","p":"Translate into English: *Corpus virī portant.*","a":["They carry the body of the man.","They are carrying the body of the man.","They do carry the body of the man."],"w":"Find the stem from the genitive, then read the ending for the case.","g":[["corpus, corporis, n.","body"],["vir, -ī, m.","man"],["portāre, -ō","to carry"]]},
+     {"k":"la","p":"Translate into Latin: The mothers work for the sons.","a":["Mātrēs fīliīs labōrant."],"w":"Find the stem from the genitive, then read the ending for the case.","g":[["māter, mātris, f.","mother"],["fīlius, -ī, m.","son"],["labōrāre, -ō","to work"]]},
     ]},
    ]},
  ]},
