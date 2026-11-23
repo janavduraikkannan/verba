@@ -1,3 +1,5 @@
+/* SPDX-License-Identifier: AGPL-3.0-or-later
+ * Copyright (C) 2026 janavduraikkannan and Linguae contributors */
 /* Adds g to every written question: the dictionary entry and meaning of each Latin word it uses, shown in the question's box.
    Forms are looked up from the engine, so any word the engine knows is covered. Fix a wrong pick in PICK below. */
 const {G}=require('./lib.js');

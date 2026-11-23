@@ -1,3 +1,5 @@
+/* SPDX-License-Identifier: AGPL-3.0-or-later
+ * Copyright (C) 2026 janavduraikkannan and Linguae contributors */
 import worker from "./worker.js";
 let calls = [], next = null;
 globalThis.fetch = async (url, init) => { calls.push({ url, init }); if (next) return next(url, init); return new Response(JSON.stringify({ choices: [{ message: { content: '{"reply":"Salvē!","mood":"happy"}' } }] }), { status: 200, headers: { "Content-Type": "application/json", "Set-Cookie": "x=1" } }); };

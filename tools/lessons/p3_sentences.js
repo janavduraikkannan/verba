@@ -1,3 +1,5 @@
+/* SPDX-License-Identifier: CC-BY-SA-4.0
+ * Copyright (C) 2026 janavduraikkannan and Linguae contributors */
 const {tr,mc,ty}=require('./lib.js');
 module.exports={title:'Sentence patterns',lessons:[
 {id:'questions',title:'Questions: -ne and quis',blurb:'Asking yes or no questions, and asking who.',body:`

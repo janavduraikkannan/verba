@@ -1,3 +1,5 @@
+-- SPDX-License-Identifier: AGPL-3.0-or-later
+-- Copyright (C) 2026 janavduraikkannan and Linguae contributors
 -- One row per person, per site, per UTC day. vid is a salted hash, never the raw browser ID.
 CREATE TABLE IF NOT EXISTS hits (
   day  TEXT NOT NULL,

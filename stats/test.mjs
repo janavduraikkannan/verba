@@ -1,3 +1,5 @@
+/* SPDX-License-Identifier: AGPL-3.0-or-later
+ * Copyright (C) 2026 janavduraikkannan and Linguae contributors */
 import { makeDb } from "./testdb.mjs";
 import * as core from "./core.js";
 const { SITES, validHit, vidOf, utcDay, weekStart, recordHit, rollup, buildStats, logCsv } = core;

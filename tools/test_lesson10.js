@@ -1,3 +1,5 @@
+/* SPDX-License-Identifier: AGPL-3.0-or-later
+ * Copyright (C) 2026 janavduraikkannan and Linguae contributors */
 /* Smoke test for the Lesson 10 additions. Run from the verba folder: node tools/test_lesson10.js
    Generates many sentences for the topics Lesson 10 teaches, checks their shape, and grades the model answer. */
 const G=require('../site/engine.js');G.setEr(true);

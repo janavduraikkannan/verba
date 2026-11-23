@@ -1,3 +1,5 @@
+/* SPDX-License-Identifier: AGPL-3.0-or-later
+ * Copyright (C) 2026 janavduraikkannan and Linguae contributors */
 /* Helpers for writing Latin lessons. Forms come from Verba's own engine (site/engine.js), so a lesson can't disagree with the practice mode. */
 const G=require('../../site/engine.js');G.setEr(true); /* lessons may use every word, including -er/-ir nouns */
 const vb=x=>{const v=G.VERBS.find(v=>v.inf===x);if(!v)throw new Error('no verb '+x);return v};

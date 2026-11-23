@@ -1,3 +1,5 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later
+# Copyright (C) 2026 janavduraikkannan and Linguae contributors
 """Fēlix mascot generator (bust, floating paws, one pose per mood). Run: python3 tools/felix.py img/felix"""
 import math
 O='#2A2420';FUR='#E8944A';DFUR='#C9733A';MUZ='#F7DDB2';PINK='#E7A3A0';TOGA='#F1E6CD';TSH='#D9C9A6';SASH='#9A3B26';L1='#4E6A2A';L2='#6E8B3D';FISH='#7FA9BC';FISHD='#557F93'

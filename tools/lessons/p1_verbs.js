@@ -1,3 +1,5 @@
+/* SPDX-License-Identifier: CC-BY-SA-4.0
+ * Copyright (C) 2026 janavduraikkannan and Linguae contributors */
 const {tr,mc,ty,spot,parseQs,enQs,laQs}=require('./lib.js');
 /* question verbs are never the ones a lesson conjugates in its own tables */
 const a1=['vocāre','spectāre','amāre','servāre','superāre','parāre','mōnstrāre','dōnāre','narrāre','līberāre'];

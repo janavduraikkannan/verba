@@ -1,3 +1,5 @@
+/* SPDX-License-Identifier: AGPL-3.0-or-later
+ * Copyright (C) 2026 janavduraikkannan and Linguae contributors */
 // Test helper: a D1-shaped wrapper around node:sqlite, so tests run the real SQL.
 import { DatabaseSync } from "node:sqlite";
 import { readFileSync } from "node:fs";

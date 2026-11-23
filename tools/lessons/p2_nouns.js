@@ -1,3 +1,5 @@
+/* SPDX-License-Identifier: CC-BY-SA-4.0
+ * Copyright (C) 2026 janavduraikkannan and Linguae contributors */
 const {tr,mc,ty,nq}=require('./lib.js');
 const C4=['nominative','accusative','dative','ablative'];
 const others=c=>C4.filter(x=>x!==c);

@@ -1,3 +1,5 @@
+/* SPDX-License-Identifier: CC-BY-SA-4.0
+ * Copyright (C) 2026 janavduraikkannan and Linguae contributors */
 const {tr,mc,ty,spot,enQs,laQs,parseQs}=require('./lib.js');
 const all=['vocāre','docēre','regere','accipere','custōdīre','amāre','tenēre','scrībere','iacere','pūnīre'];
 module.exports=[{title:'The genitive',lessons:[

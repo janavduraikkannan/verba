@@ -1,3 +1,5 @@
+/* SPDX-License-Identifier: CC-BY-SA-4.0
+ * Copyright (C) 2026 janavduraikkannan and Linguae contributors */
 const {tr,mc,ty,spot,enQs,laQs,parseQs}=require('./lib.js');
 const pf=['amāre','docēre','regere','iacere','custōdīre','tenēre','scrībere','vocāre','vincere','pūnīre'];
 module.exports={title:'Finishing Latin I',lessons:[

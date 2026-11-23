@@ -1,3 +1,5 @@
+/* SPDX-License-Identifier: CC-BY-SA-4.0
+ * Copyright (C) 2026 janavduraikkannan and Linguae contributors */
 const {tr,mc,ty,spot,parseQs,enQs,laQs}=require('./lib.js');
 const a12=['laudāre','vocāre','vidēre','tenēre','spectāre','terrēre','amāre','docēre'];
 const a34=['mittere','scrībere','custōdīre','iacere','invenīre','legere','pūnīre','regere','accipere','mūnīre'];

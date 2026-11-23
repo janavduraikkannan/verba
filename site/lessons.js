@@ -1,3 +1,5 @@
+/* SPDX-License-Identifier: CC-BY-SA-4.0
+ * Copyright (C) 2026 janavduraikkannan and Linguae contributors */
 /* ---------- Verba's lessons: the lesson text, every written question and the XP values ----------
    The mechanics are in js/lessons.js, which also explains the markup used in each body and the question format.
    A lesson's questions are grouped into spots: ?1 in the body shows q[0], ?2 shows q[1], and so on. s tells the AI what the spot tests.

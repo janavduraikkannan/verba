@@ -1,3 +1,5 @@
+/* SPDX-License-Identifier: AGPL-3.0-or-later
+ * Copyright (C) 2026 janavduraikkannan and Linguae contributors */
 /* Finds questions whose answer is printed in their own lesson. Used by check.js; run alone to list them. */
 const norm=s=>' '+String(s).normalize('NFC').toLowerCase().replace(/\{([^{}|]+)\|[^{}]*\}/g,'$1').replace(/\[\[|\]\]|\*/g,'').replace(/[^\p{L}\p{M}]+/gu,' ').trim()+' ';
 const strip=s=>String(s).replace(/\{([^{}|]+)\|[^{}]*\}/g,'$1').replace(/\*\*/g,'');

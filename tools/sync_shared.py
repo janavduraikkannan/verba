@@ -1,3 +1,5 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later
+# Copyright (C) 2026 janavduraikkannan and Linguae contributors
 """Keeps the shared code identical on every practice site.
 
 Verba holds the master copy. Everything outside site/ (and outside each site's own pictures, media, tools and docs)

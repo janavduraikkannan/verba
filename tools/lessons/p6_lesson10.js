@@ -1,3 +1,5 @@
+/* SPDX-License-Identifier: CC-BY-SA-4.0
+ * Copyright (C) 2026 janavduraikkannan and Linguae contributors */
 /* Lesson 10, from the class notes "How to Be in Latin II" and "Posse (to be able)", "Negative Commands" and "The Third Declension".
    decl3 and possum used to sit in Finishing Latin I: they keep their ids here so an account's saved progress still finds them. */
 const {tr,mc,ty,spot,nq,nn}=require('./lib.js');

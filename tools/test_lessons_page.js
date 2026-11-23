@@ -1,3 +1,5 @@
+/* SPDX-License-Identifier: AGPL-3.0-or-later
+ * Copyright (C) 2026 janavduraikkannan and Linguae contributors */
 /* Tests the lesson pages without a browser. Run from the verba folder: node tools/test_lessons_page.js
    Loads site/lessons.js and js/lessons.js in a sandbox, then for every lesson in the Lesson 10 section:
    the body must parse into blocks with every question spot placed once and in order, every accepted answer must be accepted by

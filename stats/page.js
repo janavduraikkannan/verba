@@ -1,3 +1,5 @@
+/* SPDX-License-Identifier: AGPL-3.0-or-later
+ * Copyright (C) 2026 janavduraikkannan and Linguae contributors */
 /* The private dashboard. One self-contained page: no external requests, no data inside it.
    The script must not use backticks or ${ } because the whole page is a String.raw template. */
 export const PAGE = String.raw`<!doctype html>

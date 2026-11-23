@@ -1,3 +1,5 @@
+/* SPDX-License-Identifier: AGPL-3.0-or-later
+ * Copyright (C) 2026 janavduraikkannan and Linguae contributors */
 /* Visitor counter: pure logic and SQL. No Request/Response here, so it can be tested against real SQLite. */
 export const SITES = ["verba", "mots", "palabras", "woerter"];
 const SCOPES = ["all", ...SITES];

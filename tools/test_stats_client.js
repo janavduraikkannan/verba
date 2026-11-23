@@ -1,3 +1,5 @@
+/* SPDX-License-Identifier: AGPL-3.0-or-later
+ * Copyright (C) 2026 janavduraikkannan and Linguae contributors */
 /* Browser test for js/stats.js. Needs puppeteer-core and system Chrome:
      NODE_PATH=/path/to/node_modules node tools/test_stats_client.js
    Serve the folder that holds the four sites first (default http://127.0.0.1:8100):

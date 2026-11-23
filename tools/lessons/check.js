@@ -1,3 +1,5 @@
+/* SPDX-License-Identifier: AGPL-3.0-or-later
+ * Copyright (C) 2026 janavduraikkannan and Linguae contributors */
 /* Checks site/lessons.js: run from the verba folder with node tools/lessons/check.js
    Every Latin word must be a form the engine can make (or on the short list below); every question must be well formed. */
 const fs=require('fs');const G=require('../../site/engine.js');G.setEr(true);
